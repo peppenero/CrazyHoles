@@ -27,4 +27,5 @@ package Objects;
 	}
 	
 	protected abstract void setColor(String c);
+	protected abstract String getColor();
 }

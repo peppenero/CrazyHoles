@@ -27,4 +27,10 @@ public class Hole extends Object implements HasScore {
 		this.color=c;
 	}
 
+	@Override
+	protected String getColor() {
+		
+		return this.color;
+	}
+
 }
