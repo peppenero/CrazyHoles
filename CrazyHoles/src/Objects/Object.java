@@ -4,10 +4,18 @@ package Objects;
 	public abstract class Object {
 	private int x,y;
 	protected String color;
+	protected World world;
+	private int direzione;
 	
-	protected Object() {
-		this.x=0;
-		this.y=0;
+	protected Object(int defaultX,int defaultY,final World world) {
+		this.world=world;
+		this.x=defaultX;
+		this.y=defaultY;
+	}
+	
+	public void setWorld(World world)
+	{
+		this.world=world;
 	}
 	
 	public void setX(int a){
@@ -25,7 +33,16 @@ package Objects;
 	public int getY() {
 		return y;
 	}
+
+	public int getDirezione() {
+		return direzione;
+	}
+
+	public void setDirezione(int direzione) {
+		this.direzione = direzione;
+	}
 	
 	protected abstract void setColor(String c);
 	protected abstract String getColor();
+
 }
