@@ -3,12 +3,12 @@ import common.*;
 
 public class Ball extends Object implements HasScore {
 	
-	private static final double RIGHT = 0.5 ;
-	private static final double LEFT = 0.5;
-	
+	private static final int RIGHT = 0;
+	private static final int LEFT = 1;	
 	
 	private int score=0;
 	private double corner=0.0;
+	private int direction;
 	
 	public Ball(String c,int s,int x,int y ){
 		super(x,y,null);
@@ -76,4 +76,32 @@ public class Ball extends Object implements HasScore {
 		this.corner = corner;
 	}
 
+	public int getDirection() {
+		return direction;
+	}
+
+	public void setDirezione(int direction)
+	{
+		this.direction= direction;
+	}
+	
+	public void updateCorner()
+	{
+		final double c=getCorner();
+		
+		switch(direction)
+		{
+			case RIGHT:
+			{
+				setCorner(c+0.5);
+				break;
+			}
+			case LEFT:
+			{
+				setCorner(c-0.5);
+				break;
+			}
+		
+		}
+	}
 }

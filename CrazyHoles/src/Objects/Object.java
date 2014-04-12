@@ -2,10 +2,11 @@
 package Objects;
 
 	public abstract class Object {
+		
+		
 	private int x,y;
 	protected String color;
 	protected World world;
-	private int direzione;
 	
 	protected Object(int defaultX,int defaultY,final World world) {
 		this.world=world;
@@ -32,14 +33,6 @@ package Objects;
 
 	public int getY() {
 		return y;
-	}
-
-	public int getDirezione() {
-		return direzione;
-	}
-
-	public void setDirezione(int direzione) {
-		this.direzione = direzione;
 	}
 	
 	protected abstract void setColor(String c);
