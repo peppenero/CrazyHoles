@@ -3,8 +3,12 @@ import common.*;
 
 public class Ball extends Object implements HasScore {
 	
-	private int score=0;
+	private static final double RIGHT = 0.5 ;
+	private static final double LEFT = 0.5;
 	
+	
+	private int score=0;
+	private double corner=0.0;
 	
 	public Ball(String c,int s,int x,int y ){
 		super(x,y,null);
@@ -16,7 +20,6 @@ public class Ball extends Object implements HasScore {
 	public void setScore(int s) {
 		this.score=s;
 	}
-	
 
 	@Override
 	public int getScore() {
@@ -34,14 +37,29 @@ public class Ball extends Object implements HasScore {
 		return this.color;
 	}
 	
-	public void moveX()
+	public void move()
 	{
-		int x = getX();
-		int y = getY();
+		final int x = getX();
+		final int y = getY();
 		
-		if(x==world.getWidth())
+		if(x<world.getWidth() || x>0)
 		{
-			
+			setCorner(x+corner);
+		}
+		
+		if(x>world.getWidth() || x<0)
+		{
+			setCorner(x-corner);
+		}
+		
+		if(y>world.getHeight() || y<0)
+		{
+			setCorner(y+1);
+		}
+		
+		if(y<world.getHeight() || y>0)
+		{
+			setCorner(y-1);
 		}
 	}
 	
@@ -50,5 +68,12 @@ public class Ball extends Object implements HasScore {
         this.world = world;
     }
 
+	public double getCorner() {
+		return corner;
+	}
+	
+	public void setCorner(double corner) {
+		this.corner = corner;
+	}
 
 }
