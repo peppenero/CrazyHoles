@@ -7,7 +7,6 @@ public class Hole extends Object implements HasScore {
 	private int score=0;
 	
 	
-	
 	public Hole(String c,int s,int x,int y){
 		super(x,y,null);
 		this.setColor(c);

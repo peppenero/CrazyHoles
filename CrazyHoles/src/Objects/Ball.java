@@ -44,22 +44,22 @@ public class Ball extends Object implements HasScore {
 		
 		if(x<world.getWidth() || x>0)
 		{
-			setCorner(x+corner);
+			//setX(x+corner);
 		}
 		
 		if(x>world.getWidth() || x<0)
 		{
-			setCorner(x-corner);
+			//setX(x-corner);
 		}
 		
 		if(y>world.getHeight() || y<0)
 		{
-			setCorner(y+1);
+			setY(y+1);
 		}
 		
 		if(y<world.getHeight() || y>0)
 		{
-			setCorner(y-1);
+			setY(y-1);
 		}
 	}
 	
