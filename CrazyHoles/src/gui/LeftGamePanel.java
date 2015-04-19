@@ -45,10 +45,10 @@ public class LeftGamePanel extends JPanel
 	                {
 	                    case KeyEvent.VK_LEFT:
 	             
-	                        ball.updateCorner(25);
+	                        ball.updateCorner(15);
 	                        break;
 	                    case KeyEvent.VK_RIGHT:
-	                        ball.updateCorner(-25); 
+	                        ball.updateCorner(-15); 
 	                        break;
 	                    case KeyEvent.VK_SPACE:
 	                    	
@@ -101,6 +101,10 @@ public class LeftGamePanel extends JPanel
 		
 		g.dispose();
 
+	}
+	
+	public Ball getBall(){
+		return this.ball;
 	}
 	
 	
