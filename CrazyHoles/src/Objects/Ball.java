@@ -3,17 +3,23 @@ import common.*;
 
 public class Ball extends Object implements HasScore {
 	
-	private static final int RIGHT = 0;
-	private static final int LEFT = 1;	
-	
+	private int velocity=5;
 	private int score=0;
-	private double corner=0.0;
-	private int direction;
+	private float corner=90;
+	private int ballDiameter = 20;
+	private int deltaY,deltaX;
 	
-	public Ball(String c,int s,int x,int y ){
-		super(x,y,null);
-		this.setColor(c);
+	
+	public Ball(int s,World world){
+		super(world);
+		this.setColor();
 		this.setScore(s);
+		deltaX = ((int)(velocity * Math.cos(Math.toRadians(corner))));
+		deltaY = ((int)( velocity * (float) Math.sin(Math.toRadians(corner))));
+		
+		this.setX(world.getWidth()/2 );
+		this.setY(world.getHeight()-getBallRadius());
+		
 	}
 
 	@Override
@@ -27,40 +33,33 @@ public class Ball extends Object implements HasScore {
 	}
 
 	@Override
-	protected void setColor(String c) {
-		this.color=c;
-	}
-
-	@Override
-	protected String getColor() {
+	public String getColor() {
 		
 		return this.color;
 	}
 	
 	public void move()
 	{
-		final int x = getX();
-		final int y = getY();
 		
-		if(x<world.getWidth() || x>0)
+		int x = (int) getX();
+		int y = (int) getY();
+		
+		int ballMax=(y+getBallRadius());
+		
+		if((x+getBallRadius())>=(world.getWidth()) || x<=0)
 		{
-			//setX(x+corner);
+			
+			deltaX = -deltaX;
 		}
 		
-		if(x>world.getWidth() || x<0)
+		if(ballMax>=(world.getHeight()) ||y<=0)
 		{
-			//setX(x-corner);
+			
+			deltaY=-deltaY;
 		}
 		
-		if(y>world.getHeight() || y<0)
-		{
-			setY(y+1);
-		}
-		
-		if(y<world.getHeight() || y>0)
-		{
-			setY(y-1);
-		}
+		setX(getX()+deltaX);
+		setY(getY()+deltaY);
 	}
 	
 	public void setWorld(final World world)
@@ -68,40 +67,31 @@ public class Ball extends Object implements HasScore {
         this.world = world;
     }
 
-	public double getCorner() {
+	public float getCorner() {
 		return corner;
 	}
 	
-	public void setCorner(double corner) {
+	public void updateCorner(float corner)
+	{
+		
+		this.corner+=corner;
+		System.out.println(this.corner);
+		deltaX =  ((int)( Math.cos(Math.toRadians(corner)))*velocity);
+		deltaY =  ((int)((float) Math.sin(Math.toRadians(corner)))*velocity);
+		System.out.println(deltaX);
+		System.out.println(deltaY);
+	}
+	
+	public void setCorner(float corner) {
 		this.corner = corner;
 	}
 
-	public int getDirection() {
-		return direction;
+	public int getBallRadius() {
+		return ballDiameter;
 	}
 
-	public void setDirezione(int direction)
-	{
-		this.direction= direction;
+	public void setBallRadius(int ballRadius) {
+		this.ballDiameter = ballRadius;
 	}
-	
-	public void updateCorner()
-	{
-		final double c=getCorner();
-		
-		switch(direction)
-		{
-			case RIGHT:
-			{
-				setCorner(c+0.5);
-				break;
-			}
-			case LEFT:
-			{
-				setCorner(c-0.5);
-				break;
-			}
-		
-		}
-	}
+
 }

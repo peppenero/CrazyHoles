@@ -7,10 +7,12 @@ public class Hole extends Object implements HasScore {
 	private int score=0;
 	
 	
-	public Hole(String c,int s,int x,int y){
-		super(x,y,null);
-		this.setColor(c);
+	public Hole(int s,int x,int y,World world){
+		super(world);
+		this.setColor();
 		this.setScore(s);
+		setX(x);
+		setY(y);
 	}
 	
 	@Override
@@ -23,13 +25,9 @@ public class Hole extends Object implements HasScore {
 		return this.score;
 	}
 
-	@Override
-	protected void setColor(String c) {
-		this.color=c;
-	}
 
 	@Override
-	protected String getColor() {
+	public String getColor() {
 		
 		return this.color;
 	}
@@ -39,5 +37,6 @@ public class Hole extends Object implements HasScore {
         this.world = world;
     }
 
+	
 
 }

@@ -4,20 +4,17 @@ import java.util.ArrayList;
 
 public class WorldImpl implements World {
 	
-    ArrayList<Ball> balls;
+   
     ArrayList<Hole> holes;
-	private int height= 40;
-	private int width = 20;
+	private int height= 600;
+	private int width = 400;
+	
+	
 
-	@Override
-	public boolean areThereBalls() {
-		// TODO Auto-generated method stub
-		if(balls.isEmpty()){
-			return false;
-		}
-		
-		return true;
-	}
+	
+	
+	
+	
 
 	@Override
 	public void update() {
