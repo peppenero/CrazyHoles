@@ -5,7 +5,7 @@ public class Ball extends Object implements HasScore {
 	
 	private int velocity=5;
 	private int score=0;
-	private float corner=90;
+	private float corner=120;
 	private int ballDiameter = 20;
 	private int deltaY,deltaX;
 	
