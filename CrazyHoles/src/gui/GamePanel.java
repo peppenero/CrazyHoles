@@ -15,13 +15,17 @@ import javax.swing.JSplitPane;
 
 import Objects.Ball;
 import Objects.GameManeger;
+import Objects.Muovitore;
 import Objects.World;
 import Objects.WorldImpl;
 
 public class GamePanel extends JPanel 
 {
-
+	
+	private LeftGamePanel leftGamePanel = null;
+	private RightGamePanel rightGamePanel = null;
 	private GameManeger gameManager =null;
+	
 	
 	
 	public GamePanel(GameManeger gameManager ) {
@@ -29,11 +33,14 @@ public class GamePanel extends JPanel
         this.gameManager = gameManager;
        
         setPreferredSize(new Dimension(800, 800));
-        LeftGamePanel panel1 = new LeftGamePanel(this.gameManager.getWorld());
-    	RightGamePanel panel2 = new RightGamePanel(this.gameManager.getWorld());
-        this.add(panel1);
+        leftGamePanel = new LeftGamePanel(this.gameManager.getWorld());
+        rightGamePanel = new RightGamePanel(this.gameManager.getWorld());
+        this.add(leftGamePanel);
 	}
-
+	
+	public LeftGamePanel getLeftPanel(){
+		return leftGamePanel;
+	}
 	
 	
 	public static void main(String[] args)
@@ -48,6 +55,8 @@ public class GamePanel extends JPanel
 		        GamePanel panel = new GamePanel(gameManager);
 		        
 		        frame.getContentPane().add(panel);
+		        
+		    
 
 	}
 

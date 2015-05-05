@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import Objects.Ball;
 import Objects.GameManeger;
+import Objects.Hole;
 import Objects.World;
 import Objects.WorldImpl;
 
@@ -23,9 +24,11 @@ public class LeftGamePanel extends JPanel
 	private World world;
 	private int x;
 	private int y;
+	private boolean move = false;
 	
-	//private final int bW=20;
+	
 	private Ball ball;
+	private Hole hole;
 	
 	public LeftGamePanel(World world) 
 	{	
@@ -44,14 +47,22 @@ public class LeftGamePanel extends JPanel
 	                switch (e.getKeyCode())
 	                {
 	                    case KeyEvent.VK_LEFT:
-	             
-	                        ball.updateCorner(25);
-	                        break;
+	                    {
+	                    	if(ball.getCorner()<160)
+	                    	{
+	                    		ball.updateCorner(20);
+	                    	}
+	                    	break;
+	                    }
 	                    case KeyEvent.VK_RIGHT:
-	                        ball.updateCorner(-25); 
-	                        break;
+	                    {
+	                    	if(ball.getCorner()>30)
+	                    	{	
+	                    		ball.updateCorner(-20); 
+	                    	}
+	                    	break;
+	                    }
 	                    case KeyEvent.VK_SPACE:
-	                    	
 	                    	ball.move();
 	                    	break;
 	                }
@@ -67,7 +78,7 @@ public class LeftGamePanel extends JPanel
 	protected void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
-		//Graphics2D g2 = (Graphics2D)g;
+		Graphics2D g2 = (Graphics2D)g;
 		
 		g.setColor(Color.black);
 		g.drawLine(0, 0, 0, y );
@@ -96,11 +107,17 @@ public class LeftGamePanel extends JPanel
 			}
 			
 		}
-		g.fillOval((int)ball.getX() ,(int)(ball.getY()), ball.getBallRadius(), ball.getBallRadius());
+		
+		g.drawLine(world.getWidth()/2,world.getHeight(),(world.getWidth()/2), (550));
+		g.fillOval((int)ball.getX()-ball.getBallRadius() ,(int)(ball.getY()-ball.getBallRadius()), ball.getBallRadius()*2, ball.getBallRadius()*2);
 		
 		
 		g.dispose();
 
+	}
+	
+	public Ball getBall(){
+		return this.ball;
 	}
 	
 	

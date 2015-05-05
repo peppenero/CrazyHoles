@@ -5,8 +5,9 @@ public class Ball extends Object implements HasScore {
 	
 	private int velocity=5;
 	private int score=0;
-	private float corner=120;
-	private int ballDiameter = 20;
+
+	private float corner=140;
+	private int ballRadius = 10;
 	private int deltaY,deltaX;
 	
 	
@@ -15,13 +16,24 @@ public class Ball extends Object implements HasScore {
 		this.setColor();
 		this.setScore(s);
 		deltaX = ((int)(velocity * Math.cos(Math.toRadians(corner))));
-		deltaY = ((int)( velocity * (float) Math.sin(Math.toRadians(corner))));
-		
+		deltaY = ((int)(velocity * (float) Math.sin(Math.toRadians(corner))));
 		this.setX(world.getWidth()/2 );
 		this.setY(world.getHeight()-getBallRadius());
+		System.out.println(getX());
+		System.out.println(getY());
 		
 	}
 
+	public int getDeltaX()
+	{
+		return deltaX;
+	}
+	
+	public int getDeltaY()
+	{
+		return deltaY;
+	}
+	
 	@Override
 	public void setScore(int s) {
 		this.score=s;
@@ -44,15 +56,15 @@ public class Ball extends Object implements HasScore {
 		int x = (int) getX();
 		int y = (int) getY();
 		
-		int ballMax=(y+getBallRadius());
 		
-		if((x+getBallRadius())>=(world.getWidth()) || x<=0)
+		
+		if((x+getBallRadius())>=(world.getWidth()) || (x-getBallRadius())<=0)
 		{
 			
 			deltaX = -deltaX;
 		}
 		
-		if(ballMax>=(world.getHeight()) ||y<=0)
+		if((y+getBallRadius())>=(world.getHeight()) ||(y-getBallRadius())<=0)
 		{
 			
 			deltaY=-deltaY;
@@ -76,10 +88,9 @@ public class Ball extends Object implements HasScore {
 		
 		this.corner+=corner;
 		System.out.println(this.corner);
-		deltaX =  ((int)( Math.cos(Math.toRadians(corner)))*velocity);
-		deltaY =  ((int)((float) Math.sin(Math.toRadians(corner)))*velocity);
-		System.out.println(deltaX);
-		System.out.println(deltaY);
+		deltaX =  ((int)(velocity * Math.cos(Math.toRadians(this.corner))));
+		deltaY =  ((int)(velocity * (float) Math.sin(Math.toRadians(this.corner))));
+		
 	}
 	
 	public void setCorner(float corner) {
@@ -87,11 +98,11 @@ public class Ball extends Object implements HasScore {
 	}
 
 	public int getBallRadius() {
-		return ballDiameter;
+		return ballRadius;
 	}
 
 	public void setBallRadius(int ballRadius) {
-		this.ballDiameter = ballRadius;
+		this.ballRadius = ballRadius;
 	}
 
 }
