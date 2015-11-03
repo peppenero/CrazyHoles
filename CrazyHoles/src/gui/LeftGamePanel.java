@@ -27,7 +27,7 @@ public class LeftGamePanel extends JPanel
 	private boolean move = false;
 	
 	
-	private Ball ball;
+	private Ball ballProva;
 	private Hole hole;
 	
 	public LeftGamePanel(World world) 
@@ -37,7 +37,7 @@ public class LeftGamePanel extends JPanel
 		x= this.world.getWidth();
 		y= this.world.getHeight();
 		setFocusable(true);
-		 ball= new Ball(10,this.world);
+		 ballProva= new Ball(10,this.world);
 	        this.addKeyListener(new  KeyAdapter() 
 	        {
 	        	
@@ -48,22 +48,22 @@ public class LeftGamePanel extends JPanel
 	                {
 	                    case KeyEvent.VK_LEFT:
 	                    {
-	                    	if(ball.getCorner()<160)
+	                    	if(ballProva.getCorner()<160)
 	                    	{
-	                    		ball.updateCorner(20);
+	                    		ballProva.updateCorner(20);
 	                    	}
 	                    	break;
 	                    }
 	                    case KeyEvent.VK_RIGHT:
 	                    {
-	                    	if(ball.getCorner()>30)
+	                    	if(ballProva.getCorner()>30)
 	                    	{	
-	                    		ball.updateCorner(-20); 
+	                    		ballProva.updateCorner(-20); 
 	                    	}
 	                    	break;
 	                    }
 	                    case KeyEvent.VK_SPACE:
-	                    	ball.move();
+	                    	ballProva.move();
 	                    	break;
 	                }
 	                repaint();
@@ -88,7 +88,7 @@ public class LeftGamePanel extends JPanel
 		
 
 		
-		switch(ball.getColor())
+		switch(ballProva.getColor())
 		{
 			case "rosso" :
 			{
@@ -109,7 +109,7 @@ public class LeftGamePanel extends JPanel
 		}
 		
 		g.drawLine(world.getWidth()/2,world.getHeight(),(world.getWidth()/2), (550));
-		g.fillOval((int)ball.getX()-ball.getBallRadius() ,(int)(ball.getY()-ball.getBallRadius()), ball.getBallRadius()*2, ball.getBallRadius()*2);
+		g.fillOval((int)ballProva.getX()-ballProva.getBallRadius() ,(int)(ballProva.getY()-ballProva.getBallRadius()), ballProva.getBallRadius()*2, ballProva.getBallRadius()*2);
 		
 		
 		g.dispose();
@@ -117,7 +117,7 @@ public class LeftGamePanel extends JPanel
 	}
 	
 	public Ball getBall(){
-		return this.ball;
+		return this.ballProva;
 	}
 	
 	
