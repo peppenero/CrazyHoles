@@ -37,8 +37,8 @@ public class LeftGamePanel extends JPanel
 		x= this.world.getWidth();
 		y= this.world.getHeight();
 		setFocusable(true);
-		 ball= new Ball(10,this.world);
 		 hole = new Hole(20,200,150,100,world);
+		 ball= new Ball(10,this.world);
 	        this.addKeyListener(new  KeyAdapter() 
 	        {
 	        	
@@ -110,8 +110,12 @@ public class LeftGamePanel extends JPanel
 		}
 		
 		g.drawLine(world.getWidth()/2,world.getHeight(),(world.getWidth()/2), (550));
+
 		g.fillOval((int)ball.getX()-ball.getBallRadius() ,(int)(ball.getY()-ball.getBallRadius()), ball.getBallRadius()*2, ball.getBallRadius()*2);
 		g2.drawArc((int) hole.getX() - hole.getRadius(), (int) hole.getY()-hole.getRadius(), hole.getRadius(), hole.getRadius(), 250, 300);
+
+		
+
 		
 		g.dispose();
 
