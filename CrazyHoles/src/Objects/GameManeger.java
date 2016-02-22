@@ -1,16 +1,18 @@
+
 package Objects;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameManeger
 {
  	private WorldImpl world = null;
- 	private ArrayList<Ball> balls ;
- 	private ArrayList<Hole> holes = null;
+ 	private List<Ball> balls = new ArrayList<Ball>();
+ 	private List<Hole> holes = new ArrayList<Hole>();
  	
  	public void start()
  	{
- 		world =new WorldImpl();
+ 		world = new WorldImpl();
  		istanceBall();
  		
  	}
@@ -43,16 +45,16 @@ public class GameManeger
 	public void setWorld(WorldImpl world) {
 		this.world = world;
 	}
-	public ArrayList<Ball> getBalls() {
+	public List<Ball> getBalls() {
 		return balls;
 	}
-	public void setBalls(ArrayList<Ball> balls) {
+	public void setBalls(List<Ball> balls) {
 		this.balls = balls;
 	}
-	public ArrayList<Hole> getHoles() {
+	public List<Hole> getHoles() {
 		return holes;
 	}
-	public void setHoles(ArrayList<Hole> holes) {
+	public void setHoles(List<Hole> holes) {
 		this.holes = holes;
 	}
 }

@@ -9,13 +9,6 @@ public class WorldImpl implements World {
 	private int height= 600;
 	private int width = 400;
 	
-	
-
-	
-	
-	
-	
-
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub

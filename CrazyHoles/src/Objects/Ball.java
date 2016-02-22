@@ -5,13 +5,14 @@ public class Ball extends Object implements HasScore {
 	
 	private int velocity=5;
 	private int score=0;
-
 	private float corner=140;
 	private int ballRadius = 10;
 	private int deltaY,deltaX;
+	private Hole hole;
 	
 	
-	public Ball(int s,World world){
+	public Ball(int s,World world)
+	{
 		super(world);
 		this.setColor();
 		this.setScore(s);
@@ -21,9 +22,9 @@ public class Ball extends Object implements HasScore {
 		this.setY(world.getHeight()-getBallRadius());
 		System.out.println(getX());
 		System.out.println(getY());
-		
+		hole = new Hole(20,100,100,100,world);	
 	}
-
+	
 	public int getDeltaX()
 	{
 		return deltaX;
@@ -64,6 +65,8 @@ public class Ball extends Object implements HasScore {
 			deltaX = -deltaX;
 		}
 		
+	
+		
 		if((y+getBallRadius())>=(world.getHeight()) ||(y-getBallRadius())<=0)
 		{
 			
@@ -84,13 +87,10 @@ public class Ball extends Object implements HasScore {
 	}
 	
 	public void updateCorner(float corner)
-	{
-		
+	{		
 		this.corner+=corner;
-		System.out.println(this.corner);
-		deltaX =  ((int)(velocity * Math.cos(Math.toRadians(this.corner))));
-		deltaY =  ((int)(velocity * (float) Math.sin(Math.toRadians(this.corner))));
-		
+        deltaX =  ((int)(velocity * Math.cos(Math.toRadians(this.corner))));
+		deltaY =  ((int)(velocity * (float) Math.sin(Math.toRadians(this.corner))));		
 	}
 	
 	public void setCorner(float corner) {
