@@ -22,9 +22,9 @@ import Objects.WorldImpl;
 public class GamePanel extends JPanel 
 {
 	
-	private LeftGamePanel leftGamePanel = null;
-	private RightGamePanel rightGamePanel = null;
-	private GameManeger gameManager =null;
+	private LeftGamePanel leftGamePanel;
+	private RightGamePanel rightGamePanel;
+	private GameManeger gameManager;
 	
 	
 	
