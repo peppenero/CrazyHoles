@@ -1,13 +1,13 @@
 package Objects;
 
+import gui.GameFrame;
 import gui.GamePanel;
-import gui.LeftGamePanel;
 
 public class Muovitore implements Runnable{
 	
-	private LeftGamePanel leftGamePanel;
+	private GamePanel leftGamePanel;
 	
-	public Muovitore(LeftGamePanel l){
+	public Muovitore(GamePanel l){
 		this.leftGamePanel = l;
 	}
 	
