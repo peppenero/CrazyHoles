@@ -16,7 +16,7 @@ public class GameFrame extends JFrame
 {
 	private static JPanel contentPanel;
 	
-	private static MenuPanel mainMenu;
+	private static MenuPanel menuPanel;
 	private static GamePanel gamePanel;
 	private static LevelEditorPanel levelEditorPanel;
 	private static SettingsPanel settingsPanel;
@@ -48,10 +48,10 @@ public class GameFrame extends JFrame
         
         gamePanel = new GamePanel(world);
         levelEditorPanel = new LevelEditorPanel();
-        creditsPanel = new CreditsPanel();
-        settingsPanel = new SettingsPanel();
+        creditsPanel = new CreditsPanel(frame);
+        settingsPanel = new SettingsPanel(frame);
         
-        MenuPanel menuPanel = new MenuPanel(frame);
+        menuPanel = new MenuPanel(frame);
         switchTo(menuPanel);
 
 		device.setFullScreenWindow(frame);
@@ -72,6 +72,10 @@ public class GameFrame extends JFrame
 	
 	public JPanel getSettingsPanel(){
 		return settingsPanel;
+	}
+	
+	public JPanel getMenuPanel(){
+		return menuPanel;
 	}
 	
 	
