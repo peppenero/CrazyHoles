@@ -3,26 +3,30 @@ import common.*;
 
 public class Ball extends Object implements HasScore {
 	
-	private int velocity=5;
+	private int velocity=2;
 	private int score=0;
-	private float corner=140;
-	private int ballRadius = 10;
+	private float corner=240;
+	private int ballRadius = 1;
 	private int deltaY,deltaX;
 	private Hole hole;
 	
+	
+	public EquazioniCirconferenza getEquation()
+	{
+		EquazioniCirconferenza eq = new EquazioniCirconferenza((int)this.getX(), (int) this.getY(), this.getBallRadius());
+		return eq;
+	}
 	
 	public Ball(int s,World world)
 	{
 		super(world);
 		this.setColor();
 		this.setScore(s);
-		deltaX = ((int)(velocity * Math.cos(Math.toRadians(corner))));
-		deltaY = ((int)(velocity * (float) Math.sin(Math.toRadians(corner))));
-		this.setX(world.getWidth()/2 );
-		this.setY(world.getHeight()-getBallRadius());
-		System.out.println(getX());
-		System.out.println(getY());
-		hole = new Hole(20,100,100,100,world);	
+		deltaX = (int) ( (velocity * Math.cos(Math.toRadians(corner))));
+		deltaY =(int) (velocity * (float) Math.sin(Math.toRadians(corner)));
+		this.setX(world.getWidth()/2);
+		this.setY(world.getHeight()-this.getBallRadius());
+		hole = new Hole(20,10,10,5,world);	
 	}
 	
 	public int getDeltaX()
@@ -56,20 +60,21 @@ public class Ball extends Object implements HasScore {
 		
 		int x = (int) getX();
 		int y = (int) getY();
-		
-		
-		
-		if((x+getBallRadius())>=(world.getWidth()) || (x-getBallRadius())<=0)
-		{
+			
+		if((((x+getBallRadius())+deltaX)>(world.getWidth()) || ((x-getBallRadius())+deltaX)<0))
+		{	
 			
 			deltaX = -deltaX;
 		}
 		
-	
-		
-		if((y+getBallRadius())>=(world.getHeight()) ||(y-getBallRadius())<=0)
+		if(this.getEquation().intersezioni(hole))
 		{
-			
+			deltaX=-deltaX;
+			deltaY=-deltaY;
+		}
+		
+		if((((y+getBallRadius())+deltaY)>(world.getHeight()) ||((y-getBallRadius())+deltaY)<0))
+		{
 			deltaY=-deltaY;
 		}
 		
@@ -104,5 +109,5 @@ public class Ball extends Object implements HasScore {
 	public void setBallRadius(int ballRadius) {
 		this.ballRadius = ballRadius;
 	}
-
+	
 }

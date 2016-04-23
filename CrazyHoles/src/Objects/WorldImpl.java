@@ -6,12 +6,12 @@ public class WorldImpl implements World {
 	
    
     ArrayList<Hole> holes;
-	private int height= 600;
-	private int width = 400;
+	private int height= 60;
+	private int width = 40;
 	
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		
 
 	}
 

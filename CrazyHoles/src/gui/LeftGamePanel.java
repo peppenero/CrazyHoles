@@ -37,7 +37,7 @@ public class LeftGamePanel extends JPanel
 		x= this.world.getWidth();
 		y= this.world.getHeight();
 		setFocusable(true);
-		 hole = new Hole(20,200,150,100,world);
+		 hole = new Hole(20,10,10,5,world);
 		 ball= new Ball(10,this.world);
 	        this.addKeyListener(new  KeyAdapter() 
 	        {
@@ -82,10 +82,10 @@ public class LeftGamePanel extends JPanel
 		Graphics2D g2 = (Graphics2D)g;
 		
 		g.setColor(Color.black);
-		g.drawLine(0, 0, 0, y );
-		g.drawLine(0,y,x ,y);
-		g.drawLine(x, 0, x, y);
-		g.drawLine(0, 0,x, 0);
+		g.drawLine(0, 0, 0, y*10 );
+		g.drawLine(0,y*10,x*10 ,y*10);
+		g.drawLine(x*10, 0, x*10, y*10);
+		g.drawLine(0, 0,x*10, 0);
 		
 
 		
@@ -108,15 +108,10 @@ public class LeftGamePanel extends JPanel
 			}
 			
 		}
-		
-		g.drawLine(world.getWidth()/2,world.getHeight(),(world.getWidth()/2), (550));
+	
+		g.fillOval((int)(ball.getX()-ball.getBallRadius())*10 ,(int)((ball.getY()-ball.getBallRadius()))*10, (ball.getBallRadius()*2)*10, (ball.getBallRadius()*2)*10);
+		g.drawOval((int)(hole.getX()- hole.getRadius())*10, (int) (hole.getY()-hole.getRadius())*10, (hole.getRadius()*2)*10, (hole.getRadius()*2)*10);
 
-		g.fillOval((int)ball.getX()-ball.getBallRadius() ,(int)(ball.getY()-ball.getBallRadius()), ball.getBallRadius()*2, ball.getBallRadius()*2);
-		g2.drawArc((int) hole.getX() - hole.getRadius(), (int) hole.getY()-hole.getRadius(), hole.getRadius(), hole.getRadius(), 250, 300);
-
-		
-
-		
 		g.dispose();
 
 	}

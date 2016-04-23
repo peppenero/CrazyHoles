@@ -10,6 +10,7 @@ public class Hole extends Object implements HasScore {
 	private float x2;
 	private float y1;
 	private float y2;
+	private int angle = 270;
 		
 	
 	public Hole(int s,int x,int y,int radius,World world){
@@ -19,11 +20,16 @@ public class Hole extends Object implements HasScore {
 		setX(x);
 		setY(y);
 		setRadius(radius);
-		setX1(getX()-10);
-		setY1(getY()+radius);
-		setX2(getX()+10);
-		setY2(getY()+radius);
-		
+		setX1(this.getX()+this.getRadius()* (float) Math.cos(Math.toRadians((angle-30))));
+		setY1(this.getY()+this.getRadius()* (float) Math.sin(Math.toRadians((angle-30))));
+		setX2(this.getX()+this.getRadius()* (float) Math.cos(Math.toRadians((angle+30))));
+		setY2(this.getY()+this.getRadius()* (float) Math.sin(Math.toRadians((angle+30))));
+	}
+	
+	public EquazioniCirconferenza getEquation()
+	{
+		EquazioniCirconferenza eq = new EquazioniCirconferenza((int)this.getX(), (int) this.getY(), this.getRadius());
+		return eq;
 	}
 	
 	@Override
