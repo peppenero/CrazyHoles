@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Objects.Ball;
-import Objects.GameManeger;
+import Objects.GameManager;
 import Objects.Hole;
 import Objects.World;
 import Objects.WorldImpl;

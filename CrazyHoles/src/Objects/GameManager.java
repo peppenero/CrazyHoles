@@ -4,7 +4,7 @@ package Objects;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameManeger
+public class GameManager
 {
  	private WorldImpl world = null;
  	private List<Ball> balls = new ArrayList<Ball>();
