@@ -109,8 +109,8 @@ public class GamePanel extends JPanel
 			
 		}
 		
-		
-
+		g.fillOval((int)hole.getX1()*10,(int) hole.getY1()*10,10,10);
+		g.fillOval((int)hole.getX2()*10,(int) hole.getY2()*10,10,10);
 		g.fillOval((int)(ball.getX()-ball.getBallRadius())*10 ,(int)((ball.getY()-ball.getBallRadius()))*10, (ball.getBallRadius()*2)*10, (ball.getBallRadius()*2)*10);
 		g.drawOval((int)(hole.getX()- hole.getRadius())*10, (int) (hole.getY()-hole.getRadius())*10, (hole.getRadius()*2)*10, (hole.getRadius()*2)*10);
 
