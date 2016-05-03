@@ -3,12 +3,14 @@ package Objects;
 import gui.GameFrame;
 import gui.GamePanel;
 
-public class Muovitore implements Runnable{
+public class Muovitore extends Thread{
 	
-	private GamePanel leftGamePanel;
+	private Ball ball;
+	private GamePanel p;
 	
-	public Muovitore(GamePanel l){
-		this.leftGamePanel = l;
+	public Muovitore(Ball ball,GamePanel p){
+		this.ball=ball;
+		this.p = p;
 	}
 	
 	@Override
@@ -16,9 +18,10 @@ public class Muovitore implements Runnable{
 		// TODO Auto-generated method stub
 		while(true){
 		try {
-			Thread.sleep(15);
-			leftGamePanel.getBall().move();
-			leftGamePanel.repaint();
+			Thread.sleep(50);
+			ball.move();
+			
+			p.repaint();
 			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

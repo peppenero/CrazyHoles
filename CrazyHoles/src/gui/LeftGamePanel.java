@@ -40,7 +40,7 @@ public class LeftGamePanel extends JPanel
 		setFocusable(true);
 		ArrayList<String> colors = new ArrayList<>();
 		 hole = new Hole(20,10,10,5,world,"verde");
-		 ball= new Ball(10,colors,this.world);
+		
 	        this.addKeyListener(new  KeyAdapter() 
 	        {
 	        	

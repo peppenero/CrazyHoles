@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import Objects.Ball;
 import Objects.GameManager;
 import Objects.Hole;
+import Objects.Muovitore;
 import Objects.World;
 import Objects.WorldImpl;
 import Objects.WorldManager;
@@ -41,6 +42,7 @@ public class GamePanel extends JPanel
 	private Ball ball;
 	private List<Hole> holes;
 	private ImageProv prov ;
+	Muovitore m ;
 	
 	public GamePanel(World world) throws IOException 
 	{	
@@ -57,7 +59,7 @@ public class GamePanel extends JPanel
 		
 		 ball= gameManager.getOneBall();
 		 prov = new ImageProv();
-		 
+		 m = new Muovitore(ball, this);
 		 
 	        this.addKeyListener(new  KeyAdapter() 
 	        {
@@ -90,7 +92,7 @@ public class GamePanel extends JPanel
 	                    	break;
 	                    }
 	                    case KeyEvent.VK_SPACE:
-	                    	ball.move();
+	                    	m.start();
 	                    	break;
 	                }
 	                repaint();

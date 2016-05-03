@@ -20,7 +20,7 @@ public class Ball extends Object implements HasScore {
 		return eq;
 	}
 	
-	public Ball(int s,ArrayList<String> colors,World world)
+	public Ball(int s,ArrayList<String> colors,WorldImpl world)
 	{
 		super(world);
 		this.setColor(colors);
@@ -29,6 +29,7 @@ public class Ball extends Object implements HasScore {
 		deltaY =(int) (velocity * (float) Math.sin(Math.toRadians(corner)));
 		this.setX(world.getWidth()/2);
 		this.setY(world.getHeight()-this.getBallRadius());
+		holes=world.getHoles();
 		
 	}
 	
