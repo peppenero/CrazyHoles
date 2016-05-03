@@ -1,4 +1,7 @@
 package Objects;
+import java.util.ArrayList;
+import java.util.List;
+
 import common.*;
 
 public class Ball extends Object implements HasScore {
@@ -8,7 +11,7 @@ public class Ball extends Object implements HasScore {
 	private float corner=240;
 	private int ballRadius = 1;
 	private int deltaY,deltaX;
-	private Hole hole;
+	private List<Hole> holes;
 	
 	
 	public EquazioniCirconferenza getEquation()
@@ -17,16 +20,16 @@ public class Ball extends Object implements HasScore {
 		return eq;
 	}
 	
-	public Ball(int s,World world)
+	public Ball(int s,ArrayList<String> colors,World world)
 	{
 		super(world);
-		this.setColor();
+		this.setColor(colors);
 		this.setScore(s);
 		deltaX = (int) ( (velocity * Math.cos(Math.toRadians(corner))));
 		deltaY =(int) (velocity * (float) Math.sin(Math.toRadians(corner)));
 		this.setX(world.getWidth()/2);
 		this.setY(world.getHeight()-this.getBallRadius());
-		hole = new Hole(20,10,10,5,world);	
+		
 	}
 	
 	public int getDeltaX()
@@ -66,13 +69,14 @@ public class Ball extends Object implements HasScore {
 			
 			deltaX = -deltaX;
 		}
-		
-		if(this.getEquation().intersezioni(hole))
+		for(int i=0;i<holes.size();i++)
 		{
-			deltaX=-deltaX;
-			deltaY=-deltaY;
+			if(this.getEquation().intersezioni(holes.get(i)))
+			{
+				deltaX=-deltaX;
+				deltaY=-deltaY;
+			}
 		}
-		
 		if((((y+getBallRadius())+deltaY)>(world.getHeight()) ||((y-getBallRadius())+deltaY)<0))
 		{
 			deltaY=-deltaY;
@@ -108,6 +112,21 @@ public class Ball extends Object implements HasScore {
 
 	public void setBallRadius(int ballRadius) {
 		this.ballRadius = ballRadius;
+	}
+	
+	public void setColor(ArrayList<String> colors)
+	{
+		int casual = (int) (Math.random()*colors.size());
+		
+		this.color=colors.get(casual);
+	}
+
+	public List<Hole> getHoles() {
+		return holes;
+	}
+
+	public void setHoles(List<Hole> holes) {
+		this.holes = holes;
 	}
 	
 }

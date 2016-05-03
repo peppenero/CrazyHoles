@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -39,7 +40,7 @@ public class GameFrame extends JFrame
 	
 	
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws IOException
 	{
 		final GameFrame frame = new GameFrame();
 		contentPanel = new JPanel(new BorderLayout());

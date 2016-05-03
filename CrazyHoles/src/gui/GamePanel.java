@@ -5,9 +5,18 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -16,6 +25,7 @@ import Objects.GameManager;
 import Objects.Hole;
 import Objects.World;
 import Objects.WorldImpl;
+import Objects.WorldManager;
 
 
 
@@ -25,20 +35,30 @@ public class GamePanel extends JPanel
 	private int x;
 	private int y;
 	private boolean move = false;
-	
-	
+	private WorldManager worldMan;
+	private GameManager gameManager;
+	private Image holeImage;
 	private Ball ball;
-	private Hole hole;
+	private List<Hole> holes;
+	private ImageProv prov ;
 	
-	public GamePanel(World world) 
+	public GamePanel(World world) throws IOException 
 	{	
-		this.world=world;
+		
+		worldMan = new WorldManager();
+		gameManager = new GameManager(worldMan);
+		this.world=gameManager.getWorld();
 		setPreferredSize(new Dimension(800, 200));
 		x= this.world.getWidth();
 		y= this.world.getHeight();
 		setFocusable(true);
-		 hole = new Hole(20,10,10,5,world);
-		 ball= new Ball(10,this.world);
+		gameManager.start();
+		 holes = gameManager.getHoles();
+		
+		 ball= gameManager.getOneBall();
+		 prov = new ImageProv();
+		 
+		 
 	        this.addKeyListener(new  KeyAdapter() 
 	        {
 	        	
@@ -53,6 +73,12 @@ public class GamePanel extends JPanel
 	                    	{
 	                    		ball.updateCorner(20);
 	                    	}
+	                    	break;
+	                    }
+	                    case KeyEvent.VK_UP:
+	                    {
+	                    	for(int i=0;i<holes.size();i++)
+	                    	holes.get(i).setAngle((holes.get(i).getAngle()+10)%360);
 	                    	break;
 	                    }
 	                    case KeyEvent.VK_RIGHT:
@@ -86,37 +112,21 @@ public class GamePanel extends JPanel
 		g.drawLine(0,y*10,x*10 ,y*10);
 		g.drawLine(x*10, 0, x*10, y*10);
 		g.drawLine(0, 0,x*10, 0);
-		
+	
 
-		
-		switch(ball.getColor())
+		g.drawImage(prov.getBall(ball.getColor()),(int)(ball.getX()-ball.getBallRadius())*10, (int) (ball.getY()-ball.getBallRadius())*10,this);
+	
+		for(int i=0; i<holes.size();i++)
 		{
-			case "rosso" :
-			{
-				g.setColor(Color.red);   
-				break;
-			}
-			case "verde":
-			{
-				g.setColor(Color.green);
-				break;
-			}
-			case "giallo":
-			{
-				g.setColor(Color.yellow); 
-				break;
-			}
+			holeImage =  prov.getHole(holes.get(i).getColor()); 
+			AffineTransform at = new AffineTransform();
+			at.translate((holes.get(i).getX())*10,(holes.get(i).getY())*10);
 			
+			at.rotate(Math.toRadians(holes.get(i).getAngle()));
+			at.translate(-holeImage.getWidth(this)/2, -holeImage.getHeight(this)/2);
+			
+			g2.drawImage(holeImage,at,this);
 		}
-		
-		g.fillOval((int)hole.getX1()*10,(int) hole.getY1()*10,10,10);
-		g.fillOval((int)hole.getX2()*10,(int) hole.getY2()*10,10,10);
-		g.fillOval((int)(ball.getX()-ball.getBallRadius())*10 ,(int)((ball.getY()-ball.getBallRadius()))*10, (ball.getBallRadius()*2)*10, (ball.getBallRadius()*2)*10);
-		g.drawOval((int)(hole.getX()- hole.getRadius())*10, (int) (hole.getY()-hole.getRadius())*10, (hole.getRadius()*2)*10, (hole.getRadius()*2)*10);
-
-		
-
-		
 		g.dispose();
 
 	}

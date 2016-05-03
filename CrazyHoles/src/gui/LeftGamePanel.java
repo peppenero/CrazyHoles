@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -37,8 +38,9 @@ public class LeftGamePanel extends JPanel
 		x= this.world.getWidth();
 		y= this.world.getHeight();
 		setFocusable(true);
-		 hole = new Hole(20,10,10,5,world);
-		 ball= new Ball(10,this.world);
+		ArrayList<String> colors = new ArrayList<>();
+		 hole = new Hole(20,10,10,5,world,"verde");
+		 ball= new Ball(10,colors,this.world);
 	        this.addKeyListener(new  KeyAdapter() 
 	        {
 	        	

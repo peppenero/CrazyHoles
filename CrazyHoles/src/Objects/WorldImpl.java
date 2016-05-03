@@ -1,11 +1,13 @@
 package Objects;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WorldImpl implements World {
 	
    
-    ArrayList<Hole> holes;
+    private ArrayList<Hole> holes;
+    private List<Ball> balls;
 	private int height= 60;
 	private int width = 40;
 	
@@ -29,6 +31,22 @@ public class WorldImpl implements World {
 
 	public void setWidth(int width) {
 		this.width = width;
+	}
+
+	public ArrayList<Hole> getHoles() {
+		return holes;
+	}
+
+	public void setHoles(ArrayList<Hole> holes) {
+		this.holes = holes;
+	}
+
+	public List<Ball> getBalls() {
+		return balls;
+	}
+
+	public void setBalls(List<Ball> balls) {
+		this.balls = balls;
 	}
 	
 	

@@ -33,30 +33,6 @@ package Objects;
 		return y;
 	}
 	
-	protected  void setColor()
-	{
-		int casual = (int) (Math.random()*2);
-		switch(casual)
-		{
-			case 0:
-			{
-				this.color="rosso";
-				break;
-			}
-			case 1:
-			{
-				this.color="verde";
-				break;
-			}
-			case 2:
-			{
-				this.color="giallo";
-				break;
-			}
-		
-		}
-		
-	}
 	public abstract String getColor();
 	
 
