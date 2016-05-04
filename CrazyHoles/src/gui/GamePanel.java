@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 
 import Objects.Ball;
 import Objects.GameManager;
+import Objects.Giratore;
 import Objects.Hole;
 import Objects.Muovitore;
 import Objects.World;
@@ -43,6 +44,7 @@ public class GamePanel extends JPanel
 	private List<Hole> holes;
 	private ImageProv prov ;
 	Muovitore m ;
+	Giratore g;
 	
 	public GamePanel(World world) throws IOException 
 	{	
@@ -56,10 +58,13 @@ public class GamePanel extends JPanel
 		setFocusable(true);
 		gameManager.start();
 		 holes = gameManager.getHoles();
-		
+		System.out.println(x);
+		System.out.println(y);
 		 ball= gameManager.getOneBall();
 		 prov = new ImageProv();
 		 m = new Muovitore(ball, this);
+		 g=new Giratore(holes, this);
+		 g.start();
 		 
 	        this.addKeyListener(new  KeyAdapter() 
 	        {
@@ -80,7 +85,7 @@ public class GamePanel extends JPanel
 	                    case KeyEvent.VK_UP:
 	                    {
 	                    	for(int i=0;i<holes.size();i++)
-	                    	holes.get(i).setAngle((holes.get(i).getAngle()+10)%360);
+	                    	holes.get(i).move();
 	                    	break;
 	                    }
 	                    case KeyEvent.VK_RIGHT:
@@ -110,13 +115,13 @@ public class GamePanel extends JPanel
 		Graphics2D g2 = (Graphics2D)g;
 		
 		g.setColor(Color.black);
-		g.drawLine(0*10, 0*10, 0*10, y*10 );
-		g.drawLine(0,y*10,x*10 ,y*10);
-		g.drawLine(x*10, 0, x*10, y*10);
-		g.drawLine(0, 0,x*10, 0);
+		g.drawLine(1*10, 1*10, 1*10, (y+1)*10 );
+		g.drawLine(1*10,(y+1)*10,(x+1)*10 ,(y+1)*10);
+		g.drawLine((x+1)*10, 1*10, (x+1)*10, (y+1)*10);
+		g.drawLine(1*10,1*10,(x+1)*10,1*10);
 	
 
-		g.drawImage(prov.getBall(ball.getColor()),(int)(ball.getX()-ball.getBallRadius())*10, (int) (ball.getY()-ball.getBallRadius())*10,this);
+		g.drawImage(prov.getBall(ball.getColor()),(int)(ball.getX())*10, (int) (ball.getY())*10,this);
 	
 		for(int i=0; i<holes.size();i++)
 		{

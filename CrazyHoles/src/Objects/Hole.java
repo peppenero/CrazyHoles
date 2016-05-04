@@ -10,7 +10,7 @@ public class Hole extends Object implements HasScore {
 	private float x2;
 	private float y1;
 	private float y2;
-	private int angle = 270;
+	private int angle = 90;
 		
 	
 	public Hole(int s,int x,int y,int radius,World world,String color){
@@ -45,6 +45,11 @@ public class Hole extends Object implements HasScore {
 	
 	public void move()
 	{
+		setAngle(((angle+10)%360));
+		setX1(this.getX()+this.getRadius()* (float) Math.cos(Math.toRadians((getAngle()-30))));
+		setY1(this.getY()+this.getRadius()* (float) Math.sin(Math.toRadians((getAngle()-30))));
+		setX2(this.getX()+this.getRadius()* (float) Math.cos(Math.toRadians((getAngle()+30))));
+		setY2(this.getY()+this.getRadius()* (float) Math.sin(Math.toRadians((getAngle()+30))));
 		
 	}
 

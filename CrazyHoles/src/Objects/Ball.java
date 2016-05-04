@@ -8,7 +8,7 @@ public class Ball extends Object implements HasScore {
 	
 	private int velocity=2;
 	private int score=0;
-	private float corner=240;
+	private float corner=270;
 	private int ballRadius = 1;
 	private int deltaY,deltaX;
 	private List<Hole> holes;
@@ -27,7 +27,7 @@ public class Ball extends Object implements HasScore {
 		this.setScore(s);
 		deltaX = (int) ( (velocity * Math.cos(Math.toRadians(corner))));
 		deltaY =(int) (velocity * (float) Math.sin(Math.toRadians(corner)));
-		this.setX(world.getWidth()/2);
+		this.setX(30);
 		this.setY(world.getHeight()-this.getBallRadius());
 		holes=world.getHoles();
 		
