@@ -27,8 +27,8 @@ public class Ball extends Object implements HasScore {
 		this.setScore(s);
 		deltaX = (int) ( (velocity * Math.cos(Math.toRadians(corner))));
 		deltaY =(int) (velocity * (float) Math.sin(Math.toRadians(corner)));
-		this.setX(30);
-		this.setY(world.getHeight()-this.getBallRadius());
+		this.setX(31);
+		this.setY(world.getHeight()-getBallRadius());
 		holes=world.getHoles();
 		
 	}
@@ -67,7 +67,7 @@ public class Ball extends Object implements HasScore {
 			
 		if((((x+getBallRadius())+deltaX)>(world.getWidth()) || ((x-getBallRadius())+deltaX)<0))
 		{	
-			
+			System.out.println(x);
 			deltaX = -deltaX;
 		}
 		for(int i=0;i<holes.size();i++)
@@ -78,7 +78,7 @@ public class Ball extends Object implements HasScore {
 				deltaY=-deltaY;
 			}
 		}
-		if((((y+getBallRadius())+deltaY)>(world.getHeight()) ||((y-getBallRadius())+deltaY)<0))
+		if((((y+getBallRadius()+deltaY))>(world.getHeight()) ||((y-getBallRadius())+deltaY)<0))
 		{
 			deltaY=-deltaY;
 		}

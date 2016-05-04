@@ -72,7 +72,7 @@ public class EquazioniCirconferenza {
 	public boolean intersezioni(Hole eq)
 	{
 		EquazioniCirconferenza hole = eq.getEquation();
-	
+	 	
 		if(this.x==hole.x)
 		{
 			spuria = true;

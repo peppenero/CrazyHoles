@@ -64,7 +64,7 @@ public class GamePanel extends JPanel
 		 prov = new ImageProv();
 		 m = new Muovitore(ball, this);
 		 g=new Giratore(holes, this);
-		 g.start();
+		 //g.start();
 		 
 	        this.addKeyListener(new  KeyAdapter() 
 	        {
@@ -97,7 +97,8 @@ public class GamePanel extends JPanel
 	                    	break;
 	                    }
 	                    case KeyEvent.VK_SPACE:
-	                    	m.start();
+	                    	//m.start();
+	                    	ball.move();
 	                    	break;
 	                }
 	                repaint();
@@ -115,20 +116,19 @@ public class GamePanel extends JPanel
 		Graphics2D g2 = (Graphics2D)g;
 		
 		g.setColor(Color.black);
-		g.drawLine(1*10, 1*10, 1*10, (y+1)*10 );
-		g.drawLine(1*10,(y+1)*10,(x+1)*10 ,(y+1)*10);
-		g.drawLine((x+1)*10, 1*10, (x+1)*10, (y+1)*10);
-		g.drawLine(1*10,1*10,(x+1)*10,1*10);
-	
+		g.drawLine(0*10, 0*10, 0*10, y*10);
+		g.drawLine(0*10,y*10,x*10 ,y*10);
+		g.drawLine(x*10, 0*10, x*10, y*10);
+		g.drawLine(0*10,0*10,x*10,0*10);		
 
-		g.drawImage(prov.getBall(ball.getColor()),(int)(ball.getX())*10, (int) (ball.getY())*10,this);
-	
+		g.drawImage(prov.getBall(ball.getColor()),(int)(ball.getX()-ball.getBallRadius())*10, (int) (ball.getY()-ball.getBallRadius())*10,this);
+		g.fillOval(300-5, 100-5, 10, 10);
 		for(int i=0; i<holes.size();i++)
-		{
+		{		
 			holeImage =  prov.getHole(holes.get(i).getColor()); 
 			AffineTransform at = new AffineTransform();
 			at.translate((holes.get(i).getX())*10,(holes.get(i).getY())*10);
-			
+			g.drawLine(0, 5*10, 10*40, 10*5);
 			at.rotate(Math.toRadians(holes.get(i).getAngle()));
 			at.translate(-holeImage.getWidth(this)/2, -holeImage.getHeight(this)/2);
 			
