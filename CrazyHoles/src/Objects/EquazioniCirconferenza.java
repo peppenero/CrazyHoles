@@ -69,26 +69,26 @@ public class EquazioniCirconferenza {
 		setY(-2*yc);		
 	}
 	
-	public boolean intersezioni(Hole eq)
+	public int intersezioni(Ball ball,Hole eq)
 	{
 		EquazioniCirconferenza hole = eq.getEquation();
-	 	
+	 	EquazioniCirconferenza bal = ball.getEquation();
 		if(this.x==hole.x)
 		{
 			spuria = true;
-			double yeq = this.y + (-1*hole.getY());
-			double notoeq = this.noto + (-1*hole.getNoto());
+			double yeq = bal.y + (-1*hole.getY());
+			double notoeq = bal.noto + (-1*hole.getNoto());
 			yvar = (-1*notoeq)/yeq;
 			 a = 1;
-			 b = this.x;
-			 c = (Math.pow(yvar, 2)) + (this.y * yvar) + this.noto;
+			 b = bal.x;
+			 c = (Math.pow(yvar, 2)) + (bal.y * yvar) + bal.noto;
 			delta = (Math.pow(b, 2)+((4*a*c)*-1));
 		}
 		else
 		{
-			double xeq = this.x + (-1*hole.getX());
-			double yeq = this.y + (-1*hole.getY());
-			double notoeq = this.noto + (-1*hole.getNoto());
+			double xeq = bal.x + (-1*hole.getX());
+			double yeq = bal.y + (-1*hole.getY());
+			double notoeq = bal.noto + (-1*hole.getNoto());
 			
 			
 			 xy = (-1*yeq)/xeq;
@@ -96,21 +96,23 @@ public class EquazioniCirconferenza {
 			double yquadro = Math.pow(xy, 2);
 			double dprod = 2*xy*xnoto;
 			double nquadro =  Math.pow(xnoto, 2);
-			double sx = this.x*xy;     
-			double nx = this.x*xnoto;
+			double sx = bal.x*xy;     
+			double nx = bal.x*xnoto;
 			 a = yquadro+1;
 			 
-			 b = dprod+sx+this.y;
-			 c = nquadro+nx+this.noto; 
+			 b = dprod+sx+bal.y;
+			 c = nquadro+nx+bal.noto; 
 			delta = (Math.pow(b, 2)+((4*a*c)*-1));
 		}
 			   			
 			if(delta<0)
 			{		
-				return false;
+				return 0;
 			}
 			else
 			{
+//				if(ball.getColor()!=eq.getColor())
+//					return 1;
 				if(spuria)
 				{
 					x1= (-b +  Math.sqrt(delta))/(2*a);
@@ -133,39 +135,56 @@ public class EquazioniCirconferenza {
 				}
 				
 				if((eq.getX1()>eq.getX2() && eq.getY1()<eq.getY2()) && (getX1()<eq.getX1() && getX2()<eq.getX1() && getX1()>eq.getX2() && getX2()>eq.getX2() && getY1()>eq.getY()))
-				{					
-					return false;
+				{	
+					
+					return 2;
 				}
 				if((eq.getX1()<eq.getX2() && eq.getY1()<eq.getY2()) && (getX1()>eq.getX1() && getX1()<eq.getX2() && getX2()>eq.getX1() && getX2()<eq.getX2() && getY1()<eq.getY()))
-				{					
-					return false;
+				{		
+					return 2;
 				}
 				if((eq.getX1()<eq.getX2() && eq.getY1()>eq.getY2()) && (getX1()>eq.getX1() && getX1()<eq.getX2() && getX2()>eq.getX1() && getX2()<eq.getX2() && getY1()<eq.getY()))
 				{					
-					return false;
+					return 2;
 				}
 				if((eq.getX1()>eq.getX2() && eq.getY1()>eq.getY2()) && (getX1()<eq.getX1() && getX1()>eq.getX2() && getX2()<eq.getX1() && getX2()>eq.getX2() && getY1()>eq.getY()))
 				{					
-					return false;
+					return 2;
 				}
 				if((eq.getY1()==eq.getY2() && eq.getX2()<eq.getX1()) && (getX1()<eq.getX1() && getX2()<eq.getX1() && getX1()>eq.getX2() && getX2()>eq.getX2() && getY1()>eq.getY()))
 				
-					return false;
+					return 2;
 				}
 				if((eq.getY1()==eq.getY2() && eq.getX1()<eq.getX2()) && (getX1()>eq.getX1() && getX2()>eq.getX1() && getX1()<eq.getX2() && getX2()<eq.getX2() && getY1()<eq.getY())) 
 				{					
-					return false;
+					return 2;
 				}
-				if((eq.getX1()==eq.getX2() && eq.getY1()>eq.getY1()) && (getY1()<eq.getY1() && getY2()<eq.getY1() && getY1()>eq.getY2() && getY2()>eq.getY2() && getX1()<eq.getX()))
+				if((eq.getX1()==eq.getX2() && eq.getY1()>eq.getY2()) && (getY1()<eq.getY1() && getY2()<eq.getY1() && getY1()>eq.getY2() && getY2()>eq.getY2() && getX1()<eq.getX()))
 				{
-					return false;
+					return 2;
 				}
 				if((eq.getX1()==eq.getX2() && eq.getY1()<eq.getY2()) && (getY1()>eq.getY1() && getY2()>eq.getY1() && getY1()<eq.getY2() && getY2()<eq.getY2() && getX1()>eq.getX()))
 				{
-					return false;
+					return 2;
 				}
+				if((eq.getX1()>eq.getX2() && eq.getY1()>eq.getY2()) && (getY1()<eq.getY1() && getY1()>eq.getY2() && getY2()<eq.getY1() && getY2()>eq.getY2() && getX1()<eq.getX()))
+				{
+					return 2;
+				}
+				if((eq.getX1()>eq.getX2() && eq.getY1()<eq.getY2()) && (getY1()>eq.getY1() && getY1()<eq.getY2() && getY2()>eq.getY1() && getY2()<eq.getY2() && getX1()>eq.getX()))
+				{
+					return 2;
+				}
+				if((eq.getX1()<eq.getX2() && eq.getY1()<eq.getY2()) && (getY1()>eq.getY1() && getY1()<eq.getY2() && getY2()>eq.getY1() && getY2()<eq.getY2() && getX1()>eq.getX()))
+				{
+					return 2;
+				}
+				if((eq.getX1()<eq.getX2() && eq.getY1()>eq.getY2()) && (getY1()<eq.getY1() && getY1()>eq.getY2() && getY2()<eq.getY1() && getY2()>eq.getY2() && getX1()<eq.getX()))
+				{
+					return 2;
+				}
+					return 1;
 				
-				return true;
 				
 			}
 }

@@ -8,11 +8,11 @@ public class Ball extends Object implements HasScore {
 	
 	private int velocity=2;
 	private int score=0;
-	private float corner=270;
+	private float corner=180;
 	private int ballRadius = 1;
 	private int deltaY,deltaX;
 	private List<Hole> holes;
-	
+	private int d;
 	
 	public EquazioniCirconferenza getEquation()
 	{
@@ -24,11 +24,11 @@ public class Ball extends Object implements HasScore {
 	{
 		super(world);
 		this.setColor(colors);
-		this.setScore(s);
+		this.setScore(s); 
 		deltaX = (int) ( (velocity * Math.cos(Math.toRadians(corner))));
 		deltaY =(int) (velocity * (float) Math.sin(Math.toRadians(corner)));
-		this.setX(31);
-		this.setY(world.getHeight()-getBallRadius());
+		this.setX(3);
+		this.setY(10);
 		holes=world.getHoles();
 		
 	}
@@ -72,11 +72,18 @@ public class Ball extends Object implements HasScore {
 		}
 		for(int i=0;i<holes.size();i++)
 		{
-			if(this.getEquation().intersezioni(holes.get(i)))
+			setD(this.getEquation().intersezioni(this,holes.get(i)));
+			if(getD()==1)
 			{
 				deltaX=-deltaX;
 				deltaY=-deltaY;
 			}
+//			int dst = (int) Math.sqrt(Math.pow((holes.get(i).getX()-getX()),2)+ Math.pow((holes.get(i).getY()-getY()), 2));
+//			if((dst)<=(getBallRadius()+holes.get(i).getRadius()))
+//			{
+//				deltaX=-deltaX;
+//				deltaY=-deltaY;
+//			}
 		}
 		if((((y+getBallRadius()+deltaY))>(world.getHeight()) ||((y-getBallRadius())+deltaY)<0))
 		{
@@ -128,6 +135,14 @@ public class Ball extends Object implements HasScore {
 
 	public void setHoles(List<Hole> holes) {
 		this.holes = holes;
+	}
+
+	public int getD() {
+		return d;
+	}
+
+	public void setD(int d) {
+		this.d = d;
 	}
 	
 }

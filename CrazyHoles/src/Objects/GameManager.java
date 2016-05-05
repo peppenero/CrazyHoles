@@ -11,6 +11,8 @@ public class GameManager
  	private WorldImpl world;
  	private List<Ball> balls;
  	private List<Hole> holes;
+ 	private Ball ball;
+ 	
  	
  	public GameManager(WorldManager worldMan) throws IOException
  	{
@@ -21,7 +23,16 @@ public class GameManager
  	{
  		balls=world.getBalls();
  		holes=world.getHoles();
- 		
+ 		setBall(getOneBall());
+  	}
+ 
+ 	public void update()
+ 	{
+ 		if(getBall().getD()==2)
+ 		{
+ 			balls.remove(0);
+ 			setBall(getOneBall());
+ 		}
  	}
  	
  	public boolean areThereBalls()
@@ -31,7 +42,8 @@ public class GameManager
  		
  	public Ball getOneBall()
  	{
- 		return balls.get(0);
+ 		Ball tmp=balls.get(0);;
+ 		return tmp;
  	}
 	public World getWorld() {
 		return world;
@@ -53,5 +65,13 @@ public class GameManager
 
 	public void setBalls(List<Ball> balls) {
 		this.balls = balls;
+	}
+
+	public Ball getBall() {
+		return ball;
+	}
+
+	public void setBall(Ball ball) {
+		this.ball = ball;
 	}
 }

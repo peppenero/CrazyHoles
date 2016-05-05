@@ -7,10 +7,12 @@ public class Muovitore extends Thread{
 	
 	private Ball ball;
 	private GamePanel p;
+	private GameManager man;
 	
-	public Muovitore(Ball ball,GamePanel p){
+	public Muovitore(Ball ball,GamePanel p,GameManager man){
 		this.ball=ball;
 		this.p = p;
+		this.man=man;
 	}
 	
 	@Override
@@ -21,6 +23,7 @@ public class Muovitore extends Thread{
 			Thread.sleep(50);
 			ball.move();
 			
+			man.update();
 			p.repaint();
 			
 		} catch (InterruptedException e) {
