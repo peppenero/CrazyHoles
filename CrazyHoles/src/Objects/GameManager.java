@@ -12,15 +12,19 @@ public class GameManager
  	private List<Ball> balls;
  	private List<Hole> holes;
  	private Ball ball;
+ 	private int points=0;
+ 	private WorldManager wManager;
  	
  	
- 	public GameManager(WorldManager worldMan) throws IOException
+ 	public GameManager() throws IOException
  	{
- 		world = (WorldImpl) worldMan.getworld();
+ 		 wManager = new WorldManager();
+ 		world = (WorldImpl) wManager.getworld();
  	}
  	
- 	public void start()
+ 	public void start() throws IOException
  	{
+ 		
  		balls=world.getBalls();
  		holes=world.getHoles();
  		setBall(getOneBall());
@@ -30,6 +34,7 @@ public class GameManager
  	{
  		if(getBall().getD()==2)
  		{
+ 			
  			balls.remove(0);
  			setBall(getOneBall());
  		}
@@ -73,5 +78,13 @@ public class GameManager
 
 	public void setBall(Ball ball) {
 		this.ball = ball;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 }

@@ -1,5 +1,6 @@
 package Objects;
 
+
 import gui.GameFrame;
 import gui.GamePanel;
 
@@ -18,12 +19,9 @@ public class Muovitore extends Thread{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		while(true){
+		while(ball.move()!=2){
 		try {
-			Thread.sleep(50);
-			ball.move();
-			
-			man.update();
+			Thread.sleep(50);	
 			p.repaint();
 			
 		} catch (InterruptedException e) {
@@ -31,6 +29,8 @@ public class Muovitore extends Thread{
 			e.printStackTrace();
 		}
 		}
+		man.update();
+		p.repaint();
 	}
 
 }

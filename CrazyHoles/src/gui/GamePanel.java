@@ -2,22 +2,15 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Objects.Ball;
@@ -26,18 +19,19 @@ import Objects.Giratore;
 import Objects.Hole;
 import Objects.Muovitore;
 import Objects.World;
-import Objects.WorldImpl;
-import Objects.WorldManager;
 
 
 
 public class GamePanel extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private World world;
 	private int x;
 	private int y;
 	private boolean move = false;
-	private WorldManager worldMan;
 	private GameManager gameManager;
 	private Image holeImage;
 	private Ball ball;
@@ -46,23 +40,21 @@ public class GamePanel extends JPanel
 	Muovitore m ;
 	Giratore g;
 	
-	public GamePanel(World world) throws IOException 
+	public GamePanel(GameManager manager) throws IOException 
 	{	
 		
-		worldMan = new WorldManager();
-		gameManager = new GameManager(worldMan);
+		
+		gameManager = new GameManager();
 		this.world=gameManager.getWorld();
-		setPreferredSize(new Dimension(800, 200));
-		x= this.world.getWidth();
-		y= this.world.getHeight();
+		setPreferredSize(new Dimension(800, 600));
+		x= world.getWidth();
+		y= world.getHeight();
 		setFocusable(true);
 		gameManager.start();
 		 holes = gameManager.getHoles();
-		System.out.println(x);
-		System.out.println(y);
 		 ball= gameManager.getOneBall();
 		 prov = new ImageProv();
-		 m = new Muovitore(gameManager.getBall(), this,gameManager);
+		 
 		 g=new Giratore(holes, this);
 		 //g.start();
 		 
@@ -97,10 +89,15 @@ public class GamePanel extends JPanel
 	                    	break;
 	                    }
 	                    case KeyEvent.VK_SPACE:
-	                    	//m.start();
-	                    	ball.move();
+	                    {
+	                    	m=new Muovitore(gameManager.getBall(),GamePanel.this ,gameManager);
+	                    	m.start();
+	                    	
+	                    	
+	                    	
 	                    	break;
-	                }
+	                    }
+	                  }
 	                repaint();
 	            }
 			});
@@ -121,7 +118,7 @@ public class GamePanel extends JPanel
 		g.drawLine(x*10, 0*10, x*10, y*10);
 		g.drawLine(0*10,0*10,x*10,0*10);		
 
-		g.drawImage(prov.getBall(ball.getColor()),(int)(gameManager.getBall().getX()-ball.getBallRadius())*10, (int) (gameManager.getBall().getY()-ball.getBallRadius())*10,this);
+		g.drawImage(prov.getBall(gameManager.getBall().getColor()),(int)(gameManager.getBall().getX()-ball.getBallRadius())*10, (int) (gameManager.getBall().getY()-ball.getBallRadius())*10,this);
 		for(int i=0; i<holes.size();i++)
 		{		
 			holeImage =  prov.getHole(holes.get(i).getColor()); 

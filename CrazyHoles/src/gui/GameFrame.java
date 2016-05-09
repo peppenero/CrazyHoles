@@ -45,9 +45,9 @@ public class GameFrame extends JFrame
 		final GameFrame frame = new GameFrame();
 		contentPanel = new JPanel(new BorderLayout());
         frame.add(contentPanel);
-        WorldImpl world = new WorldImpl();
+       GameManager manager = new GameManager();
         
-        gamePanel = new GamePanel(world);
+        gamePanel = new GamePanel(manager);
         levelEditorPanel = new LevelEditorPanel();
         creditsPanel = new CreditsPanel(frame);
         settingsPanel = new SettingsPanel(frame);
