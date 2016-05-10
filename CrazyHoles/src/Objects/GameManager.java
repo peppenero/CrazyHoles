@@ -1,6 +1,7 @@
 
 package Objects;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +33,11 @@ public class GameManager
  
  	public void update()
  	{
- 		if(getBall().getD()==2)
+ 		int c;
+ 		c=ball.getD();
+ 		if(c!=0 &&c !=1)
  		{
- 			
+ 			points = this.getPoints() + c;
  			balls.remove(0);
  			setBall(getOneBall());
  		}

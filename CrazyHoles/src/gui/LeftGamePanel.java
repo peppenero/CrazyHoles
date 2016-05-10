@@ -2,45 +2,59 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import java.awt.geom.AffineTransform;
+import java.io.IOException;
+import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Objects.Ball;
 import Objects.GameManager;
+import Objects.Giratore;
 import Objects.Hole;
+import Objects.Muovitore;
 import Objects.World;
-import Objects.WorldImpl;
 
 
 
 public class LeftGamePanel extends JPanel
 {
+	private static final long serialVersionUID = 1L;
 	private World world;
 	private int x;
 	private int y;
 	private boolean move = false;
-	
-	
+	private GameManager gameManager;
+	private Image holeImage;
 	private Ball ball;
-	private Hole hole;
+	private List<Hole> holes;
+	private ImageProv prov ;
+	Muovitore m ;
+	Giratore g;
 	
-	public LeftGamePanel(World world) 
+  public LeftGamePanel(GameManager manager) throws IOException 
 	{	
-		this.world=world;
-		setPreferredSize(new Dimension(800, 200));
-		x= this.world.getWidth();
-		y= this.world.getHeight();
-		setFocusable(true);
-		ArrayList<String> colors = new ArrayList<>();
-		 hole = new Hole(20,10,10,5,world,"verde");
 		
+		
+		this.gameManager = manager;
+		this.world=gameManager.getWorld();
+		setPreferredSize(new Dimension(800, 800));
+		x= world.getWidth();
+		y= world.getHeight();
+		setFocusable(true);
+		gameManager.start();
+		 holes = gameManager.getHoles();
+		 ball= gameManager.getOneBall();
+		 prov = new ImageProv();
+		 
+		// g=new Giratore(holes, this);
+		 //g.start();
+		 
 	        this.addKeyListener(new  KeyAdapter() 
 	        {
 	        	
@@ -57,6 +71,12 @@ public class LeftGamePanel extends JPanel
 	                    	}
 	                    	break;
 	                    }
+	                    case KeyEvent.VK_UP:
+	                    {
+	                    	for(int i=0;i<holes.size();i++)
+	                    	holes.get(i).move();
+	                    	break;
+	                    }
 	                    case KeyEvent.VK_RIGHT:
 	                    {
 	                    	if(ball.getCorner()>30)
@@ -66,9 +86,15 @@ public class LeftGamePanel extends JPanel
 	                    	break;
 	                    }
 	                    case KeyEvent.VK_SPACE:
-	                    	ball.move();
+	                    {
+	                    //	m=new Muovitore(gameManager.getBall(),GamePanel.this ,gameManager);
+	                    //	m.start();
+	                    	
+	                    	
+	                    	
 	                    	break;
-	                }
+	                    }
+	                  }
 	                repaint();
 	            }
 			});
@@ -84,36 +110,24 @@ public class LeftGamePanel extends JPanel
 		Graphics2D g2 = (Graphics2D)g;
 		
 		g.setColor(Color.black);
-		g.drawLine(0, 0, 0, y*10 );
-		g.drawLine(0,y*10,x*10 ,y*10);
-		g.drawLine(x*10, 0, x*10, y*10);
-		g.drawLine(0, 0,x*10, 0);
-		
+		g.drawLine(0*10, 0*10, 0*10, y*10);
+		g.drawLine(0*10,y*10,x*10 ,y*10);
+		g.drawLine(x*10, 0*10, x*10, y*10);
+		g.drawLine(0*10,0*10,x*10,0*10);		
 
-		
-		switch(ball.getColor())
-		{
-			case "rosso" :
-			{
-				g.setColor(Color.red);   
-				break;
-			}
-			case "verde":
-			{
-				g.setColor(Color.green);
-				break;
-			}
-			case "giallo":
-			{
-				g.setColor(Color.yellow); 
-				break;
-			}
+		g.drawImage(prov.getBall(gameManager.getBall().getColor()),(int)(gameManager.getBall().getX()-ball.getBallRadius())*10, (int) (gameManager.getBall().getY()-ball.getBallRadius())*10,this);
+		for(int i=0; i<holes.size();i++)
+		{		
+			holeImage =  prov.getHole(holes.get(i).getColor()); 
+			AffineTransform at = new AffineTransform();
+			at.translate((holes.get(i).getX())*10,(holes.get(i).getY())*10);
+			g.fillOval((int)holes.get(i).getX1()*10,(int) holes.get(i).getY1()*10, 5, 5);
+			g.drawOval((int)holes.get(i).getX2()*10,(int) holes.get(i).getY2()*10, 5, 5);
+			at.rotate(Math.toRadians(holes.get(i).getAngle()));
+			at.translate(-holeImage.getWidth(this)/2, -holeImage.getHeight(this)/2);
 			
+			g2.drawImage(holeImage,at,this);
 		}
-	
-		g.fillOval((int)(ball.getX()-ball.getBallRadius())*10 ,(int)((ball.getY()-ball.getBallRadius()))*10, (ball.getBallRadius()*2)*10, (ball.getBallRadius()*2)*10);
-		g.drawOval((int)(hole.getX()- hole.getRadius())*10, (int) (hole.getY()-hole.getRadius())*10, (hole.getRadius()*2)*10, (hole.getRadius()*2)*10);
-
 		g.dispose();
 
 	}
