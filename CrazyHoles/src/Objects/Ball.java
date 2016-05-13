@@ -6,11 +6,11 @@ import common.*;
 
 public class Ball extends Object implements HasScore {
 	
-	private int velocity=2;
+	private double velocity=1.50;
 	private int score=0;
-	private float corner=300;
+	private float corner=350;
 	private int ballRadius = 1;
-	private int deltaY,deltaX;
+	private float deltaY,deltaX;
 	private List<Hole> holes;
 	private int d;
 	
@@ -25,20 +25,20 @@ public class Ball extends Object implements HasScore {
 		super(world);
 		this.setColor(colors);
 		this.setScore(s); 
-		deltaX = (int) ( (velocity * Math.cos(Math.toRadians(corner))));
-		deltaY =(int) (velocity * (float) Math.sin(Math.toRadians(corner)));
+		deltaX = (float) ( (velocity * Math.cos(Math.toRadians(corner))));
+		deltaY = (float) (velocity * (float) Math.sin(Math.toRadians(corner)));
 		this.setX((world.getWidth()/2)-getBallRadius());
 		this.setY(world.getHeight()-getBallRadius());
 		holes=world.getHoles();
 		
 	}
 	
-	public int getDeltaX()
+	public float getDeltaX()
 	{
 		return deltaX;
 	}
 	
-	public int getDeltaY()
+	public float getDeltaY()
 	{
 		return deltaY;
 	}
@@ -64,7 +64,7 @@ public class Ball extends Object implements HasScore {
 		
 		int x = (int) getX();
 		int y = (int) getY();
-		System.out.println("mannaia a dio");	
+		
 		if((((x+getBallRadius())+deltaX)>(world.getWidth()) || ((x-getBallRadius())+deltaX)<0))
 		{			
 			deltaX = -deltaX;
@@ -116,8 +116,8 @@ public class Ball extends Object implements HasScore {
 	
 	public void updateCorner()
 	{				
-        deltaX =  ((int)(velocity * Math.cos(Math.toRadians(this.corner))));
-		deltaY =  ((int)(velocity * (float) Math.sin(Math.toRadians(this.corner))));		
+        deltaX =  ((float)(velocity * Math.cos(Math.toRadians(this.corner))));
+		deltaY =  ((float)(velocity * (float) Math.sin(Math.toRadians(this.corner))));		
 	}
 	
 	public void setCorner(float corner) {

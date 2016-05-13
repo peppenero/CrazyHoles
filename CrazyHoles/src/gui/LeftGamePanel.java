@@ -94,7 +94,7 @@ public class LeftGamePanel extends JPanel
 				double m = (yMouse-gameManager.getBall().getY()*10)/(xMouse-gameManager.getBall().getX()*10);			
 				double corner = Math.atan(m);
 				gameManager.getBall().setCorner((float)(Math.toDegrees((corner))-360)%180);
-				System.out.println((float)(Math.toDegrees((corner))+360)%360);
+				System.out.println((float)(Math.toDegrees((corner))-360)%180);
 				repaint();
 			}
 			
@@ -117,9 +117,11 @@ public class LeftGamePanel extends JPanel
 		g.drawLine(0*10, 0*10, 0*10, y*10);
 		g.drawLine(0*10,y*10,x*10 ,y*10);
 		g.drawLine(x*10, 0*10, x*10, y*10);
-		g.drawLine(0*10,0*10,x*10,0*10);		
-
-		g.drawImage(prov.getBall(gameManager.getBall().getColor()),(int)(gameManager.getBall().getX()-gameManager.getBall().getBallRadius())*10, (int) (gameManager.getBall().getY()-gameManager.getBall().getBallRadius())*10,this);
+		g.drawLine(0*10,0*10,x*10,0*10);
+		
+		AffineTransform at1 = new AffineTransform();
+		at1.translate((gameManager.getBall().getX()-gameManager.getBall().getBallRadius())*10, (gameManager.getBall().getY()-gameManager.getBall().getBallRadius())*10);
+		g2.drawImage(prov.getBall(gameManager.getBall().getColor()),at1,this);
 		
 		for(int i=0; i<holes.size();i++)
 		{		
@@ -132,17 +134,20 @@ public class LeftGamePanel extends JPanel
 			g2.drawImage(holeImage,at,this);
 		}
 					
-		int directionX = (int)(gameManager.getBall().getX());
-		int directionY =  (int)(gameManager.getBall().getY());
+		float directionX = (gameManager.getBall().getX());
+		float directionY = (gameManager.getBall().getY());
 		
-		int deltaX = gameManager.getBall().getDeltaX(); 
+		float deltaX = gameManager.getBall().getDeltaX(); 
 		int bal = 0;
 		
 		while(bal <30)		
 		{	
+			AffineTransform at2 = new AffineTransform();
 			if(directionX <= 0 || directionX >= world.getWidth())
 				deltaX= -deltaX;
-			g.drawImage(prov.getDirectionBall(),(int)(directionX+deltaX)*10-prov.getDirectionBall().getWidth(this)/2,(directionY+gameManager.getBall().getDeltaY())*10,this);		
+			
+			at2.translate((directionX+deltaX)*10-prov.getDirectionBall().getWidth(this)/2, (directionY+gameManager.getBall().getDeltaY())*10);
+			g2.drawImage(prov.getDirectionBall(),at2,this);		
 			directionX+=(deltaX);
 			directionY+=(gameManager.getBall().getDeltaY());
 			bal++;
