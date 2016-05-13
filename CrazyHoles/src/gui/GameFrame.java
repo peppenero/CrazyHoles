@@ -22,20 +22,21 @@ public class GameFrame extends JFrame
 	private static LevelEditorPanel levelEditorPanel;
 	private static SettingsPanel settingsPanel;
 	private static CreditsPanel creditsPanel;
+	private GameManager manager;
 	
-	private GameManager gameManager;
 	final static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
 	
-	public GameFrame(){
+	public GameFrame() throws IOException{
 		initFrame();
 	}
 	
-	public void initFrame(){
+	public void initFrame() throws IOException{
 		this.setUndecorated(true);
 		this.setSize(1280, 800);
 		this.setResizable(true);
 		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		manager = new GameManager();
 	}
 	
 	
@@ -45,9 +46,9 @@ public class GameFrame extends JFrame
 		final GameFrame frame = new GameFrame();
 		contentPanel = new JPanel(new BorderLayout());
         frame.add(contentPanel);
-       GameManager manager = new GameManager();
+       
         
-        gamePanel = new GamePanel(manager);
+        
         levelEditorPanel = new LevelEditorPanel();
         creditsPanel = new CreditsPanel(frame);
         settingsPanel = new SettingsPanel(frame);
@@ -59,8 +60,8 @@ public class GameFrame extends JFrame
 		frame.setVisible(true);
 	}
 	
-	public JPanel getGamePanel(){
-		return gamePanel;
+	public JPanel getGamePanel() throws IOException{
+		return new GamePanel(manager);
 	}
 	
 	public JPanel getLevelEditorPanel(){

@@ -3,14 +3,15 @@ package Objects;
 
 import gui.GameFrame;
 import gui.GamePanel;
+import gui.LeftGamePanel;
 
 public class Muovitore extends Thread{
 	
 	private Ball ball;
-	private GamePanel p;
+	private LeftGamePanel p;
 	private GameManager man;
 	
-	public Muovitore(Ball ball,GamePanel p,GameManager man){
+	public Muovitore(Ball ball,LeftGamePanel p,GameManager man){
 		this.ball=ball;
 		this.p = p;
 		this.man=man;

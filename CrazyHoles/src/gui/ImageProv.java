@@ -7,28 +7,30 @@ import java.awt.Toolkit;
 
 public class ImageProv 
 {
-	private final Image bucaVerde;
+	private final Image greenHole;
 	//private final Image bucaBlu;
-	private final Image bucaGialla;
-	private final Image bucaRossa;
-	private final Image pallaRossa;
-	private final Image pallaVerde;
-	private final Image pallaBlu;
-	private final Image pallaGialla;
+	private final Image yellowHole;
+	private final Image redHole;
+	private final Image redBall;
+	private final Image greemBall;
+	private final Image blueBall;
+	private final Image yellowBall;
+	private final Image directionBall;
 	
 	
 	public ImageProv()
 	{
 		final Toolkit tk = Toolkit.getDefaultToolkit();
 		
-		bucaGialla = tk.getImage("images/BucaGialla.png");
-		bucaVerde = tk.getImage("images/BucaVerde.png");
+		yellowHole = tk.getImage("images/BucaGialla.png");
+		greenHole = tk.getImage("images/BucaVerde.png");
 		//bucaBlu = tk.getImage("images/BucaBlu.png");
-		bucaRossa = tk.getImage("images/BucaRossa.png");
-		pallaRossa = tk.getImage("images/PallaRossa.png");
-		pallaVerde = tk.getImage("images/PallaVerde.png");
-		pallaGialla = tk.getImage("images/PallaGialla.png");
-		pallaBlu = tk.getImage("images/PallaBlu.png");	
+		redHole = tk.getImage("images/BucaRossa.png");
+		redBall = tk.getImage("images/PallaRossa.png");
+		greemBall = tk.getImage("images/PallaVerde.png");
+		yellowBall = tk.getImage("images/PallaGialla.png");
+		blueBall = tk.getImage("images/PallaBlu.png");	
+		directionBall = tk.getImage("images/da.png");
 	}
 	
 	public Image getHole(final String color)
@@ -41,15 +43,15 @@ public class ImageProv
 //			}
 			case "verde":
 			{
-				return bucaVerde;
+				return greenHole;
 			}
 			case "giallo":
 			{
-				return bucaGialla;
+				return yellowHole;
 			}
 			case "rosso":
 			{
-				return bucaRossa;
+				return redHole;
 			}
 			default:
 				break;
@@ -63,25 +65,29 @@ public class ImageProv
 		{
 			case "verde":
 			{
-				return pallaVerde;
+				return greemBall;
 			}
 			case "blu":
 			{
-				return pallaBlu;
+				return blueBall;
 			}
 			case "giallo":
 			{
-				return pallaGialla;
+				return yellowBall;
 			}
 			case "rosso":
 			{
-				return pallaRossa;
+				return redBall;
 			}
 			default:
 				break;
 				
 		}
 		throw new IllegalArgumentException("unsupported ball color");
+	}
+	public Image getDirectionBall()
+	{
+		return this.directionBall;
 	}
 	
 }

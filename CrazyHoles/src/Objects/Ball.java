@@ -8,7 +8,7 @@ public class Ball extends Object implements HasScore {
 	
 	private int velocity=2;
 	private int score=0;
-	private float corner=180;
+	private float corner=300;
 	private int ballRadius = 1;
 	private int deltaY,deltaX;
 	private List<Hole> holes;
@@ -64,13 +64,13 @@ public class Ball extends Object implements HasScore {
 		
 		int x = (int) getX();
 		int y = (int) getY();
-			
+		System.out.println("mannaia a dio");	
 		if((((x+getBallRadius())+deltaX)>(world.getWidth()) || ((x-getBallRadius())+deltaX)<0))
 		{			
 			deltaX = -deltaX;
 		}
 		for(int i=0;i<holes.size();i++)
-		{
+		{  
 			
 			setD(this.intersezioni(this,holes.get(i)));
 			if(getD()==1)
@@ -114,15 +114,15 @@ public class Ball extends Object implements HasScore {
 		return corner;
 	}
 	
-	public void updateCorner(float corner)
-	{		
-		this.corner+=corner;
+	public void updateCorner()
+	{				
         deltaX =  ((int)(velocity * Math.cos(Math.toRadians(this.corner))));
 		deltaY =  ((int)(velocity * (float) Math.sin(Math.toRadians(this.corner))));		
 	}
 	
 	public void setCorner(float corner) {
 		this.corner = corner;
+		updateCorner();
 	}
 
 	public int getBallRadius() {
