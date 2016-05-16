@@ -37,7 +37,8 @@ public class RightGamePanel extends JPanel
 		 timelabel.setForeground(Color.red);
 		 timelabel.setSize(50, 25);
 		 timelabel.setFont(font);
-		 pointsLabel = new JLabel("0");
+		 String point = String.format("%02d", manager.getPoints());
+		 pointsLabel = new JLabel(point);
 		 pointsLabel.setForeground(Color.red);
 		 pointsLabel.setSize(50,25);
 		 pointsLabel. setFont(font);

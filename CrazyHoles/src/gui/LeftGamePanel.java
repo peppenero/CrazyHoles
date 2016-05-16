@@ -10,6 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
@@ -74,15 +75,55 @@ public class LeftGamePanel extends JPanel
 	                    
 	                    case KeyEvent.VK_SPACE:
 	                    {
-	                    	if(!isMove())
-	                    		setMove(true);
-		                    	m=new Muovitore(gameManager.getBall(),LeftGamePanel.this ,gameManager);
-		                    	m.start();   
-	        	            break;
+	                    	
 	                    }
 	                  }
 	                repaint();
 	            }
+			});
+	        
+	        addMouseListener(new MouseListener() {
+				
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mousePressed(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					switch(arg0.getButton())
+					{
+					 	case MouseEvent.BUTTON1:
+					 	{
+					 		if(!isMove())
+	                    		setMove(true);
+		                    	m=new Muovitore(gameManager.getBall(),LeftGamePanel.this ,gameManager);
+		                    	m.start();   
+	        	            break;
+					 	}
+					 		
+					}
+				}
 			});
 	        		 
 		 addMouseMotionListener(new MouseMotionListener() {
