@@ -74,9 +74,10 @@ public class LeftGamePanel extends JPanel
 	                    
 	                    case KeyEvent.VK_SPACE:
 	                    {
-//	                    	m=new Muovitore(ball,LeftGamePanel.this ,gameManager);
-//	                    	m.start();    
-//	                    	gameManager.getBall().move();
+	                    	if(!isMove())
+	                    		setMove(true);
+		                    	m=new Muovitore(gameManager.getBall(),LeftGamePanel.this ,gameManager);
+		                    	m.start();   
 	        	            break;
 	                    }
 	                  }
@@ -88,14 +89,15 @@ public class LeftGamePanel extends JPanel
 			
 			@Override
 			public void mouseMoved(MouseEvent e) {
-
-				xMouse=e.getX();
-				yMouse=e.getY();
-				double m = (yMouse-gameManager.getBall().getY()*10)/(xMouse-gameManager.getBall().getX()*10);			
-				double corner = Math.atan(m);
-				gameManager.getBall().setCorner((float)(Math.toDegrees((corner))-360)%180);
-				System.out.println((float)(Math.toDegrees((corner))-360)%180);
-				repaint();
+				if(!isMove())
+				{
+					xMouse=e.getX();
+					yMouse=e.getY();
+					double m = (yMouse-gameManager.getBall().getY()*10)/(xMouse-gameManager.getBall().getX()*10);			
+					double corner = Math.atan(m);
+					gameManager.getBall().setCorner((float)(Math.toDegrees((corner))-360)%180);
+					repaint();
+				}
 			}
 			
 			@Override
@@ -119,6 +121,28 @@ public class LeftGamePanel extends JPanel
 		g.drawLine(x*10, 0*10, x*10, y*10);
 		g.drawLine(0*10,0*10,x*10,0*10);
 		
+		if(!isMove())
+		{
+		float directionX = (gameManager.getBall().getX());
+		float directionY = (gameManager.getBall().getY());
+		
+		float deltaX = gameManager.getBall().getDeltaX(); 
+		int bal = 0;
+		
+		while(bal <30)		
+		{	
+			AffineTransform at2 = new AffineTransform();
+			if(directionX+deltaX <= 0 || directionX+deltaX >= world.getWidth())
+				deltaX= -deltaX;
+			
+			at2.translate((directionX+deltaX)*10-prov.getDirectionBall().getWidth(this)/2, (directionY+gameManager.getBall().getDeltaY())*10);
+			g2.drawImage(prov.getDirectionBall(),at2,this);		
+			directionX+=(deltaX);
+			directionY+=(gameManager.getBall().getDeltaY());
+			bal++;
+		}
+		}
+		
 		AffineTransform at1 = new AffineTransform();
 		at1.translate((gameManager.getBall().getX()-gameManager.getBall().getBallRadius())*10, (gameManager.getBall().getY()-gameManager.getBall().getBallRadius())*10);
 		g2.drawImage(prov.getBall(gameManager.getBall().getColor()),at1,this);
@@ -130,27 +154,7 @@ public class LeftGamePanel extends JPanel
 			at.translate((holes.get(i).getX())*10,(holes.get(i).getY())*10);
 			at.rotate(Math.toRadians(holes.get(i).getAngle()));
 			at.translate(-holeImage.getWidth(this)/2, -holeImage.getHeight(this)/2);
-			
 			g2.drawImage(holeImage,at,this);
-		}
-					
-		float directionX = (gameManager.getBall().getX());
-		float directionY = (gameManager.getBall().getY());
-		
-		float deltaX = gameManager.getBall().getDeltaX(); 
-		int bal = 0;
-		
-		while(bal <30)		
-		{	
-			AffineTransform at2 = new AffineTransform();
-			if(directionX <= 0 || directionX >= world.getWidth())
-				deltaX= -deltaX;
-			
-			at2.translate((directionX+deltaX)*10-prov.getDirectionBall().getWidth(this)/2, (directionY+gameManager.getBall().getDeltaY())*10);
-			g2.drawImage(prov.getDirectionBall(),at2,this);		
-			directionX+=(deltaX);
-			directionY+=(gameManager.getBall().getDeltaY());
-			bal++;
 		}
 		
 		
@@ -163,6 +167,14 @@ public class LeftGamePanel extends JPanel
 	
 	public Ball getBall(){
 		return this.ball;
+	}
+
+	public boolean isMove() {
+		return move;
+	}
+
+	public void setMove(boolean move) {
+		this.move = move;
 	}
 	
 	

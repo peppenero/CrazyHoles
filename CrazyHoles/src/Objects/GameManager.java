@@ -35,7 +35,7 @@ public class GameManager
  	{
  		int c;
  		c=ball.getD();
- 		if(c!=0 &&c !=1)
+ 		if(c!=0 && c !=1)
  		{
  			points = this.getPoints() + c;
  			balls.remove(0);

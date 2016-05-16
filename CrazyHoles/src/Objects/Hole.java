@@ -10,7 +10,7 @@ public class Hole extends Object implements HasScore {
 	private float x2;
 	private float y1;
 	private float y2;
-	private int angle = 190;
+	private int angle = 90;
 		
 	
 	public Hole(int s,int x,int y,int radius,World world,String color){

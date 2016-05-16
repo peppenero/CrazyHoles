@@ -59,7 +59,7 @@ public class Ball extends Object implements HasScore {
 		return this.color;
 	}
 	
-	public int move()
+	public  int move()
 	{
 		
 		int x = (int) getX();
@@ -90,6 +90,7 @@ public class Ball extends Object implements HasScore {
 			{
 				setX(getX()+deltaX);
 				setY(getY()+deltaY);
+				System.out.println(getD());
 				return getD();
 			}
 			
@@ -148,11 +149,11 @@ public class Ball extends Object implements HasScore {
 		this.holes = holes;
 	}
 
-	public int getD() {
+	public synchronized int getD() {
 		return d;
 	}
 
-	public void setD(int d) {
+	public synchronized void setD(int d) {
 		this.d = d;
 	}
 	
@@ -238,50 +239,62 @@ public class Ball extends Object implements HasScore {
 				
 			if((eq.getX1()>eq.getX2() && eq.getY1()<eq.getY2()) && (x1<eq.getX1() && x2<eq.getX1() && x1>eq.getX2() && x2>eq.getX2() && y1>eq.getY()))
 			{	
+				System.out.println("c");
 				return eq.getScore();
 			}
 			if((eq.getX1()<eq.getX2() && eq.getY1()<eq.getY2()) && (x1>eq.getX1() && x1<eq.getX2() && x2>eq.getX1() && x2<eq.getX2() && y1<eq.getY()))
 			{	
+				System.out.println("c");
 				return eq.getScore();
 			}
 			if((eq.getX1()<eq.getX2() && eq.getY1()>eq.getY2()) && (x1>eq.getX1() && x1<eq.getX2() && x2>eq.getX1() && x2<eq.getX2() && y1<eq.getY()))
 			{					
+				System.out.println("c");
 				return eq.getScore();
 			}
 			if((eq.getX1()>eq.getX2() && eq.getY1()>eq.getY2()) && (x1<eq.getX1() && x1>eq.getX2() && x2<eq.getX1() && x2>eq.getX2() && y1>eq.getY()))
 			{					
+				System.out.println("c");
 				return eq.getScore();
 			}
 			if((eq.getY1()==eq.getY2() && eq.getX2()<eq.getX1()) && (x1<eq.getX1() && x2<eq.getX1() && x1>eq.getX2() && x2>eq.getX2() && y1>eq.getY()))
 			{
+				System.out.println("c");
 				return eq.getScore();
 			}
 			if((eq.getY1()==eq.getY2() && eq.getX1()<eq.getX2()) && (x1)>eq.getX1() && x2>eq.getX1() && x1<eq.getX2() && x2<eq.getX2() && y1<eq.getY()) 
 			{					
+				System.out.println("c");
 				return eq.getScore();
 			}
 			if((eq.getX1()==eq.getX2() && eq.getY1()>eq.getY2()) && (y1<eq.getY1() && y2<eq.getY1() && y1>eq.getY2() && y2>eq.getY2() && x1<eq.getX()))
 			{
+				System.out.println("c");
 				return eq.getScore();
 			}
 			if((eq.getX1()==eq.getX2() && eq.getY1()<eq.getY2()) && (y1>eq.getY1() && y2>eq.getY1() && y1<eq.getY2() && y2<eq.getY2() && x1>eq.getX()))
 			{
+				System.out.println("c");
 				return eq.getScore();
 			}
 			if((eq.getX1()>eq.getX2() && eq.getY1()>eq.getY2()) && (y1<eq.getY1() && y1>eq.getY2() && y2<eq.getY1() && y2>eq.getY2() && x1<eq.getX()))
 			{
+				System.out.println("c");
 				return eq.getScore();
 			}
 			if((eq.getX1()>eq.getX2() && eq.getY1()<eq.getY2()) && (y1>eq.getY1() && y1<eq.getY2() && y2>eq.getY1() && y2<eq.getY2() && x1>eq.getX()))
 			{
+				System.out.println("c");
 				return eq.getScore();
 			}
 			if((eq.getX1()<eq.getX2() && eq.getY1()<eq.getY2()) && (y1>eq.getY1() && y1<eq.getY2() && y2>eq.getY1() && y2<eq.getY2() && x1>eq.getX()))
 			{
+				System.out.println("c");
 				return eq.getScore();
 			}
 			if((eq.getX1()<eq.getX2() && eq.getY1()>eq.getY2()) && (y1<eq.getY1() && y1>eq.getY2() && y2<eq.getY1() && y2>eq.getY2() && x1<eq.getX()))
 			{
+				System.out.println("c");
 				return eq.getScore();
 			}
 			return 1;
