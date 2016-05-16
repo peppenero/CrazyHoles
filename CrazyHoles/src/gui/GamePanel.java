@@ -43,8 +43,8 @@ public class GamePanel extends JPanel
 	public GamePanel(GameManager manager) throws IOException
 	{
 		this.manager = manager;
-		left= new LeftGamePanel(manager);
 		right = new RightGamePanel(manager);
+		left= new LeftGamePanel(manager,right);
 		layout = new FlowLayout(FlowLayout.LEFT,10,10);
 		setLayout(layout);
 		add(left);

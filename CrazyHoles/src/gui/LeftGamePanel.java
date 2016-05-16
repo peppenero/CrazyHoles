@@ -44,7 +44,7 @@ public class LeftGamePanel extends JPanel
 	Muovitore m ;
 	Giratore g;
 	
-  public LeftGamePanel(GameManager manager) throws IOException 
+  public LeftGamePanel(GameManager manager,final RightGamePanel panel) throws IOException 
 	{	
 	  	
 		this.gameManager = manager;
@@ -117,7 +117,7 @@ public class LeftGamePanel extends JPanel
 					 	{
 					 		if(!isMove())
 	                    		setMove(true);
-		                    	m=new Muovitore(gameManager.getBall(),LeftGamePanel.this ,gameManager);
+		                    	m=new Muovitore(gameManager.getBall(),LeftGamePanel.this,panel,gameManager);
 		                    	m.start();   
 	        	            break;
 					 	}

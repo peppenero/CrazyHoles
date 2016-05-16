@@ -8,6 +8,7 @@ import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.security.auth.Refreshable;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -62,12 +63,17 @@ public class RightGamePanel extends JPanel
 		 this.add(timelabel);
 		 this.add(Box.createVerticalGlue());
 		 this.add(pointsLabel);
-		
 	}
 	
 	public void init()
 	{
 		startTime = System.currentTimeMillis();
 		timer.start();
+	}
+	
+	public void refresh()
+	{
+		String s = String.format("%02d",manager.getPoints());
+		pointsLabel.setText(s);
 	}
 }

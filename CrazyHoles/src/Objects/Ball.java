@@ -90,7 +90,6 @@ public class Ball extends Object implements HasScore {
 			{
 				setX(getX()+deltaX);
 				setY(getY()+deltaY);
-				System.out.println(getD());
 				return getD();
 			}
 			
