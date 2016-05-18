@@ -24,7 +24,7 @@ public class Muovitore extends Thread{
 	public void run() {
 		// TODO Auto-generated method stub
 		int ris = ball.move();
-		while(ris==0 || ris==1){
+		while(ris==1 || ris==0){
 		try {
 			Thread.sleep(50);	
 			p.repaint();
@@ -33,7 +33,7 @@ public class Muovitore extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		}
+		}	
 		p.setMove(false);
 		man.update();
 		rp.refresh();

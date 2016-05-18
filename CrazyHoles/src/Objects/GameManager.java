@@ -33,11 +33,11 @@ public class GameManager
  
  	public void update()
  	{
- 		int c;
- 		c=ball.getD();
- 		if(c!=0 && c !=1)
+ 		
+ 		
+ 		if(ball.isIntersecate())
  		{
- 			points = this.getPoints() + c;
+ 			points = this.getPoints() + ball.getHolePoint();
  			balls.remove(0);
  			setBall(getOneBall());
  		}

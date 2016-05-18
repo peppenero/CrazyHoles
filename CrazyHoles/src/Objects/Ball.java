@@ -13,6 +13,8 @@ public class Ball extends Object implements HasScore {
 	private float deltaY,deltaX;
 	private List<Hole> holes;
 	private int d;
+	private boolean intersecate=false;
+	private int holePoint;
 	
 	public EquazioniCirconferenza getEquation()
 	{
@@ -89,9 +91,12 @@ public class Ball extends Object implements HasScore {
 			if(getD()!=1 && getD()!=0)
 			{
 				setX(getX()+deltaX);
-				setY(getY()+deltaY);
-				return getD();
+				setY(getY()+deltaY);										
+				setIntersecate(true);
+				holePoint=getD();
 			}
+			if(isIntersecate() && getY()<holes.get(i).getY())
+				return holePoint;
 			
 		}
 		if((((y+getBallRadius()+deltaY))>(world.getHeight()) ||((y-getBallRadius())+deltaY)<0))
@@ -234,6 +239,10 @@ public class Ball extends Object implements HasScore {
 					x1 = xy*y1 + xnoto;
 					x2 = xy*y2 + xnoto;	
 				}
+				System.out.println(x1);
+				System.out.println(y1);
+				System.out.println(x2);
+				System.out.println(y2);
 			}
 				
 			if((eq.getX1()>eq.getX2() && eq.getY1()<eq.getY2()) && (x1<eq.getX1() && x2<eq.getX1() && x1>eq.getX2() && x2>eq.getX2() && y1>eq.getY()))
@@ -300,6 +309,22 @@ public class Ball extends Object implements HasScore {
 			   
 				
 
+	}
+
+	public boolean isIntersecate() {
+		return intersecate;
+	}
+
+	public void setIntersecate(boolean intersecate) {
+		this.intersecate = intersecate;
+	}
+
+	public int getHolePoint() {
+		return holePoint;
+	}
+
+	public void setHolePoint(int holePoint) {
+		this.holePoint = holePoint;
 	}
 	
 	

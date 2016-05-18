@@ -49,7 +49,7 @@ public class LeftGamePanel extends JPanel
 	  	
 		this.gameManager = manager;
 		this.world=gameManager.getWorld();
-		setPreferredSize(new Dimension(800, 800));
+		setPreferredSize(new Dimension(1280, 800));
 		x= world.getWidth();
 		y= world.getHeight();
 		gameManager.start(); 
@@ -66,12 +66,6 @@ public class LeftGamePanel extends JPanel
 	        		
 	                switch (e.getKeyCode())
 	                { 
-	                    case KeyEvent.VK_UP:
-	                    {
-	                    	System.out.println("azzo");
-	                    	break;
-	                    }
-	                  
 	                    
 	                    case KeyEvent.VK_SPACE:
 	                    {
@@ -82,48 +76,23 @@ public class LeftGamePanel extends JPanel
 	            }
 			});
 	        
-	        addMouseListener(new MouseListener() {
-				
-				@Override
-				public void mouseReleased(MouseEvent arg0) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void mousePressed(MouseEvent arg0) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void mouseExited(MouseEvent arg0) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void mouseEntered(MouseEvent arg0) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void mouseClicked(MouseEvent arg0) {
-					// TODO Auto-generated method stub
-					switch(arg0.getButton())
-					{
-					 	case MouseEvent.BUTTON1:
-					 	{
-					 		if(!isMove())
+	        addMouseListener(new MouseAdapter() {
+	        	
+	        	public void mouseClicked(MouseEvent e)
+	        	{
+	        		switch(e.getButton())
+	        		{
+		        		case MouseEvent.BUTTON1:
+		        		{
+		        			if(!isMove())
 	                    		setMove(true);
 		                    	m=new Muovitore(gameManager.getBall(),LeftGamePanel.this,panel,gameManager);
 		                    	m.start();   
 	        	            break;
-					 	}
-					 		
-					}
-				}
+		        		}
+	        		}
+	        	}
+	        	
 			});
 	        		 
 		 addMouseMotionListener(new MouseMotionListener() {
@@ -161,6 +130,8 @@ public class LeftGamePanel extends JPanel
 		g.drawLine(0*10,y*10,x*10 ,y*10);
 		g.drawLine(x*10, 0*10, x*10, y*10);
 		g.drawLine(0*10,0*10,x*10,0*10);
+		
+		
 		
 		if(!isMove())
 		{
