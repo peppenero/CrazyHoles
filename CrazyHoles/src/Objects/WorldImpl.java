@@ -8,8 +8,8 @@ public class WorldImpl implements World {
    
     private ArrayList<Hole> holes;
     private List<Ball> balls;
-	private int height= 60;
-	private int width = 40;
+	private int height= 70;
+	private int width = 100;
 	
 	@Override
 	public void update() {

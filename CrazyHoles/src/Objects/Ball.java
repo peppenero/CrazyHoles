@@ -77,6 +77,8 @@ public class Ball extends Object implements HasScore {
 			setD(this.intersezioni(this,holes.get(i)));
 			if(getD()==1)
 			{
+				if(intersecate)
+					return holePoint;
 				deltaX=-deltaX;
 				deltaY=-deltaY;
 			}
@@ -108,6 +110,17 @@ public class Ball extends Object implements HasScore {
 		setY(getY()+deltaY);
 	
 		return 0;
+	}
+	
+	public void moveRight()
+	{
+		if((getX()+getBallRadius())<world.getWidth())
+			setX(getX()+1);
+	}
+	public void moveLeft()
+	{
+		if((getX()-getBallRadius())>0)
+			setX(getX()-1);
 	}
 	
 	public void setWorld(final World world)

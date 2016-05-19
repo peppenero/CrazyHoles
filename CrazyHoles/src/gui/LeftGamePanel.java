@@ -67,9 +67,15 @@ public class LeftGamePanel extends JPanel
 	                switch (e.getKeyCode())
 	                { 
 	                    
-	                    case KeyEvent.VK_SPACE:
+	                    case KeyEvent.VK_LEFT:
 	                    {
-	                    	
+	                    	gameManager.getBall().moveLeft();
+	                    	break;
+	                    }
+	                    case KeyEvent.VK_RIGHT:
+	                    {
+	                    	gameManager.getBall().moveRight();
+	                    	break;
 	                    }
 	                  }
 	                repaint();
