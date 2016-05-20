@@ -16,7 +16,9 @@ import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import Objects.Ball;
 import Objects.GameManager;
@@ -41,15 +43,15 @@ public class LeftGamePanel extends JPanel
 	private ImageProv prov ;
 	private int xMouse;
 	private int yMouse;
+	private boolean pause;
 	Muovitore m ;
 	Giratore g;
 	
   public LeftGamePanel(GameManager manager,final RightGamePanel panel) throws IOException 
 	{	
-	  	
-		this.gameManager = manager;
+	  	this.gameManager = manager;
 		this.world=gameManager.getWorld();
-		setPreferredSize(new Dimension(1280, 800));
+		setPreferredSize(new Dimension(1010, 800));
 		x= world.getWidth();
 		y= world.getHeight();
 		gameManager.start(); 
@@ -193,6 +195,19 @@ public class LeftGamePanel extends JPanel
 
 	public void setMove(boolean move) {
 		this.move = move;
+	}
+	
+	public void pause() throws InterruptedException
+	{
+		m.interrupt();
+	}
+
+	public boolean isPause() {
+		return pause;
+	}
+
+	public void setPause(boolean pause) {
+		this.pause = pause;
 	}
 	
 	

@@ -23,13 +23,16 @@ public class Muovitore extends Thread{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		int ris = ball.move();
-		while(ris==1 || ris==0){
+		int ris = ball.move();		
+		while((ris==1 || ris==0)){
 		try {
-			Thread.sleep(50);	
-			p.repaint();
-			ris=ball.move();
-		} catch (InterruptedException e) {
+			if(!p.isPause())
+			{
+				sleep(50);	
+				p.repaint();
+				ris=ball.move();
+			}
+			} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

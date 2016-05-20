@@ -1,6 +1,7 @@
 package gui;
 
 
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -56,6 +57,9 @@ public class MenuPanel extends JPanel {
 				try {
 					GameFrame.switchTo(frame.getGamePanel());
 				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FontFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

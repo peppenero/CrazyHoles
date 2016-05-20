@@ -10,8 +10,6 @@ public class GameManager
 {
 	
  	private WorldImpl world;
- 	private List<Ball> balls;
- 	private List<Hole> holes;
  	private Ball ball;
  	private int points=0;
  	private WorldManager wManager;
@@ -25,32 +23,27 @@ public class GameManager
  	
  	public void start() throws IOException
  	{
- 		
- 		balls=world.getBalls();
- 		holes=world.getHoles();
  		setBall(getOneBall());
   	}
  
  	public void update()
- 	{
- 		
- 		
+ 	{	
  		if(ball.isIntersecate())
  		{
  			points = this.getPoints() + ball.getHolePoint();
- 			balls.remove(0);
+ 			world.getBalls().remove(0);
  			setBall(getOneBall());
  		}
  	}
  	
  	public boolean areThereBalls()
  	{
- 		return balls.isEmpty();		
+ 		return world.getBalls().isEmpty();		
  	}
  		
  	public Ball getOneBall()
  	{
- 		Ball tmp=balls.get(0);;
+ 		Ball tmp=world.getBalls().get(0);;
  		return tmp;
  	}
 	public World getWorld() {
@@ -61,18 +54,18 @@ public class GameManager
 	}
 	
 	public List<Hole> getHoles() {
-		return holes;
+		return world.getHoles();
 	}
 	public void setHoles(List<Hole> holes) {
-		this.holes = holes;
+		world.setHoles((ArrayList<Hole>) holes);
 	}
 
 	public List<Ball> getBalls() {
-		return balls;
+		return world.getBalls();
 	}
 
 	public void setBalls(List<Ball> balls) {
-		this.balls = balls;
+		this.world.setBalls(balls);
 	}
 
 	public Ball getBall() {

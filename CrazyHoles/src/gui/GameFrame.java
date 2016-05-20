@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.FontFormatException;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.io.IOException;
@@ -18,7 +19,6 @@ public class GameFrame extends JFrame
 	private static JPanel contentPanel;
 	
 	private static MenuPanel menuPanel;
-	private static GamePanel gamePanel;
 	private static LevelEditorPanel levelEditorPanel;
 	private static SettingsPanel settingsPanel;
 	private static CreditsPanel creditsPanel;
@@ -60,7 +60,7 @@ public class GameFrame extends JFrame
 		frame.setVisible(true);
 	}
 	
-	public JPanel getGamePanel() throws IOException{
+	public JPanel getGamePanel() throws IOException, FontFormatException{
 		return new GamePanel(manager);
 	}
 	

@@ -4,6 +4,7 @@ package gui;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -40,11 +41,12 @@ public class GamePanel extends JPanel
 	RightGamePanel right;
 	GameManager manager;
 	
-	public GamePanel(GameManager manager) throws IOException
+	public GamePanel(GameManager manager) throws IOException, FontFormatException
 	{
 		this.manager = manager;
 		right = new RightGamePanel(manager);
 		left= new LeftGamePanel(manager,right);
+		right.setPanel(left);
 		layout = new FlowLayout(FlowLayout.LEFT,10,10);
 		setLayout(layout);
 		add(left);
