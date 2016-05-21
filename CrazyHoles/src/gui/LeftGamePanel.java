@@ -2,8 +2,11 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.event.KeyAdapter;
@@ -13,10 +16,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -47,7 +54,7 @@ public class LeftGamePanel extends JPanel
 	Muovitore m ;
 	Giratore g;
 	
-  public LeftGamePanel(GameManager manager,final RightGamePanel panel) throws IOException 
+  public LeftGamePanel(GameManager manager,final RightGamePanel panel) throws IOException, FontFormatException 
 	{	
 	  	this.gameManager = manager;
 		this.world=gameManager.getWorld();
@@ -57,6 +64,7 @@ public class LeftGamePanel extends JPanel
 		gameManager.start(); 
 		 holes = gameManager.getHoles();
 		 prov = new ImageProv();
+		 
 		/* g=new Giratore(holes, this);
 		 g.start();*/
 		 
@@ -92,11 +100,13 @@ public class LeftGamePanel extends JPanel
 	        		{
 		        		case MouseEvent.BUTTON1:
 		        		{
-		        			if(!isMove())
-	                    		setMove(true);
-		                    	m=new Muovitore(gameManager.getBall(),LeftGamePanel.this,panel,gameManager);
-		                    	m.start();   
-	        	            break;
+		        			if(!isMove() && !isPause())
+	                    		{
+			        				setMove(true);
+			                    	m=new Muovitore(gameManager.getBall(),LeftGamePanel.this,panel,gameManager);
+			                    	m.start();   
+	                    		}
+		                    	break;
 		        		}
 	        		}
 	        	}
@@ -107,7 +117,7 @@ public class LeftGamePanel extends JPanel
 			
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				if(!isMove())
+				if(!isMove() && !isPause())
 				{
 					xMouse=e.getX();
 					yMouse=e.getY();
@@ -139,7 +149,10 @@ public class LeftGamePanel extends JPanel
 		g.drawLine(x*10, 0*10, x*10, y*10);
 		g.drawLine(0*10,0*10,x*10,0*10);
 		
-		
+		if(isPause())
+		{
+			g.drawImage(prov.getPause(),200,200,this);
+		}
 		
 		if(!isMove())
 		{
@@ -184,10 +197,6 @@ public class LeftGamePanel extends JPanel
 		
 		g.dispose();
 	}
-	
-	public Ball getBall(){
-		return this.ball;
-	}
 
 	public boolean isMove() {
 		return move;
@@ -197,11 +206,6 @@ public class LeftGamePanel extends JPanel
 		this.move = move;
 	}
 	
-	public void pause() throws InterruptedException
-	{
-		m.interrupt();
-	}
-
 	public boolean isPause() {
 		return pause;
 	}

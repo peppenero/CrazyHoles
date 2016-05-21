@@ -16,6 +16,9 @@ public class ImageProv
 	private final Image blueBall;
 	private final Image yellowBall;
 	private final Image directionBall;
+	private final Image pause;
+	private final Image pauseS;
+	private boolean pauseFlag = false;
 	
 	
 	public ImageProv()
@@ -31,6 +34,8 @@ public class ImageProv
 		yellowBall = tk.getImage("images/PallaGialla.png");
 		blueBall = tk.getImage("images/PallaBlu.png");	
 		directionBall = tk.getImage("images/da.png");
+		pause = tk.getImage("images/PAUSE.png");
+		pauseS = tk.getImage("images/PAUSE1.png");
 	}
 	
 	public Image getHole(final String color)
@@ -88,6 +93,12 @@ public class ImageProv
 	public Image getDirectionBall()
 	{
 		return this.directionBall;
+	}
+
+	public Image getPause() {
+		
+			return pause;
+		
 	}
 	
 }

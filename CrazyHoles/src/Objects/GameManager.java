@@ -35,6 +35,11 @@ public class GameManager
  			setBall(getOneBall());
  		}
  	}
+ 	public void reset() throws IOException
+ 	{
+ 		points=0;
+ 		world=(WorldImpl) wManager.getworld();
+ 	}
  	
  	public boolean areThereBalls()
  	{

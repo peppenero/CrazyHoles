@@ -121,7 +121,7 @@ public class RightGamePanel extends JPanel
 				{
 					pause.setIcon(restartIcon);
 					pause.setRolloverIcon(restartSelected);
-					panel.setPause(true);
+					panel.setPause(true);					
 				}
 				else
 				{
@@ -129,10 +129,10 @@ public class RightGamePanel extends JPanel
 					pause.setRolloverIcon(pauseSelected);
 					panel.setPause(false);
 				}
-				
-				
+				panel.repaint();
 			}
 		});
+		
 		 this.add(numbersOfBall);	
 		 this.add(timelabel);
 		 this.add(pointsLabel);
