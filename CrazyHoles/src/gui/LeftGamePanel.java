@@ -54,8 +54,13 @@ public class LeftGamePanel extends JPanel
 	Muovitore m ;
 	Giratore g;
 	
-  public LeftGamePanel(GameManager manager,final RightGamePanel panel) throws IOException, FontFormatException 
+	private MenuPanel menuPanel;
+	
+  public LeftGamePanel(GameManager manager,final RightGamePanel panel,final MenuPanel menu) throws IOException, FontFormatException 
 	{	
+	  
+	  	menuPanel = menu;
+	  
 	  	this.gameManager = manager;
 		this.world=gameManager.getWorld();
 		setPreferredSize(new Dimension(1010, 800));
@@ -76,6 +81,12 @@ public class LeftGamePanel extends JPanel
 	        		
 	                switch (e.getKeyCode())
 	                { 
+	                	case KeyEvent.VK_ESCAPE:
+	                	{
+	                		System.out.println("Premuto");
+	                		GameFrame.switchTo(menu);
+	                		break;
+	                	}
 	                    
 	                    case KeyEvent.VK_LEFT:
 	                    {

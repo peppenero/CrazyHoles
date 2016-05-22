@@ -61,7 +61,7 @@ public class GameFrame extends JFrame
 	}
 	
 	public JPanel getGamePanel() throws IOException, FontFormatException{
-		return new GamePanel(manager);
+		return new GamePanel(manager,menuPanel);
 	}
 	
 	public JPanel getLevelEditorPanel(){
