@@ -30,7 +30,7 @@ public class Muovitore extends Thread{
 		try {
 			if(!p.isPause())
 			{
-				sleep(50);	
+				sleep(100);	
 				p.repaint();
 				ris=ball.move();
 			}

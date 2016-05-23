@@ -161,10 +161,10 @@ public class LeftGamePanel extends JPanel
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		g.setColor(Color.black);
-		g.drawLine(0*10, 0*10, 0*10, y*10);
-		g.drawLine(0*10,y*10,x*10 ,y*10);
-		g.drawLine(x*10, 0*10, x*10, y*10);
-		g.drawLine(0*10,0*10,x*10,0*10);
+		g.drawLine(1*10, 1*10, 1*10, y*10);
+		g.drawLine(1*10,y*10,x*10 ,y*10);
+		g.drawLine(x*10, 1*10, x*10, y*10);
+		g.drawLine(1*10,1*10,x*10,1*10);
 
 
 
@@ -198,7 +198,7 @@ public class LeftGamePanel extends JPanel
 		AffineTransform at1 = new AffineTransform();
 		at1.translate((gameManager.getBall().getX()-gameManager.getBall().getBallRadius())*10, (gameManager.getBall().getY()-gameManager.getBall().getBallRadius())*10);
 		g2.drawImage(prov.getBall(gameManager.getBall().getColor()),at1,this);
-
+	
 		for(int i=0; i<holes.size();i++)
 		{		
 			holeImage =  prov.getHole(holes.get(i).getColor()); 

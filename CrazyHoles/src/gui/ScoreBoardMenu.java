@@ -34,28 +34,31 @@ public class ScoreBoardMenu extends JDialog
 
 	public ScoreBoardMenu() throws IOException, FontFormatException
 	{
-		this.setModal(true);
-		layout = new BoxLayout(getContentPane(),BoxLayout.Y_AXIS);
-		this.setUndecorated(true);
-		this.setBackground(new Color(0, 0, 0,0));
-		this.setSize(800,300);
-		this.setLocation(200, 300);
-		this.setLayout(layout);
-		String filename = "images/ARCADE_N.TTF";
-		font = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
-		font=font.deriveFont(Font.TRUETYPE_FONT,30);
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		ge.registerFont(font);
-		back = new MenuButton(escIcon, escIcon);
-		back.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				dispose();
-			}
-		});
-		loadLabel();
+		   this.setModal(true);
+			layout = new BoxLayout(getContentPane(),BoxLayout.Y_AXIS);
+			this.setUndecorated(true);
+			this.setBackground(new Color(0,0,0,0));
+		   this.setSize(800,300);
+		   this.setLocation(200, 300);
+		   this.setLayout(layout);
+		   String filename = "images/ARCADE_N.TTF";
+			font = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
+			font=font.deriveFont(Font.TRUETYPE_FONT,30);
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(font);
+			back = new MenuButton(escIcon, escIcon);
+			back.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					dispose();
+				}
+			});
+			loadLabel();
+
+
 	}
 
 	private void loadLabel() throws IOException
@@ -72,7 +75,6 @@ public class ScoreBoardMenu extends JDialog
 		file.close();
 
 		label = new JLabel[palore.size()];
-		System.out.println(palore);
 
 		for(int i =0;i<label.length;i++)
 		{

@@ -49,7 +49,7 @@ public class GamePanel extends JPanel
 		right = new RightGamePanel(manager);
 		left= new LeftGamePanel(manager,right,menu);
 		right.setPanel(left);
-		layout = new FlowLayout(FlowLayout.LEFT,10,10);
+		layout = new FlowLayout(FlowLayout.LEFT);
 		setLayout(layout);
 		add(left);
 		add(right);

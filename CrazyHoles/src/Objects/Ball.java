@@ -67,8 +67,8 @@ public class Ball extends Object implements HasScore {
 		int x = (int) getX();
 		int y = (int) getY();
 		
-		if((((x+getBallRadius())+deltaX)>(world.getWidth()) || ((x-getBallRadius())+deltaX)<0))
-		{			
+		if((((x+getBallRadius())+deltaX)>(world.getWidth())) || (((x-getBallRadius())+deltaX)<0))
+		{
 			deltaX = -deltaX;
 		}
 		for(int i=0;i<holes.size();i++)
@@ -101,8 +101,9 @@ public class Ball extends Object implements HasScore {
 				return holePoint;
 			
 		}
-		if((((y+getBallRadius()+deltaY))>(world.getHeight()) ||((y-getBallRadius())+deltaY)<0))
+		if((((y+getBallRadius())+deltaY)>(world.getHeight())) ||(((y-getBallRadius())+deltaY)<0))
 		{
+			System.out.println(deltaY);
 			deltaY=-deltaY;
 		}
 		
