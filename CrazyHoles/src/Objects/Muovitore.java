@@ -1,6 +1,8 @@
 package Objects;
 
 
+import java.io.IOException;
+
 import gui.GameFrame;
 import gui.GamePanel;
 import gui.LeftGamePanel;
@@ -38,7 +40,12 @@ public class Muovitore extends Thread{
 		}
 		}	
 		p.setMove(false);
-		man.update();
+		try {
+			man.update();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		rp.refresh();
 		p.repaint();
 	}

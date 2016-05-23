@@ -56,7 +56,7 @@ public class RightGamePanel extends JPanel
 	private MenuButton pause;
 	private LeftGamePanel panel;
 
-	public RightGamePanel(GameManager manager) throws FontFormatException, IOException {
+	public RightGamePanel(final GameManager manager) throws FontFormatException, IOException {
 		// TODO Auto-generated constructor stub		
 		this.manager=manager;
 		layout = new BoxLayout(this,BoxLayout.Y_AXIS);
@@ -130,6 +130,16 @@ public class RightGamePanel extends JPanel
 					panel.setPause(false);
 				}
 				panel.repaint();
+			}
+		});
+		
+		scoreboard.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+					panel.scoreboard.setVisible(true);				
 			}
 		});
 		

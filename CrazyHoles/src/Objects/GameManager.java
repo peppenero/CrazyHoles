@@ -13,12 +13,18 @@ public class GameManager
  	private Ball ball;
  	private int points=0;
  	private WorldManager wManager;
- 	
- 	
+ 	private int level=0;
+ 	 	
  	public GameManager() throws IOException
  	{
  		 wManager = new WorldManager();
- 		world = (WorldImpl) wManager.getworld();
+ 		world = (WorldImpl) wManager.getworld(level);
+ 	}
+ 	public GameManager(int level) throws IOException
+ 	{
+ 		this.setLevel(level);
+ 		wManager = new WorldManager();
+ 		world = (WorldImpl) wManager.getworld(this.level);
  	}
  	
  	public void start() throws IOException
@@ -26,8 +32,13 @@ public class GameManager
  		setBall(getOneBall());
   	}
  
- 	public void update()
+ 	public void update() throws IOException
  	{	
+ 		if(wManager.areThereBalls())
+ 		{
+ 			level++;
+ 			world=(WorldImpl) wManager.getworld(level);
+ 		}
  		if(ball.isIntersecate())
  		{
  			points = this.getPoints() + ball.getHolePoint();
@@ -38,13 +49,10 @@ public class GameManager
  	public void reset() throws IOException
  	{
  		points=0;
- 		world=(WorldImpl) wManager.getworld();
+ 		world=(WorldImpl) wManager.getworld(level);
  	}
  	
- 	public boolean areThereBalls()
- 	{
- 		return world.getBalls().isEmpty();		
- 	}
+
  		
  	public Ball getOneBall()
  	{
@@ -88,4 +96,13 @@ public class GameManager
 	public void setPoints(int points) {
 		this.points = points;
 	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 }

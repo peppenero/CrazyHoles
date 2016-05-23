@@ -15,8 +15,8 @@ public class WorldManager {
 	private ArrayList<Hole> holes = new ArrayList<>();
 	private List<Ball> balls = new ArrayList<>();
 	ArrayList<String> color = new ArrayList<>();
-	
-	private World loadWorld() throws IOException
+	private int livello;
+	private World loadWorld(int level) throws IOException
 	{
 		world = new WorldImpl();
 		BufferedReader br = new BufferedReader(new FileReader("images/defaultWorld.txt"));
@@ -53,9 +53,13 @@ public class WorldManager {
 		return world;
 	}
 	
-	public World getworld() throws IOException
+	public World getworld(int level) throws IOException
 	{
-		return loadWorld();
+		return loadWorld(level);
 	}
 
+ 	public boolean areThereBalls()
+ 	{
+ 		return world.getBalls().isEmpty();		
+ 	}
 }

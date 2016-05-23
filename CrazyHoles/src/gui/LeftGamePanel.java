@@ -51,8 +51,10 @@ public class LeftGamePanel extends JPanel
 	private int xMouse;
 	private int yMouse;
 	private boolean pause;
-	Muovitore m ;
-	Giratore g;
+	private Muovitore m ;
+	private Giratore g;
+	ScoreBoardMenu scoreboard;
+	
 	
   public LeftGamePanel(GameManager manager,final RightGamePanel panel) throws IOException, FontFormatException 
 	{	
@@ -64,7 +66,9 @@ public class LeftGamePanel extends JPanel
 		gameManager.start(); 
 		 holes = gameManager.getHoles();
 		 prov = new ImageProv();
-		 
+		 scoreboard = new ScoreBoardMenu();
+		
+	
 		/* g=new Giratore(holes, this);
 		 g.start();*/
 		 
@@ -79,11 +83,13 @@ public class LeftGamePanel extends JPanel
 	                    
 	                    case KeyEvent.VK_LEFT:
 	                    {
+	                    	if(!isMove() && !isPause())
 	                    	gameManager.getBall().moveLeft();
 	                    	break;
 	                    }
 	                    case KeyEvent.VK_RIGHT:
 	                    {
+	                    	if(!isMove() && !isPause())
 	                    	gameManager.getBall().moveRight();
 	                    	break;
 	                    }
@@ -148,6 +154,8 @@ public class LeftGamePanel extends JPanel
 		g.drawLine(0*10,y*10,x*10 ,y*10);
 		g.drawLine(x*10, 0*10, x*10, y*10);
 		g.drawLine(0*10,0*10,x*10,0*10);
+		
+	
 		
 		if(isPause())
 		{
