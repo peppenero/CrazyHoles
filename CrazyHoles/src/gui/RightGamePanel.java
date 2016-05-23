@@ -39,8 +39,8 @@ public class RightGamePanel extends JPanel
 	private GameManager manager;
 	private Icon pauseIcon = new ImageIcon("images/Pause.png");
 	private Icon pauseSelected = new ImageIcon("images/PauseSelected.png");
-	private Icon exitIcon = new ImageIcon("images/exit_.png");
-	private Icon exitSelected = new ImageIcon("images/selectedExit.png");
+	private Icon exitIcon = new ImageIcon("images/exit.png");
+	private Icon exitSelected = new ImageIcon("images/exit_selected.png");
 	private Icon scoreIcon = new ImageIcon("images/scoreBoard.png");
 	private Icon scoreSelected = new ImageIcon("images/selectedScoreBoard.png");
 	private Icon restartIcon = new ImageIcon("images/restart.png");
@@ -113,7 +113,7 @@ public class RightGamePanel extends JPanel
 			}
 			
 		});
-		 setBackground(Color.black);
+		setOpaque(false);
 		pause.addActionListener(new ActionListener() {
 			
 			@Override

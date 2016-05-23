@@ -54,83 +54,84 @@ public class LeftGamePanel extends JPanel
 	private Muovitore m ;
 	private Giratore g;
 	ScoreBoardMenu scoreboard;
-	
-	
+
+
 	private MenuPanel menuPanel;
-	
-  public LeftGamePanel(GameManager manager,final RightGamePanel panel,final MenuPanel menu) throws IOException, FontFormatException 
+
+	public LeftGamePanel(GameManager manager,final RightGamePanel panel,final MenuPanel menu) throws IOException, FontFormatException 
 	{	
-	  
-	  	menuPanel = menu;
-	  
-	  	this.gameManager = manager;
+
+		menuPanel = menu;
+
+		this.gameManager = manager;
 		this.world=gameManager.getWorld();
 		setPreferredSize(new Dimension(810,800));
 		x= world.getWidth();
 		y= world.getHeight();
 		gameManager.start(); 
-		 holes = gameManager.getHoles();
-		 prov = new ImageProv();
-		 scoreboard = new ScoreBoardMenu();
-		
-	
+		holes = gameManager.getHoles();
+		prov = new ImageProv();
+		scoreboard = new ScoreBoardMenu();
+
+		setOpaque(false);
+
 		/* g=new Giratore(holes, this);
 		 g.start();*/
-		 
-	        addKeyListener(new  KeyAdapter() 
-	        {
-	        	
-	        	public void keyPressed(final KeyEvent e)
-	            {
-	        		
-	                switch (e.getKeyCode())
-	                { 
-	                	case KeyEvent.VK_ESCAPE:
-	                	{
-	                		GameFrame.switchTo(menu);
-	                		break;
-	                	}
-	                    
-	                    case KeyEvent.VK_LEFT:
-	                    {
-	                    	if(!isMove() && !isPause())
-	                    	gameManager.getBall().moveLeft();
-	                    	break;
-	                    }
-	                    case KeyEvent.VK_RIGHT:
-	                    {
-	                    	if(!isMove() && !isPause())
-	                    	gameManager.getBall().moveRight();
-	                    	break;
-	                    }
-	                  }
-	                repaint();
-	            }
-			});
-	        
-	        addMouseListener(new MouseAdapter() {
-	        	
-	        	public void mouseClicked(MouseEvent e)
-	        	{
-	        		switch(e.getButton())
-	        		{
-		        		case MouseEvent.BUTTON1:
-		        		{
-		        			if(!isMove() && !isPause())
-	                    		{
-			        				setMove(true);
-			                    	m=new Muovitore(gameManager.getBall(),LeftGamePanel.this,panel,gameManager);
-			                    	m.start();   
-	                    		}
-		                    	break;
-		        		}
-	        		}
-	        	}
-	        	
-			});
-	        		 
-		 addMouseMotionListener(new MouseMotionListener() {
-			
+
+		addKeyListener(new  KeyAdapter() 
+		{
+
+			public void keyPressed(final KeyEvent e)
+			{
+
+				switch (e.getKeyCode())
+				{ 
+				case KeyEvent.VK_ESCAPE:
+				{
+					GameFrame.switchTo(menu);
+					break;
+				}
+
+				case KeyEvent.VK_LEFT:
+				{
+					if(!isMove() && !isPause())
+						gameManager.getBall().moveLeft();
+					break;
+				}
+				case KeyEvent.VK_RIGHT:
+				{
+					if(!isMove() && !isPause())
+						gameManager.getBall().moveRight();
+					break;
+				}
+				}
+				repaint();
+			}
+		});
+
+		addMouseListener(new MouseAdapter() {
+
+			public void mouseClicked(MouseEvent e)
+			{
+				switch(e.getButton())
+				{
+				case MouseEvent.BUTTON1:
+				{
+					if(!isMove() && !isPause())
+					{
+						setMove(true);
+						m=new Muovitore(gameManager.getBall(),LeftGamePanel.this,panel,gameManager);
+						m.start();   
+					}
+					break;
+				}
+				}
+			}
+
+		});
+
+		addMouseMotionListener(new MouseMotionListener() {
+
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				if(!isMove() && !isPause())
@@ -143,17 +144,17 @@ public class LeftGamePanel extends JPanel
 					repaint();
 				}
 			}
-			
+
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-		
+
 		});
-		
+
 	}
-	
+
 	@Override
 	protected void paintComponent(Graphics g) 
 	{
@@ -164,40 +165,40 @@ public class LeftGamePanel extends JPanel
 		g.drawLine(0*10,y*10,x*10 ,y*10);
 		g.drawLine(x*10, 0*10, x*10, y*10);
 		g.drawLine(0*10,0*10,x*10,0*10);
-		
-	
-		
+
+
+
 		if(isPause())
 		{
 			g.drawImage(prov.getPause(),200,200,this);
 		}
-		
+
 		if(!isMove())
 		{
-		float directionX = (gameManager.getBall().getX());
-		float directionY = (gameManager.getBall().getY());
-		
-		float deltaX = gameManager.getBall().getDeltaX(); 
-		int bal = 0;
-		
-		while(bal <30)		
-		{	
-			AffineTransform at2 = new AffineTransform();
-			if(directionX+deltaX <= 0 || directionX+deltaX >= world.getWidth())
-				deltaX= -deltaX;
-			
-			at2.translate((directionX+deltaX)*10-prov.getDirectionBall().getWidth(this)/2, (directionY+gameManager.getBall().getDeltaY())*10);
-			g2.drawImage(prov.getDirectionBall(),at2,this);		
-			directionX+=(deltaX);
-			directionY+=(gameManager.getBall().getDeltaY());
-			bal++;
+			float directionX = (gameManager.getBall().getX());
+			float directionY = (gameManager.getBall().getY());
+
+			float deltaX = gameManager.getBall().getDeltaX(); 
+			int bal = 0;
+
+			while(bal <30)		
+			{	
+				AffineTransform at2 = new AffineTransform();
+				if(directionX+deltaX <= 0 || directionX+deltaX >= world.getWidth())
+					deltaX= -deltaX;
+
+				at2.translate((directionX+deltaX)*10-prov.getDirectionBall().getWidth(this)/2, (directionY+gameManager.getBall().getDeltaY())*10);
+				g2.drawImage(prov.getDirectionBall(),at2,this);		
+				directionX+=(deltaX);
+				directionY+=(gameManager.getBall().getDeltaY());
+				bal++;
+			}
 		}
-		}
-		
+
 		AffineTransform at1 = new AffineTransform();
 		at1.translate((gameManager.getBall().getX()-gameManager.getBall().getBallRadius())*10, (gameManager.getBall().getY()-gameManager.getBall().getBallRadius())*10);
 		g2.drawImage(prov.getBall(gameManager.getBall().getColor()),at1,this);
-		
+
 		for(int i=0; i<holes.size();i++)
 		{		
 			holeImage =  prov.getHole(holes.get(i).getColor()); 
@@ -207,12 +208,12 @@ public class LeftGamePanel extends JPanel
 			at.translate(-holeImage.getWidth(this)/2, -holeImage.getHeight(this)/2);
 			g2.drawImage(holeImage,at,this);
 		}
-		
-		
+
+
 		requestFocus();
-	  	setFocusable(true);
+		setFocusable(true);
 		requestFocusInWindow();
-		
+
 		g.dispose();
 	}
 
@@ -223,7 +224,7 @@ public class LeftGamePanel extends JPanel
 	public void setMove(boolean move) {
 		this.move = move;
 	}
-	
+
 	public boolean isPause() {
 		return pause;
 	}
@@ -231,6 +232,6 @@ public class LeftGamePanel extends JPanel
 	public void setPause(boolean pause) {
 		this.pause = pause;
 	}
-	
-	
+
+
 }
