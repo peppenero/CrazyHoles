@@ -37,14 +37,14 @@ public class RightGamePanel extends JPanel
 	 */
 	private static final long serialVersionUID = 1L;
 	private GameManager manager;
-	private Icon pauseIcon = new ImageIcon("images/Pause.png");
-	private Icon pauseSelected = new ImageIcon("images/PauseSelected.png");
+	private Icon pauseIcon = new ImageIcon("images/pause.png");
+	private Icon pauseSelected = new ImageIcon("images/pause_selected.png");
 	private Icon exitIcon = new ImageIcon("images/exit.png");
 	private Icon exitSelected = new ImageIcon("images/exit_selected.png");
-	private Icon scoreIcon = new ImageIcon("images/scoreBoard.png");
-	private Icon scoreSelected = new ImageIcon("images/selectedScoreBoard.png");
-	private Icon restartIcon = new ImageIcon("images/restart.png");
-	private Icon restartSelected = new ImageIcon("images/restartSelected.png");
+	private Icon scoreIcon = new ImageIcon("images/scoreboard.png");
+	private Icon scoreSelected = new ImageIcon("images/scoreboard_selected.png");
+	private Icon restartIcon = new ImageIcon("images/resume.png");
+	private Icon restartSelected = new ImageIcon("images/resume_selected.png");
  	private JLabel timelabel;
 	private JLabel pointsLabel;
 	private Timer timer;
