@@ -232,6 +232,10 @@ public class LeftGamePanel extends JPanel
 	public void setPause(boolean pause) {
 		this.pause = pause;
 	}
-
+	
+	//VIENE RICHIAMATA DAL RIGHTPANEL PER TORNARE AL MENU
+	public void exitToMenu(){
+		GameFrame.switchTo(menuPanel);
+	}
 
 }

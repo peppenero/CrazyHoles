@@ -145,6 +145,15 @@ public class RightGamePanel extends JPanel
 			}
 		});
 		
+		exit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				panel.exitToMenu();
+			}
+		});
+		
 		 this.add(numbersOfBall);	
 		 this.add(timelabel);
 		 this.add(pointsLabel);
