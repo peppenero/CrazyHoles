@@ -40,12 +40,13 @@ public class GamePanel extends JPanel
 	LeftGamePanel left;
 	RightGamePanel right;
 	GameManager manager;
+	MenuPanel menuPanel;
 	
-	public GamePanel(GameManager manager) throws IOException, FontFormatException
+	public GamePanel(GameManager manager,final MenuPanel menu) throws IOException, FontFormatException
 	{
 		this.manager = manager;
 		right = new RightGamePanel(manager);
-		left= new LeftGamePanel(manager,right);
+		left= new LeftGamePanel(manager,right,menu);
 		right.setPanel(left);
 		layout = new FlowLayout(FlowLayout.LEFT,10,10);
 		setLayout(layout);
