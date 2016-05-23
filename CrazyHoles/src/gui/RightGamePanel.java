@@ -60,8 +60,9 @@ public class RightGamePanel extends JPanel
 		// TODO Auto-generated constructor stub		
 		this.manager=manager;
 		layout = new BoxLayout(this,BoxLayout.Y_AXIS);
+		this.setAlignmentX(LEFT_ALIGNMENT);
 		this.setLayout(layout);
-		setPreferredSize(new Dimension(500,800));
+		setPreferredSize(new Dimension(450,800));
 		exit = new MenuButton(exitIcon,exitSelected);
 		scoreboard = new  MenuButton(scoreIcon, scoreSelected);
 		pause = new MenuButton(pauseIcon, pauseSelected);	

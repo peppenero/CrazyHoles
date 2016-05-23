@@ -1,6 +1,7 @@
 
 package Objects;
 
+import java.awt.Frame;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,16 +11,20 @@ public class GameManager
 {
 	
  	private WorldImpl world;
+ 	private int heigth;
+ 	private int width;
  	private Ball ball;
  	private int points=0;
  	private WorldManager wManager;
  	private int level=0;
  	 	
  	public GameManager() throws IOException
- 	{
+ 	{		
  		 wManager = new WorldManager();
- 		world = (WorldImpl) wManager.getworld(level);
+ 		world = (WorldImpl) wManager.getworld(level); 		
  	}
+ 	
+ 	
  	public GameManager(int level) throws IOException
  	{
  		this.setLevel(level);
@@ -103,6 +108,26 @@ public class GameManager
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+
+	public int getHeigth() {
+		return heigth;
+	}
+
+
+	public void setHeigth(int heigth) {
+		this.heigth = heigth;
+	}
+
+
+	public int getWidth() {
+		return width;
+	}
+
+
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
 }

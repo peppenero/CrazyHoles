@@ -16,17 +16,22 @@ public class WorldManager {
 	private List<Ball> balls = new ArrayList<>();
 	ArrayList<String> color = new ArrayList<>();
 	private int livello;
-	private World loadWorld(int level) throws IOException
+	
+	
+	public WorldManager()
 	{
 		world = new WorldImpl();
+	}
+	
+	private World loadWorld(int level) throws IOException
+	{
+		
 		BufferedReader br = new BufferedReader(new FileReader("images/defaultWorld.txt"));
 		
 		String buffer;
 		buffer = br.readLine();
 		while(buffer!=null)
 		{
-			
-		
 			String[] az = buffer.split(" ");
 			if(az[0].equals("buca"))
 			{	

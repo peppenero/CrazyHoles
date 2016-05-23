@@ -65,7 +65,7 @@ public class LeftGamePanel extends JPanel
 	  
 	  	this.gameManager = manager;
 		this.world=gameManager.getWorld();
-		setPreferredSize(new Dimension(1010, 800));
+		setPreferredSize(new Dimension(810,800));
 		x= world.getWidth();
 		y= world.getHeight();
 		gameManager.start(); 
