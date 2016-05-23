@@ -51,6 +51,7 @@ public class RightGamePanel extends JPanel
 	private long startTime;
 	private JLabel numbersOfBall;
 	private BoxLayout layout;
+	
 	private MenuButton exit;
 	private MenuButton scoreboard;
 	private MenuButton pause;
