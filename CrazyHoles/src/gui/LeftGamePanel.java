@@ -87,7 +87,6 @@ public class LeftGamePanel extends JPanel
 	                { 
 	                	case KeyEvent.VK_ESCAPE:
 	                	{
-	                		System.out.println("Premuto");
 	                		GameFrame.switchTo(menu);
 	                		break;
 	                	}
