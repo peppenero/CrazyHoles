@@ -26,7 +26,7 @@ public class Muovitore extends Thread{
 	public void run() {
 		// TODO Auto-generated method stub
 		int ris = ball.move();		
-		while((ris==1 || ris==0)){
+		while((ris==1 || ris==0) && !p.isBackFlag()){
 		try {
 			if(!p.isPause())
 			{
@@ -38,13 +38,18 @@ public class Muovitore extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		}	
+		}
+		if(p.isBackFlag())
+		{
+			man.reset();
+		}
 		p.setMove(false);
 		try {
 			man.update();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		
 		}
 		rp.refresh();
 		p.repaint();

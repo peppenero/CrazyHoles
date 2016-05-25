@@ -50,6 +50,10 @@ public class GamePanel extends JPanel
 		left= new LeftGamePanel(manager,right,menu);
 		right.setPanel(left);
 		layout = new FlowLayout(FlowLayout.LEFT);
+		if(left.isBackFlag())
+		{
+			
+		}
 		setLayout(layout);
 		add(left);
 		add(right);

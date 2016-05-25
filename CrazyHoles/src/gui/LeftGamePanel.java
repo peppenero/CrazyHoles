@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -45,12 +44,13 @@ public class LeftGamePanel extends JPanel
 	private boolean move = false;
 	private GameManager gameManager;
 	private Image holeImage;
-	private Ball ball;
 	private List<Hole> holes;
 	private ImageProv prov ;
 	private int xMouse;
 	private int yMouse;
 	private boolean pause;
+	private boolean sBoardActive;
+	private boolean backFlag=false;
 	private Muovitore m ;
 	private Giratore g;
 	ScoreBoardMenu scoreboard;
@@ -71,8 +71,7 @@ public class LeftGamePanel extends JPanel
 		gameManager.start(); 
 		holes = gameManager.getHoles();
 		prov = new ImageProv();
-		scoreboard = new ScoreBoardMenu();
-
+		scoreboard = new ScoreBoardMenu(this);
 		setOpaque(false);
 
 		/* g=new Giratore(holes, this);
@@ -102,6 +101,12 @@ public class LeftGamePanel extends JPanel
 				{
 					if(!isMove() && !isPause())
 						gameManager.getBall().moveRight();
+					break;
+				}
+				case KeyEvent.VK_SPACE:
+				{
+					gameManager.getBall().move();
+					repaint();
 					break;
 				}
 				}
@@ -161,14 +166,13 @@ public class LeftGamePanel extends JPanel
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		g.setColor(Color.black);
-		g.drawLine(1*10, 1*10, 1*10, y*10);
-		g.drawLine(1*10,y*10,x*10 ,y*10);
-		g.drawLine(x*10, 1*10, x*10, y*10);
-		g.drawLine(1*10,1*10,x*10,1*10);
+		g.drawLine(0*10, 0*10, 0*10, y*10);
+		g.drawLine(0*10,y*10,x*10 ,y*10);
+		g.drawLine(x*10, 0*10, x*10, y*10);
+		g.drawLine(0*10,0*10,x*10,0*10);
 
-
-
-		if(isPause())
+		
+		if(isPause() && !issBoardActive())
 		{
 			g.drawImage(prov.getPause(),200,200,this);
 		}
@@ -184,7 +188,7 @@ public class LeftGamePanel extends JPanel
 			while(bal <30)		
 			{	
 				AffineTransform at2 = new AffineTransform();
-				if(directionX+deltaX <= 0 || directionX+deltaX >= world.getWidth())
+				if(directionX+deltaX <= 1 || directionX+deltaX >= world.getWidth())
 					deltaX= -deltaX;
 
 				at2.translate((directionX+deltaX)*10-prov.getDirectionBall().getWidth(this)/2, (directionY+gameManager.getBall().getDeltaY())*10);
@@ -196,7 +200,8 @@ public class LeftGamePanel extends JPanel
 		}
 
 		AffineTransform at1 = new AffineTransform();
-		at1.translate((gameManager.getBall().getX()-gameManager.getBall().getBallRadius())*10, (gameManager.getBall().getY()-gameManager.getBall().getBallRadius())*10);
+		at1.translate(((gameManager.getBall().getX())*10)-prov.getBall(gameManager.getBall().getColor()).getWidth(this)/2, ((gameManager.getBall().getY())*10)-prov.getBall(gameManager.getBall().getColor()).getHeight(this)/2);
+		at1.scale(1,1);
 		g2.drawImage(prov.getBall(gameManager.getBall().getColor()),at1,this);
 	
 		for(int i=0; i<holes.size();i++)
@@ -208,7 +213,6 @@ public class LeftGamePanel extends JPanel
 			at.translate(-holeImage.getWidth(this)/2, -holeImage.getHeight(this)/2);
 			g2.drawImage(holeImage,at,this);
 		}
-
 
 		requestFocus();
 		setFocusable(true);
@@ -236,6 +240,22 @@ public class LeftGamePanel extends JPanel
 	//VIENE RICHIAMATA DAL RIGHTPANEL PER TORNARE AL MENU
 	public void exitToMenu(){
 		GameFrame.switchTo(menuPanel);
+	}
+
+	public boolean issBoardActive() {
+		return sBoardActive;
+	}
+
+	public void setsBoardActive(boolean sBoardActive) {
+		this.sBoardActive = sBoardActive;
+	}
+
+	public boolean isBackFlag() {
+		return backFlag;
+	}
+
+	public void setBackFlag(boolean backFlag) {
+		this.backFlag = backFlag;
 	}
 
 }

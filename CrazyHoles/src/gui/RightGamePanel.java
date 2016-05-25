@@ -139,10 +139,13 @@ public class RightGamePanel extends JPanel
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-					panel.scoreboard.setVisible(true);				
+				// TODO Auto-generated method stub	
+					panel.setPause(true);
+					panel.setsBoardActive(true);
+					panel.scoreboard.setVisible(true);	
+					panel.repaint();
 			}
+		
 		});
 		
 		exit.addActionListener(new ActionListener() {
@@ -150,7 +153,8 @@ public class RightGamePanel extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				panel.exitToMenu();
+				panel.setBackFlag(true);
+				panel.exitToMenu();		
 			}
 		});
 		
@@ -171,7 +175,9 @@ public class RightGamePanel extends JPanel
 	public void refresh()
 	{
 		String s = String.format("%02d",manager.getPoints());
+		String number = String.format("%02d", manager.getBalls().size());
 		pointsLabel.setText(s);
+		numbersOfBall.setText(number);
 	}
 
 	public LeftGamePanel getPanel() {

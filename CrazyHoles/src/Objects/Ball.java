@@ -6,7 +6,7 @@ import common.*;
 
 public class Ball extends Object implements HasScore {
 	
-	private double velocity=1.50;
+	private double velocity=1;
 	private int score=0;
 	private float corner=350;
 	private int ballRadius = 1;
@@ -31,8 +31,7 @@ public class Ball extends Object implements HasScore {
 		deltaY = (float) (velocity * (float) Math.sin(Math.toRadians(corner)));
 		this.setX((world.getWidth()/2)-getBallRadius());
 		this.setY(world.getHeight()-getBallRadius());
-		holes=world.getHoles();
-		
+		holes=world.getHoles();		
 	}
 	
 	public float getDeltaX()
@@ -64,11 +63,24 @@ public class Ball extends Object implements HasScore {
 	public  int move()
 	{
 		
-		int x = (int) getX();
-		int y = (int) getY();
+		float x =getX();
+		float y =getY();
+		float diff=0;
+		boolean xflag=false;
+		boolean yflag=false;
 		
 		if((((x+getBallRadius())+deltaX)>(world.getWidth())) || (((x-getBallRadius())+deltaX)<0))
 		{
+			if((deltaX<0) && (x-getBallRadius()>0))
+			{
+				xflag = true;
+				diff= (getX()-(x-getBallRadius()));
+			}
+			if((deltaX>0) && (x+getBallRadius()<world.getWidth()) )
+			{
+				xflag = true;
+				diff = getX() + (world.getWidth() - (x+getBallRadius()));
+			}
 			deltaX = -deltaX;
 		}
 		for(int i=0;i<holes.size();i++)
@@ -103,13 +115,36 @@ public class Ball extends Object implements HasScore {
 		}
 		if((((y+getBallRadius())+deltaY)>(world.getHeight())) ||(((y-getBallRadius())+deltaY)<0))
 		{
-			System.out.println(deltaY);
+			if((deltaY<0) && (y-getBallRadius()>0))
+			{
+				yflag = true;
+				diff = getY()-(y-getBallRadius());
+			}
+			if(deltaY>0 && (y+getBallRadius())<world.getHeight())
+			{
+				yflag=true;
+				diff = getY()+(world.getHeight()-(y+getBallRadius()));
+			}
 			deltaY=-deltaY;
 		}
 		
-		setX(getX()+deltaX);
-		setY(getY()+deltaY);
-	
+		if(!xflag && !yflag)
+		{
+			setX(getX()+deltaX);
+			setY(getY()+deltaY);
+		}
+		else{
+			if(xflag)
+			{
+				setX(diff);
+				setY(getY()+deltaY);
+			}
+			if(yflag)
+			{
+				setX(getX()+deltaX);
+				setY(diff);
+			}
+		}
 		return 0;
 	}
 	
@@ -253,10 +288,7 @@ public class Ball extends Object implements HasScore {
 					x1 = xy*y1 + xnoto;
 					x2 = xy*y2 + xnoto;	
 				}
-				System.out.println(x1);
-				System.out.println(y1);
-				System.out.println(x2);
-				System.out.println(y2);
+				
 			}
 				
 			if((eq.getX1()>eq.getX2() && eq.getY1()<eq.getY2()) && (x1<eq.getX1() && x2<eq.getX1() && x1>eq.getX2() && x2>eq.getX2() && y1>eq.getY()))
@@ -341,6 +373,10 @@ public class Ball extends Object implements HasScore {
 		this.holePoint = holePoint;
 	}
 	
-	
+	public void reset()
+	{
+		this.setX((world.getWidth()/2)-getBallRadius());
+		this.setY(world.getHeight()-getBallRadius());
+	}
 	
 }

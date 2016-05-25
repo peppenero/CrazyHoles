@@ -51,14 +51,11 @@ public class GameManager
  			setBall(getOneBall());
  		}
  	}
- 	public void reset() throws IOException
+ 	public void reset()
  	{
- 		points=0;
- 		world=(WorldImpl) wManager.getworld(level);
+ 		ball.reset();
  	}
- 	
-
- 		
+ 	 		
  	public Ball getOneBall()
  	{
  		Ball tmp=world.getBalls().get(0);;
