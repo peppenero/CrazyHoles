@@ -45,6 +45,8 @@ public class RightGamePanel extends JPanel
 	private Icon scoreSelected = new ImageIcon("images/scoreboard_selected.png");
 	private Icon restartIcon = new ImageIcon("images/resume.png");
 	private Icon restartSelected = new ImageIcon("images/resume_selected.png");
+	private Icon scoreBoardDeselected = new ImageIcon("images/scoreboard_deselected.png");
+	private Icon pauseDeselected = new ImageIcon("images/pause_deselected.png");
  	private JLabel timelabel;
 	private JLabel pointsLabel;
 	private Timer timer;
@@ -66,7 +68,9 @@ public class RightGamePanel extends JPanel
 		setPreferredSize(new Dimension(450,800));
 		exit = new MenuButton(exitIcon,exitSelected);
 		scoreboard = new  MenuButton(scoreIcon, scoreSelected);
-		pause = new MenuButton(pauseIcon, pauseSelected);	
+		pause = new MenuButton(pauseIcon, pauseSelected);
+		pause.setDisabledIcon(pauseDeselected);
+		scoreboard.setDisabledIcon(scoreBoardDeselected);
 		String filename = "images/ARCADE_N.TTF";
 		Font font = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
 		font=font.deriveFont(Font.TRUETYPE_FONT,30);
@@ -123,12 +127,16 @@ public class RightGamePanel extends JPanel
 				{
 					pause.setIcon(restartIcon);
 					pause.setRolloverIcon(restartSelected);
+					timer.stop();
+					scoreboard.setEnabled(false);
 					panel.setPause(true);					
 				}
 				else
 				{
 					pause.setIcon(pauseIcon);
 					pause.setRolloverIcon(pauseSelected);
+					scoreboard.setEnabled(true);
+					timer.restart();
 					panel.setPause(false);
 				}
 				panel.repaint();
@@ -142,7 +150,7 @@ public class RightGamePanel extends JPanel
 				// TODO Auto-generated method stub	
 					panel.setPause(true);
 					panel.setsBoardActive(true);
-					panel.scoreboard.setVisible(true);	
+					panel.getScoreboard().setVisible(true);	
 					panel.repaint();
 			}
 		
@@ -180,6 +188,7 @@ public class RightGamePanel extends JPanel
 		pointsLabel.setText(s);
 		numbersOfBall.setText(number);
 	}
+	
 
 	public LeftGamePanel getPanel() {
 		return panel;

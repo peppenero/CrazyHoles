@@ -53,7 +53,9 @@ public class LeftGamePanel extends JPanel
 	private boolean backFlag=false;
 	private Muovitore m ;
 	private Giratore g;
-	ScoreBoardMenu scoreboard;
+	private ScoreBoardMenu scoreboard;
+	private boolean firstClick = true;
+	
 
 
 	private MenuPanel menuPanel;
@@ -71,7 +73,7 @@ public class LeftGamePanel extends JPanel
 		gameManager.start(); 
 		holes = gameManager.getHoles();
 		prov = new ImageProv();
-		scoreboard = new ScoreBoardMenu(this);
+		setScoreboard(new ScoreBoardMenu(this));
 		setOpaque(false);
 
 		/* g=new Giratore(holes, this);
@@ -103,13 +105,7 @@ public class LeftGamePanel extends JPanel
 						gameManager.getBall().moveRight();
 					break;
 				}
-				case KeyEvent.VK_SPACE:
-				{
-					gameManager.getBall().move();
-					repaint();
-					break;
-				}
-				}
+			}
 				repaint();
 			}
 		});
@@ -122,6 +118,11 @@ public class LeftGamePanel extends JPanel
 				{
 				case MouseEvent.BUTTON1:
 				{
+					if(firstClick)
+					{
+						firstClick=false;
+						panel.init();
+					}
 					if(!isMove() && !isPause())
 					{
 						setMove(true);
@@ -264,6 +265,22 @@ public class LeftGamePanel extends JPanel
 
 	public void setMenuPanel(MenuPanel menuPanel) {
 		this.menuPanel = menuPanel;
+	}
+
+	public ScoreBoardMenu getScoreboard() {
+		return scoreboard;
+	}
+
+	public void setScoreboard(ScoreBoardMenu scoreboard) {
+		this.scoreboard = scoreboard;
+	}
+
+	public boolean isFirstClick() {
+		return firstClick;
+	}
+
+	public void setFirstClick(boolean firstClick) {
+		this.firstClick = firstClick;
 	}
 
 }
