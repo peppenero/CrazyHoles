@@ -36,7 +36,6 @@ public class GameFrame extends JFrame
 		this.setResizable(true);
 		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		manager = new GameManager();
 	}
 	
 	
@@ -61,7 +60,13 @@ public class GameFrame extends JFrame
 	}
 	
 	public JPanel getGamePanel() throws IOException, FontFormatException{
-		return new GamePanel(manager,menuPanel);
+		
+		if(menuPanel.isResumable())
+			return new GamePanel(manager,menuPanel);
+		else{
+			manager = new GameManager();		
+			return new GamePanel(manager,menuPanel);
+		}
 	}
 	
 	public JPanel getLevelEditorPanel(){

@@ -61,7 +61,7 @@ public class LeftGamePanel extends JPanel
 	public LeftGamePanel(GameManager manager,final RightGamePanel panel,final MenuPanel menu) throws IOException, FontFormatException 
 	{	
 
-		menuPanel = menu;
+		setMenuPanel(menu);
 
 		this.gameManager = manager;
 		this.world=gameManager.getWorld();
@@ -239,7 +239,7 @@ public class LeftGamePanel extends JPanel
 	
 	//VIENE RICHIAMATA DAL RIGHTPANEL PER TORNARE AL MENU
 	public void exitToMenu(){
-		GameFrame.switchTo(menuPanel);
+		GameFrame.switchTo(getMenuPanel());
 	}
 
 	public boolean issBoardActive() {
@@ -256,6 +256,14 @@ public class LeftGamePanel extends JPanel
 
 	public void setBackFlag(boolean backFlag) {
 		this.backFlag = backFlag;
+	}
+
+	public MenuPanel getMenuPanel() {
+		return menuPanel;
+	}
+
+	public void setMenuPanel(MenuPanel menuPanel) {
+		this.menuPanel = menuPanel;
 	}
 
 }

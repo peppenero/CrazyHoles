@@ -21,10 +21,11 @@ import javax.swing.JPanel;
 public class MenuPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private boolean resumable = false;
 	GameFrame frame;
 	
 	Image background;
-
+	
 	Icon newGame = new ImageIcon("images/newgame.png");
 	Icon newGameSelected = new ImageIcon("images/newgame_selected.png");
 	MenuButton newGameButton = new MenuButton(newGame,newGameSelected);
@@ -40,9 +41,13 @@ public class MenuPanel extends JPanel {
 	Icon exit = new ImageIcon("images/exit.png");
 	Icon exitSelected = new ImageIcon("images/exit_selected.png");
 	MenuButton exitButton = new MenuButton(exit,exitSelected);
-
+	Icon resume = new ImageIcon("images/resume.png");
+	Icon resumeSelected = new ImageIcon("images/resume_selected.png");
+	MenuButton resumeButton = new MenuButton(resume,resumeSelected);
+	Icon resumeDeselected = new ImageIcon("images/resume_deselected.png");
 	public MenuPanel(GameFrame frameSup){
 		frame=frameSup;
+		resumeButton.setDisabledIcon(resumeDeselected);
 		
 		setLayout(null);
 
@@ -54,6 +59,7 @@ public class MenuPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				setResumable(false);
 				try {
 					GameFrame.switchTo(frame.getGamePanel());
 				} catch (IOException e1) {
@@ -103,10 +109,23 @@ public class MenuPanel extends JPanel {
 			}
 		});
 
-
+		resumeButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				try {
+					GameFrame.switchTo(frame.getGamePanel());
+				} catch (IOException | FontFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 
 
 		add(newGameButton);
+		add(resumeButton);
 		add(levelEditorButton);
 		add(settingsButton);
 		add(creditsButton);
@@ -119,12 +138,31 @@ public class MenuPanel extends JPanel {
 		settingsButton.setBounds(100,450,newGame.getIconWidth(),newGame.getIconHeight());
 		creditsButton.setBounds(100,530,newGame.getIconWidth(),newGame.getIconHeight());
 		exitButton.setBounds(100,610,newGame.getIconWidth(),newGame.getIconHeight());
+		resumeButton.setBounds(100,690,newGame.getIconWidth(),newGame.getIconWidth());
 	}
 
 
 	public void paintComponent(Graphics g){
 
 		g.drawImage(background, 0, 0, this);
+		if(!isResumable())
+		{
+			resumeButton.setEnabled(false);
+		}
+		else
+		{
+			resumeButton.setEnabled(true);
+		}
 
+	}
+
+
+	public boolean isResumable() {
+		return resumable;
+	}
+
+
+	public void setResumable(boolean resumable) {
+		this.resumable = resumable;
 	}
 }

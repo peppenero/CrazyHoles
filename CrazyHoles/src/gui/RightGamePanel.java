@@ -153,6 +153,7 @@ public class RightGamePanel extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				panel.getMenuPanel().setResumable(true);
 				panel.setBackFlag(true);
 				panel.exitToMenu();		
 			}
