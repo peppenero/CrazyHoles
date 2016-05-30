@@ -8,6 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.MouseInfo;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -24,6 +26,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
+import javax.swing.Timer;
 import javax.swing.border.Border;
 
 import Objects.Ball;
@@ -44,7 +48,6 @@ public class LeftGamePanel extends JPanel
 	private boolean move = false;
 	private GameManager gameManager;
 	private Image holeImage;
-	private List<Hole> holes;
 	private ImageProv prov ;
 	private int xMouse;
 	private int yMouse;
@@ -55,30 +58,28 @@ public class LeftGamePanel extends JPanel
 	private Giratore g;
 	private ScoreBoardMenu scoreboard;
 	private boolean firstClick = true;
-	
-
+	Giratore giratore;
+	private RightGamePanel panel;
 
 	private MenuPanel menuPanel;
 
 	public LeftGamePanel(GameManager manager,final RightGamePanel panel,final MenuPanel menu) throws IOException, FontFormatException 
 	{	
-
+		this.panel=panel;
 		setMenuPanel(menu);
-
 		this.gameManager = manager;
 		this.world=gameManager.getWorld();
 		setPreferredSize(new Dimension(810,800));
 		x= world.getWidth();
 		y= world.getHeight();
 		gameManager.start(); 
-		holes = gameManager.getHoles();
 		prov = new ImageProv();
 		setScoreboard(new ScoreBoardMenu(this));
 		setOpaque(false);
+		giratore = new Giratore(this, gameManager);
+		giratore.start();
 
-		/* g=new Giratore(holes, this);
-		 g.start();*/
-
+		
 		addKeyListener(new  KeyAdapter() 
 		{
 
@@ -166,61 +167,70 @@ public class LeftGamePanel extends JPanel
 	{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
-		g.setColor(Color.black);
-		g.drawLine(0*10, 0*10, 0*10, y*10);
-		g.drawLine(0*10,y*10,x*10 ,y*10);
-		g.drawLine(x*10, 0*10, x*10, y*10);
-		g.drawLine(0*10,0*10,x*10,0*10);
-
+	
 		
-		if(isPause() && !issBoardActive())
-		{
-			g.drawImage(prov.getPause(),200,200,this);
-		}
-
-		if(!isMove())
-		{
-			float directionX = (gameManager.getBall().getX());
-			float directionY = (gameManager.getBall().getY());
-
-			float deltaX = gameManager.getBall().getDeltaX(); 
-			int bal = 0;
-
-			while(bal <30)		
-			{	
-				AffineTransform at2 = new AffineTransform();
-				if(directionX+deltaX <= 1 || directionX+deltaX >= world.getWidth())
-					deltaX= -deltaX;
-
-				at2.translate((directionX+deltaX)*10-prov.getDirectionBall().getWidth(this)/2, (directionY+gameManager.getBall().getDeltaY())*10);
-				g2.drawImage(prov.getDirectionBall(),at2,this);		
-				directionX+=(deltaX);
-				directionY+=(gameManager.getBall().getDeltaY());
-				bal++;
+		if(gameManager.isLevelOver())
+			{
+				panel.pause();
+				drawLevel(g);
+			}		
+		else
+		{	
+			g.setColor(Color.black);
+			g.drawLine(0*10, 0*10, 0*10, y*10);
+			g.drawLine(0*10,y*10,x*10 ,y*10);
+			g.drawLine(x*10, 0*10, x*10, y*10);
+			g.drawLine(0*10,0*10,x*10,0*10);
+		
+			if(isPause() && !isBoardActive())
+			{
+				g.drawImage(prov.getPause(),200,200,this);
+			}
+	
+			if(!isMove())
+			{
+				float directionX = (gameManager.getBall().getX());
+				float directionY = (gameManager.getBall().getY());
+	
+				float deltaX = gameManager.getBall().getDeltaX(); 
+				int bal = 0;
+	
+				while(bal <30)		
+				{	
+					AffineTransform at2 = new AffineTransform();
+					if(directionX+deltaX <= 0 || directionX+deltaX >= world.getWidth())
+						deltaX= -deltaX;
+	
+					at2.translate((directionX+deltaX)*10-prov.getDirectionBall().getWidth(this)/2, (directionY+gameManager.getBall().getDeltaY())*10);
+					g2.drawImage(prov.getDirectionBall(),at2,this);		
+					directionX+=(deltaX);
+					directionY+=(gameManager.getBall().getDeltaY());
+					bal++;
+				}
+			}
+	
+			AffineTransform at1 = new AffineTransform();
+			at1.translate(((gameManager.getBall().getX())*10)-prov.getBall(gameManager.getBall().getColor()).getWidth(this)/2, ((gameManager.getBall().getY())*10)-prov.getBall(gameManager.getBall().getColor()).getHeight(this)/2);
+			at1.scale(1,1);
+			g2.drawImage(prov.getBall(gameManager.getBall().getColor()),at1,this);
+		
+			for(int i=0; i<gameManager.getHoles().size();i++)
+			{		
+				holeImage =  prov.getHole(gameManager.getHoles().get(i).getColor()); 
+				AffineTransform at = new AffineTransform();
+				at.translate((gameManager.getHoles().get(i).getX())*10,(gameManager.getHoles().get(i).getY())*10);
+				at.rotate(Math.toRadians(gameManager.getHoles().get(i).getAngle()));
+				at.translate(-holeImage.getWidth(this)/2, -holeImage.getHeight(this)/2);
+				g2.drawImage(holeImage,at,this);
 			}
 		}
-
-		AffineTransform at1 = new AffineTransform();
-		at1.translate(((gameManager.getBall().getX())*10)-prov.getBall(gameManager.getBall().getColor()).getWidth(this)/2, ((gameManager.getBall().getY())*10)-prov.getBall(gameManager.getBall().getColor()).getHeight(this)/2);
-		at1.scale(1,1);
-		g2.drawImage(prov.getBall(gameManager.getBall().getColor()),at1,this);
-	
-		for(int i=0; i<holes.size();i++)
-		{		
-			holeImage =  prov.getHole(holes.get(i).getColor()); 
-			AffineTransform at = new AffineTransform();
-			at.translate((holes.get(i).getX())*10,(holes.get(i).getY())*10);
-			at.rotate(Math.toRadians(holes.get(i).getAngle()));
-			at.translate(-holeImage.getWidth(this)/2, -holeImage.getHeight(this)/2);
-			g2.drawImage(holeImage,at,this);
-		}
-
 		requestFocus();
 		setFocusable(true);
 		requestFocusInWindow();
 
 		g.dispose();
 	}
+	
 
 	public boolean isMove() {
 		return move;
@@ -242,8 +252,9 @@ public class LeftGamePanel extends JPanel
 	public void exitToMenu(){
 		GameFrame.switchTo(getMenuPanel());
 	}
+	
 
-	public boolean issBoardActive() {
+	public boolean isBoardActive() {
 		return sBoardActive;
 	}
 
@@ -282,5 +293,22 @@ public class LeftGamePanel extends JPanel
 	public void setFirstClick(boolean firstClick) {
 		this.firstClick = firstClick;
 	}
+	public void reset()
+	{
+		gameManager.setLevelOver(false);
+		giratore = new Giratore(this, gameManager);
+		giratore.start();
+		firstClick=true;
+	}
+	public void drawLevel(final Graphics g)
+	{
+		g.drawImage(prov.level,300,200, this);
+	}
+	public RightGamePanel getPanel() {
+		return panel;
+	}
 
+	public void setPanel(RightGamePanel panel) {
+		this.panel = panel;
+	}
 }

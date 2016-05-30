@@ -6,8 +6,8 @@ import java.util.List;
 public class WorldImpl implements World {
 	
    
-    private ArrayList<Hole> holes;
-    private List<Ball> balls;
+    private ArrayList<Hole> holes = new ArrayList<>();
+    private List<Ball> balls = new ArrayList<>();
 	private int height= 60;
 	private int width = 80;
 	
@@ -15,6 +15,10 @@ public class WorldImpl implements World {
 	public void update() {
 		
 
+	}
+	public void reset()
+	{
+		holes.clear();
 	}
 
 	public int getHeight() {

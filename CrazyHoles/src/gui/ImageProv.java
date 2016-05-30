@@ -19,7 +19,7 @@ public class ImageProv
 	private final Image pause;
 	private final Image pauseS;
 	private boolean pauseFlag = false;
-	
+	Image level;
 	
 	public ImageProv()
 	{
@@ -36,6 +36,7 @@ public class ImageProv
 		directionBall = tk.getImage("images/da.png");
 		pause = tk.getImage("images/PAUSE.png");
 		pauseS = tk.getImage("images/PAUSE1.png");
+		level = tk.getImage("images/level2.png");
 	}
 	
 	public Image getHole(final String color)

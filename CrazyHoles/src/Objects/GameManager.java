@@ -11,13 +11,12 @@ public class GameManager
 {
 	
  	private WorldImpl world;
- 	private int heigth;
- 	private int width;
  	private Ball ball;
  	private int points=0;
  	private WorldManager wManager;
  	private int level=0;
- 	 	
+ 	private boolean levelOver= false;
+
  	public GameManager() throws IOException
  	{		
  		 wManager = new WorldManager();
@@ -38,21 +37,24 @@ public class GameManager
   	}
  
  	public void update() throws IOException
- 	{	
- 		if(wManager.areThereBalls())
- 		{
- 			level++;
- 			world=(WorldImpl) wManager.getworld(level);
- 		}
- 		if(ball.isIntersecate())
- 		{
- 			points = this.getPoints() + ball.getHolePoint();
- 			world.getBalls().remove(0);
- 			setBall(getOneBall());
- 		}
+ 	{			
+ 			if(ball.isIntersecate())
+		 		{
+		 			points = this.getPoints() + ball.getHolePoint();
+		 		
+		 			
+			 			world.getBalls().remove(0);
+			 			if(world.getBalls().isEmpty())
+			 	 		{
+			 				setLevelOver(true);
+			 	 			level++;
+			 	 			world=(WorldImpl) wManager.getworld(level);	
+			 	 		}			 			
+			 				setBall(getOneBall());
+			 		}	 		
  	}
  	public void reset()
- 	{
+ 	{		
  		ball.reset();
  	}
  	 		
@@ -70,9 +72,6 @@ public class GameManager
 	
 	public List<Hole> getHoles() {
 		return world.getHoles();
-	}
-	public void setHoles(List<Hole> holes) {
-		world.setHoles((ArrayList<Hole>) holes);
 	}
 
 	public List<Ball> getBalls() {
@@ -108,23 +107,13 @@ public class GameManager
 	}
 
 
-	public int getHeigth() {
-		return heigth;
+	public boolean isLevelOver() {
+		return levelOver;
 	}
 
 
-	public void setHeigth(int heigth) {
-		this.heigth = heigth;
-	}
-
-
-	public int getWidth() {
-		return width;
-	}
-
-
-	public void setWidth(int width) {
-		this.width = width;
+	public void setLevelOver(boolean levelOver) {
+		this.levelOver = levelOver;
 	}
 
 }

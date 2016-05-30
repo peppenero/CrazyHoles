@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -53,6 +52,7 @@ public class RightGamePanel extends JPanel
 	private long startTime;
 	private JLabel numbersOfBall;
 	private BoxLayout layout;
+	private boolean started=false;
 	
 	private MenuButton exit;
 	private MenuButton scoreboard;
@@ -127,7 +127,10 @@ public class RightGamePanel extends JPanel
 				{
 					pause.setIcon(restartIcon);
 					pause.setRolloverIcon(restartSelected);
-					timer.stop();
+					if(started)
+					{
+						timer.stop();
+					}
 					scoreboard.setEnabled(false);
 					panel.setPause(true);					
 				}
@@ -136,8 +139,11 @@ public class RightGamePanel extends JPanel
 					pause.setIcon(pauseIcon);
 					pause.setRolloverIcon(pauseSelected);
 					scoreboard.setEnabled(true);
-					timer.restart();
-					panel.setPause(false);
+					if(started)
+					{	
+						timer.restart();
+					}
+						panel.setPause(false);
 				}
 				panel.repaint();
 			}
@@ -150,6 +156,10 @@ public class RightGamePanel extends JPanel
 				// TODO Auto-generated method stub	
 					panel.setPause(true);
 					panel.setsBoardActive(true);
+					if(started)
+					{
+						timer.stop();
+					}
 					panel.getScoreboard().setVisible(true);	
 					panel.repaint();
 			}
@@ -179,6 +189,7 @@ public class RightGamePanel extends JPanel
 	{
 		startTime = System.currentTimeMillis();
 		timer.start();
+		started = true;
 	}
 	
 	public void refresh()
@@ -188,7 +199,14 @@ public class RightGamePanel extends JPanel
 		pointsLabel.setText(s);
 		numbersOfBall.setText(number);
 	}
-	
+	public void pause()
+	{
+		timer.stop();
+	}
+	public void restart()
+	{
+		timer.restart();
+	}
 
 	public LeftGamePanel getPanel() {
 		return panel;

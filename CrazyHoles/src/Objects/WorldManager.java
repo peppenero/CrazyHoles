@@ -12,10 +12,7 @@ import java.util.List;
 public class WorldManager {
 	
 	private WorldImpl  world;
-	private ArrayList<Hole> holes = new ArrayList<>();
-	private List<Ball> balls = new ArrayList<>();
 	ArrayList<String> color = new ArrayList<>();
-	private int livello;
 	
 	
 	public WorldManager()
@@ -25,8 +22,10 @@ public class WorldManager {
 	
 	private World loadWorld(int level) throws IOException
 	{
+		world.reset();
+		String filename = new String("images/world"+level+".txt");
 		
-		BufferedReader br = new BufferedReader(new FileReader("images/defaultWorld.txt"));
+		BufferedReader br = new BufferedReader(new FileReader(filename));
 		
 		String buffer;
 		buffer = br.readLine();
@@ -36,16 +35,15 @@ public class WorldManager {
 			if(az[0].equals("buca"))
 			{	
 				Hole h = new Hole(Integer.parseInt(az[4]), Integer.parseInt(az[2]),Integer.parseInt(az[3]), 5, world, az[1]);
-				holes.add(h);
+				world.getHoles().add(h);
 				color.add(az[1]);
 			}
 			if(az[0].equals("numeroPalle"))
 			{
-				world.setHoles(holes);
 				for(int i=0;i<Integer.parseInt(az[1]);i++)
 				{
 					Ball b = new Ball(10,color,world);
-					balls.add(b);
+					world.getBalls().add(b);
 				}
 			}
 			buffer=br.readLine();
@@ -53,8 +51,6 @@ public class WorldManager {
 		
 		
 		br.close();
-		
-		world.setBalls(balls);
 		return world;
 	}
 	
