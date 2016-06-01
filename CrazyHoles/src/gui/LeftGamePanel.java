@@ -60,6 +60,7 @@ public class LeftGamePanel extends JPanel
 	private boolean firstClick = true;
 	Giratore giratore;
 	private RightGamePanel panel;
+	private PointsLabel pointsLabel;
 
 	private MenuPanel menuPanel;
 
@@ -68,6 +69,7 @@ public class LeftGamePanel extends JPanel
 		this.panel=panel;
 		setMenuPanel(menu);
 		this.gameManager = manager;
+		pointsLabel = new PointsLabel(gameManager,this);
 		this.world=gameManager.getWorld();
 		setPreferredSize(new Dimension(810,800));
 		x= world.getWidth();
@@ -106,6 +108,22 @@ public class LeftGamePanel extends JPanel
 						gameManager.getBall().moveRight();
 					break;
 				}
+				case KeyEvent.VK_SPACE:
+				{
+					gameManager.getBall().move();
+					try {
+						gameManager.update();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					break;
+				}
+				case KeyEvent.VK_UP:
+				{
+					gameManager.getHoles().get(0).move();
+					break;
+				}
 			}
 				repaint();
 			}
@@ -122,6 +140,7 @@ public class LeftGamePanel extends JPanel
 					if(firstClick)
 					{
 						firstClick=false;
+						gameManager.getTimer().init();
 						panel.init();
 					}
 					if(!isMove() && !isPause())
@@ -169,59 +188,79 @@ public class LeftGamePanel extends JPanel
 		Graphics2D g2 = (Graphics2D)g;
 	
 		
-		if(gameManager.isLevelOver())
-			{
-				panel.pause();
-				drawLevel(g);
-			}		
-		else
-		{	
-			g.setColor(Color.black);
-			g.drawLine(0*10, 0*10, 0*10, y*10);
-			g.drawLine(0*10,y*10,x*10 ,y*10);
-			g.drawLine(x*10, 0*10, x*10, y*10);
-			g.drawLine(0*10,0*10,x*10,0*10);
-		
-			if(isPause() && !isBoardActive())
-			{
-				g.drawImage(prov.getPause(),200,200,this);
-			}
-	
-			if(!isMove())
-			{
-				float directionX = (gameManager.getBall().getX());
-				float directionY = (gameManager.getBall().getY());
-	
-				float deltaX = gameManager.getBall().getDeltaX(); 
-				int bal = 0;
-	
-				while(bal <30)		
-				{	
-					AffineTransform at2 = new AffineTransform();
-					if(directionX+deltaX <= 0 || directionX+deltaX >= world.getWidth())
-						deltaX= -deltaX;
-	
-					at2.translate((directionX+deltaX)*10-prov.getDirectionBall().getWidth(this)/2, (directionY+gameManager.getBall().getDeltaY())*10);
-					g2.drawImage(prov.getDirectionBall(),at2,this);		
-					directionX+=(deltaX);
-					directionY+=(gameManager.getBall().getDeltaY());
-					bal++;
+		if(gameManager.isGameOver())
+		{
+			pointsLabel.setVisible(true);
+			try {
+				if(pointsLabel.isSetted())
+				{
+					gameManager.addPosition();
+					pointsLabel.setVisible(false);
+					exitToMenu();
+					
 				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-	
-			AffineTransform at1 = new AffineTransform();
-			at1.translate(((gameManager.getBall().getX())*10)-prov.getBall(gameManager.getBall().getColor()).getWidth(this)/2, ((gameManager.getBall().getY())*10)-prov.getBall(gameManager.getBall().getColor()).getHeight(this)/2);
-			at1.scale(1,1);
-			g2.drawImage(prov.getBall(gameManager.getBall().getColor()),at1,this);
+			
+		}
+		else
+		{
+			if(gameManager.isLevelOver())
+				{
+					panel.pause();
+					drawLevel(g);
+				}		
+			else
+			{	
+				g.setColor(Color.black);
+				g.drawLine(0*10, 0*10, 0*10, y*10);
+				g.drawLine(0*10,y*10,x*10 ,y*10);
+				g.drawLine(x*10, 0*10, x*10, y*10);
+				g.drawLine(0*10,0*10,x*10,0*10);
+			
+				if(isPause() && !isBoardActive())
+				{
+					g.drawImage(prov.getPause(),200,200,this);
+				}
 		
-			for(int i=0; i<gameManager.getHoles().size();i++)
-			{		
-				holeImage =  prov.getHole(gameManager.getHoles().get(i).getColor()); 
-				AffineTransform at = new AffineTransform();
-				at.translate((gameManager.getHoles().get(i).getX())*10,(gameManager.getHoles().get(i).getY())*10);
-				at.rotate(Math.toRadians(gameManager.getHoles().get(i).getAngle()));
-				at.translate(-holeImage.getWidth(this)/2, -holeImage.getHeight(this)/2);
-				g2.drawImage(holeImage,at,this);
+				if(!isMove())
+				{
+					float directionX = (gameManager.getBall().getX());
+					float directionY = (gameManager.getBall().getY());
+		
+					float deltaX = gameManager.getBall().getDeltaX(); 
+					int bal = 0;
+		
+					while(bal <30)		
+					{	
+						AffineTransform at2 = new AffineTransform();
+						if(directionX+deltaX <= 0 || directionX+deltaX >= world.getWidth())
+							deltaX= -deltaX;
+		
+						at2.translate((directionX+deltaX)*10-prov.getDirectionBall().getWidth(this)/2, (directionY+gameManager.getBall().getDeltaY())*10);
+						g2.drawImage(prov.getDirectionBall(),at2,this);		
+						directionX+=(deltaX);
+						directionY+=(gameManager.getBall().getDeltaY());
+						bal++;
+					}
+				}
+		
+				AffineTransform at1 = new AffineTransform();
+				at1.translate(((gameManager.getBall().getX())*10)-prov.getBall(gameManager.getBall().getColor()).getWidth(this)/2, ((gameManager.getBall().getY())*10)-prov.getBall(gameManager.getBall().getColor()).getHeight(this)/2);
+				at1.scale(1,1);
+				g2.drawImage(prov.getBall(gameManager.getBall().getColor()),at1,this);
+			
+				for(int i=0; i<gameManager.getHoles().size();i++)
+				{		
+					holeImage =  prov.getHole(gameManager.getHoles().get(i).getColor()); 
+					AffineTransform at = new AffineTransform();
+					at.translate((gameManager.getHoles().get(i).getX())*10,(gameManager.getHoles().get(i).getY())*10);
+					at.rotate(Math.toRadians(gameManager.getHoles().get(i).getAngle()));
+					at.translate(-holeImage.getWidth(this)/2, -holeImage.getHeight(this)/2);
+					g2.drawImage(holeImage,at,this);
+				}
 			}
 		}
 		requestFocus();

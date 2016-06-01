@@ -31,7 +31,8 @@ public class Ball extends Object implements HasScore {
 		deltaY = (float) (velocity * (float) Math.sin(Math.toRadians(corner)));
 		this.setX((world.getWidth()/2)-getBallRadius());
 		this.setY(world.getHeight()-getBallRadius());
-		holes=world.getHoles();		
+		holes=world.getHoles();	
+		System.out.println(this.color);
 	}
 	
 	public float getDeltaX()
@@ -87,6 +88,7 @@ public class Ball extends Object implements HasScore {
 		{  
 			
 			setD(this.intersezioni(this,holes.get(i)));
+			System.out.println(getD());
 			if(getD()==1)
 			{
 				if(intersecate)
@@ -267,7 +269,7 @@ public class Ball extends Object implements HasScore {
 			}
 			else
 			{
-				if(ball.getColor()!=eq.getColor())
+				if(!(ball.getColor().equals(eq.getColor())))
 				{
 					return 1;
 				}

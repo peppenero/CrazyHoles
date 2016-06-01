@@ -46,7 +46,12 @@ public class WorldManager {
 					world.getBalls().add(b);
 				}
 			}
+			if(buffer.equals("ultimo"))
+			{
+				world.setLastLevel(true);
+			}
 			buffer=br.readLine();
+			
 		}
 		
 		

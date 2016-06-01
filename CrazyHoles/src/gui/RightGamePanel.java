@@ -103,16 +103,14 @@ public class RightGamePanel extends JPanel
 		 numbersOfBall.setAlignmentX(CENTER_ALIGNMENT);
 		 numbersOfBall.setAlignmentY(TOP_ALIGNMENT);
 		 numbersOfBall.setFont(font);
+		 String s = String.format("%02d:%02d.%d", manager.getTimer().getMinutes(),manager.getTimer().getSeconds(),manager.getTimer().getDecSeconds());
+			timelabel.setText(s);
 		 timer = new Timer(100, new ActionListener() {
 		
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				long diffTime = System.currentTimeMillis() - startTime;
-				int decSeconds = (int) (diffTime % 1000 /100);
-				int seconds = (int) (diffTime /1000 %60);
-				int minutes = (int) (diffTime /60000 %60);
-				String s = String.format("%02d:%02d.%d", minutes,seconds,decSeconds);
+				 String s = String.format("%02d:%02d.%d", manager.getTimer().getMinutes(),manager.getTimer().getSeconds(),manager.getTimer().getDecSeconds());
 				timelabel.setText(s);
 				
 			}

@@ -26,7 +26,7 @@ public class Muovitore extends Thread{
 	public void run() {
 		// TODO Auto-generated method stub
 		int ris = ball.move();		
-		while((ris==1 || ris==0) && !p.isBackFlag()){
+		while((ris==1 || ris==0) && !p.isBackFlag() && !man.isGameOver()){
 		try {
 			if(!p.isPause())
 			{

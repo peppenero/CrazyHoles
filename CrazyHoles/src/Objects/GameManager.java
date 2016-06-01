@@ -16,16 +16,23 @@ public class GameManager
  	private WorldManager wManager;
  	private int level=0;
  	private boolean levelOver= false;
-
+ 	private MyTimer timer;
+ 	private boolean gameOver=false;
+ 	private Ranking ranking;
+ 	private String player;
+ 	
  	public GameManager() throws IOException
- 	{		
+ 	{
+ 		setRanking(new Ranking());
  		 wManager = new WorldManager();
- 		world = (WorldImpl) wManager.getworld(level); 		
+ 		world = (WorldImpl) wManager.getworld(level); 	
+ 		timer= new MyTimer();
  	}
  	
  	
  	public GameManager(int level) throws IOException
  	{
+ 		setRanking(new Ranking());
  		this.setLevel(level);
  		wManager = new WorldManager();
  		world = (WorldImpl) wManager.getworld(this.level);
@@ -40,18 +47,32 @@ public class GameManager
  	{			
  			if(ball.isIntersecate())
 		 		{
-		 			points = this.getPoints() + ball.getHolePoint();
+		 			points = this.getPoints() + ball.getHolePoint()+ball.getScore();
 		 		
 		 			
 			 			world.getBalls().remove(0);
 			 			if(world.getBalls().isEmpty())
 			 	 		{
-			 				setLevelOver(true);
-			 	 			level++;
-			 	 			world=(WorldImpl) wManager.getworld(level);	
-			 	 		}			 			
+			 				if(world.isLastLevel())
+			 				{
+			 					setGameOver(true);
+			 				}
+			 				if(!isGameOver())
+			 				{
+				 				setLevelOver(true);
+				 	 			level++;
+				 	 			world=(WorldImpl) wManager.getworld(level);	
+			 				}
+			 			}			 			
+			 			if(!isGameOver())
+			 			{
 			 				setBall(getOneBall());
-			 		}	 		
+			 			}
+			 		}
+ 			if(isGameOver())
+ 			{
+ 				timer.stop();
+ 			}
  	}
  	public void reset()
  	{		
@@ -114,6 +135,52 @@ public class GameManager
 
 	public void setLevelOver(boolean levelOver) {
 		this.levelOver = levelOver;
+	}
+
+
+	public MyTimer getTimer() {
+		return timer;
+	}
+
+
+	public void setTimer(MyTimer timer) {
+		this.timer = timer;
+	}
+
+
+	public boolean isGameOver() {
+		return gameOver;
+	}
+
+
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
+	}
+
+
+	public Ranking getRanking() {
+		return ranking;
+	}
+
+
+	public void setRanking(Ranking ranking) {
+		this.ranking = ranking;
+	}
+	public void addPosition() throws IOException
+	{
+		Position p = new Position(getPlayer(), getPoints());
+		this.ranking.addPosition(p);
+		ranking.writeRanking();
+	}
+
+
+	public String getPlayer() {
+		return player;
+	}
+
+
+	public void setPlayer(String player) {
+		this.player = player;
 	}
 
 }
