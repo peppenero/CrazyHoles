@@ -1,10 +1,7 @@
 
 package Objects;
 
-import java.awt.Frame;
-import java.awt.Point;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameManager
@@ -49,7 +46,7 @@ public class GameManager
 		 		{
 		 			points = this.getPoints() + ball.getHolePoint()+ball.getScore();
 		 		
-		 			
+		 				//QUI C'È un problema(INDEX OUT OF BOUNDS)
 			 			world.getBalls().remove(0);
 			 			if(world.getBalls().isEmpty())
 			 	 		{

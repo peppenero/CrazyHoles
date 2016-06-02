@@ -52,16 +52,17 @@ public class Ranking
 		while(buffer!=null)
 		{
 			String[] string = buffer.split(" ");			
-			Position pos = new Position(string[0],Integer.parseInt(string[1]));
+			Position pos = new Position(string[0],Integer.parseInt(string[string.length-1]));
 			this.addPosition(pos);
 			buffer=file.readLine();
 		}
 		
 		file.close();
 	}
+	
 	public void writeRanking() throws IOException
 	{
-		BufferedWriter file = new BufferedWriter(new FileWriter("images/scoreboard.txt",false));
+		BufferedWriter file = new BufferedWriter(new FileWriter("data/scoreboard.txt",false));
 		
 		for(int i=0;i<ranking.size();i++)
 		{
