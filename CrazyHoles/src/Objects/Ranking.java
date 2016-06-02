@@ -46,7 +46,7 @@ public class Ranking
 	private void readRanking() throws IOException
 	{
 		
-		BufferedReader file = new BufferedReader(new FileReader("images/scoreboard.txt"));
+		BufferedReader file = new BufferedReader(new FileReader("data/scoreboard.txt"));
 		String buffer = file.readLine();
 		
 		while(buffer!=null)

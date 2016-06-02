@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,10 +16,8 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class ScoreBoardMenu extends JDialog 
 {
@@ -36,35 +33,35 @@ public class ScoreBoardMenu extends JDialog
 
 	public ScoreBoardMenu(final LeftGamePanel panel) throws IOException, FontFormatException
 	{		 
-		   this.setModal(true);
-		   layout = new BoxLayout(getContentPane(),BoxLayout.Y_AXIS);
-		   this.setUndecorated(true);
-		   this.setBackground(new Color(0,0,0,0));
-		   this.setSize(800,300);
-		   this.setLocation(200, 300);
-		   this.setLayout(layout);
-		   String filename = "images/ARCADE_N.TTF";
-		   font = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
-			font=font.deriveFont(Font.TRUETYPE_FONT,30);
-			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(font);
-			back = new MenuButton(escIcon, escIcon);
-			back.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
-					panel.setsBoardActive(false);
-					panel.setPause(false);
-					dispose();
-				}
-			});
-			loadLabel();
+		this.setModal(true);
+		layout = new BoxLayout(getContentPane(),BoxLayout.Y_AXIS);
+		this.setUndecorated(true);
+		this.setBackground(new Color(255,255,255,0));
+		this.setSize(800,300);
+		this.setLocation(200, 300);
+		this.setLayout(layout);
+		String filename = "data/ARCADE_N.TTF";
+		font = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
+		font=font.deriveFont(Font.TRUETYPE_FONT,30);
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		ge.registerFont(font);
+		back = new MenuButton(escIcon, escIcon);
+		back.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				panel.setsBoardActive(false);
+				panel.setPause(false);
+				dispose();
+			}
+		});
+		loadLabel();
 	}
 
 	private void loadLabel() throws IOException
 	{
-		BufferedReader file = new BufferedReader(new FileReader("images/scoreboard.txt"));
+		BufferedReader file = new BufferedReader(new FileReader("data/scoreboard.txt"));
 
 		String buffer = file.readLine();
 

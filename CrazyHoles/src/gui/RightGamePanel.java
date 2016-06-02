@@ -71,7 +71,7 @@ public class RightGamePanel extends JPanel
 		pause = new MenuButton(pauseIcon, pauseSelected);
 		pause.setDisabledIcon(pauseDeselected);
 		scoreboard.setDisabledIcon(scoreBoardDeselected);
-		String filename = "images/ARCADE_N.TTF";
+		String filename = "data/ARCADE_N.TTF";
 		Font font = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
 		font=font.deriveFont(Font.TRUETYPE_FONT,30);
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
