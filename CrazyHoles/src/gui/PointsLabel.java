@@ -43,26 +43,7 @@ public class PointsLabel extends JDialog
 		text.setVisible(true);
 		text.setForeground(Color.black);
 		okay = new JButton("okay");
-		
-//		text.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) {
-//				// TODO Auto-generated method stub
-//				InputStreamReader reader = new InputStreamReader(System.in);
-//				BufferedReader input = new BufferedReader(reader);
-//				String str = new String();
-//				try {
-//					str= input.readLine();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				text.setText(str);
-//				
-//			}
-//		});
-		
+
 		text.addKeyListener(new KeyAdapter() {
 		
 			
