@@ -3,8 +3,6 @@ package gui;
 
 import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -13,7 +11,6 @@ import java.io.IOException;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
@@ -23,9 +20,9 @@ public class MenuPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private boolean resumable = false;
 	GameFrame frame;
-	
+
 	Image background;
-	
+
 	Icon newGame = new ImageIcon("images/newgame.png");
 	Icon newGameSelected = new ImageIcon("images/newgame_selected.png");
 	MenuButton newGameButton = new MenuButton(newGame,newGameSelected);
@@ -47,8 +44,9 @@ public class MenuPanel extends JPanel {
 	Icon resumeDeselected = new ImageIcon("images/resume_deselected.png");
 	public MenuPanel(GameFrame frameSup){
 		frame=frameSup;
-		resumeButton.setDisabledIcon(resumeDeselected);
 		
+		
+
 		setLayout(null);
 
 		background = Toolkit.getDefaultToolkit().createImage("images/Background.jpg");
@@ -71,9 +69,9 @@ public class MenuPanel extends JPanel {
 				}
 			}
 		});
-		
+
 		levelEditorButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -89,9 +87,9 @@ public class MenuPanel extends JPanel {
 				GameFrame.switchTo(frame.getSettingsPanel());
 			}
 		});
-		
+
 		creditsButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -110,7 +108,7 @@ public class MenuPanel extends JPanel {
 		});
 
 		resumeButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -132,13 +130,13 @@ public class MenuPanel extends JPanel {
 		add(exitButton);
 
 
+		resumeButton.setBounds(100,260,newGame.getIconWidth(),newGame.getIconHeight());
+		newGameButton.setBounds(100,340,newGame.getIconWidth(),newGame.getIconHeight());
+		levelEditorButton.setBounds(100,420,newGame.getIconWidth(),newGame.getIconHeight());
+		settingsButton.setBounds(100,500,newGame.getIconWidth(),newGame.getIconHeight());
+		creditsButton.setBounds(100,580,newGame.getIconWidth(),newGame.getIconHeight());
+		exitButton.setBounds(100,660,newGame.getIconWidth(),newGame.getIconHeight());
 
-		newGameButton.setBounds(100,290,newGame.getIconWidth(),newGame.getIconHeight());
-		levelEditorButton.setBounds(100,370,newGame.getIconWidth(),newGame.getIconHeight());
-		settingsButton.setBounds(100,450,newGame.getIconWidth(),newGame.getIconHeight());
-		creditsButton.setBounds(100,530,newGame.getIconWidth(),newGame.getIconHeight());
-		exitButton.setBounds(100,610,newGame.getIconWidth(),newGame.getIconHeight());
-		resumeButton.setBounds(100,690,newGame.getIconWidth(),newGame.getIconWidth());
 	}
 
 
@@ -147,11 +145,9 @@ public class MenuPanel extends JPanel {
 		g.drawImage(background, 0, 0, this);
 		if(!isResumable())
 		{
-			resumeButton.setEnabled(false);
-		}
-		else
-		{
-			resumeButton.setEnabled(true);
+			resumeButton.setVisible(false);
+		}else{
+			resumeButton.setVisible(true);
 		}
 
 	}
