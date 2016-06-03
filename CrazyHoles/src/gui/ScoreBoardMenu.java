@@ -19,20 +19,26 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
+import Objects.GameManager;
+import Objects.Ranking;
+
 public class ScoreBoardMenu extends JDialog 
 {
 	private static final long serialVersionUID = 1L;
 	private List<String> palore = new ArrayList<String>();
+	private Ranking ranking;
 	private JLabel[] label;
 	private BoxLayout layout;
 	private Font font;
 	private MenuButton back;
 	private Icon escIcon = new ImageIcon("images/esc.png");
+	private GameManager manager;
 
 
 
-	public ScoreBoardMenu(final LeftGamePanel panel) throws IOException, FontFormatException
-	{		 
+	public ScoreBoardMenu(final LeftGamePanel panel,GameManager manager) throws IOException, FontFormatException
+	{	
+		this.manager=manager;
 		this.setModal(true);
 		layout = new BoxLayout(getContentPane(),BoxLayout.Y_AXIS);
 		this.setUndecorated(true);
@@ -40,6 +46,7 @@ public class ScoreBoardMenu extends JDialog
 		this.setSize(800,300);
 		this.setLocation(200, 300);
 		this.setLayout(layout);
+		ranking=manager.getRanking();
 		String filename = "data/ARCADE_N.TTF";
 		font = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
 		font=font.deriveFont(Font.TRUETYPE_FONT,30);
@@ -61,22 +68,12 @@ public class ScoreBoardMenu extends JDialog
 
 	private void loadLabel() throws IOException
 	{
-		BufferedReader file = new BufferedReader(new FileReader("data/scoreboard.txt"));
-
-		String buffer = file.readLine();
-
-		while (buffer != null)
-		{
-			palore.add(buffer);
-			buffer=file.readLine();
-		}
-		file.close();
-
-		label = new JLabel[palore.size()];
+		
+		label = new JLabel[ranking.getRaking().size()];
 
 		for(int i =0;i<label.length;i++)
 		{
-			label[i] = new JLabel(palore.get(i));
+			label[i] = new JLabel(ranking.getRaking().get(i).getName()+" "+ranking.getRaking().get(i).getPoints());
 			label[i].setFont(font);
 			label[i].setForeground(Color.black);
 			label[i].setAlignmentX(CENTER_ALIGNMENT);

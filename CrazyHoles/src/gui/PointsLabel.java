@@ -49,12 +49,7 @@ public class PointsLabel extends JDialog
 			
 			@Override
 			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				char c = e.getKeyChar();
-				 if(c==KeyEvent.VK_SPACE)
-				 {
-					e.consume();				
-				 }
+				// TODO Auto-generated method stub		 
 			}
 		});
 		
@@ -66,6 +61,7 @@ public class PointsLabel extends JDialog
 				GameManager.setPlayer(text.getText());
 				setSetted(true);
 				dispose();
+				leftP.repaint();
 			}
 		});
 		

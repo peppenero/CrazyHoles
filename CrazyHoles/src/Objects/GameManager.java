@@ -60,11 +60,12 @@ public class GameManager
 				 	 			level++;
 				 	 			world=(WorldImpl) wManager.getworld(level);	
 			 				}
-			 			}			 			
-			 			if(!isGameOver())
-			 			{
-			 				setBall(getOneBall());
-			 			}
+			 			}		
+				 		if(!isGameOver())
+				 		{
+				 			setBall(getOneBall());
+				 		}
+			 			
 			 		}
  			if(isGameOver())
  			{

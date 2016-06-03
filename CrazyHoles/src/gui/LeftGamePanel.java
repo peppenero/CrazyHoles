@@ -55,7 +55,6 @@ public class LeftGamePanel extends JPanel
 	private boolean sBoardActive;
 	private boolean backFlag=false;
 	private Muovitore m ;
-	private Giratore g;
 	private ScoreBoardMenu scoreboard;
 	private boolean firstClick = true;
 	Giratore giratore;
@@ -76,7 +75,7 @@ public class LeftGamePanel extends JPanel
 		y= world.getHeight();
 		gameManager.start(); 
 		prov = new ImageProv();
-		setScoreboard(new ScoreBoardMenu(this));
+		setScoreboard(new ScoreBoardMenu(this,gameManager));
 		setOpaque(false);
 		giratore = new Giratore(this, gameManager);
 		giratore.start();
