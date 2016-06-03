@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,6 +13,7 @@ import java.io.InputStreamReader;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Objects.GameManager;
@@ -18,7 +21,7 @@ import Objects.Ranking;
 
 public class PointsLabel extends JDialog
 {
-	private JTextField text;
+	private JTextArea text;
 	private JButton okay;
 	private BoxLayout layout;
 	private GameManager GameManager;
@@ -36,26 +39,17 @@ public class PointsLabel extends JDialog
 		setBackground(new Color(0,0,0,0));
 		layout= new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
 		setLayout(layout);
-		text=new JTextField(10);
+		text=new JTextArea();
 		text.setVisible(true);
 		text.setForeground(Color.black);
 		okay = new JButton("okay");
+
+		text.addKeyListener(new KeyAdapter() {
 		
-		text.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				InputStreamReader reader = new InputStreamReader(System.in);
-				BufferedReader input = new BufferedReader(reader);
-				String str = new String();
-				try {
-					str= input.readLine();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				text.setText(str);
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub		 
 			}
 		});
 		
@@ -67,6 +61,7 @@ public class PointsLabel extends JDialog
 				GameManager.setPlayer(text.getText());
 				setSetted(true);
 				dispose();
+				leftP.repaint();
 			}
 		});
 		

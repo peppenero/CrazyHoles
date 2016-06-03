@@ -20,6 +20,11 @@ public class Ranking
 		readRanking();
 	}
 	
+	public List<Position> getRaking()
+	{
+		return this.ranking;
+	}
+	
 	public boolean addPosition(Position p)
 	{
 		if(ranking.isEmpty())
@@ -51,7 +56,7 @@ public class Ranking
 		
 		while(buffer!=null)
 		{
-			String[] string = buffer.split(" ");			
+			String[] string = buffer.split("\\*");			
 			Position pos = new Position(string[0],Integer.parseInt(string[string.length-1]));
 			this.addPosition(pos);
 			buffer=file.readLine();
@@ -66,7 +71,7 @@ public class Ranking
 		
 		for(int i=0;i<ranking.size();i++)
 		{
-			file.write(ranking.get(i).getName()+" "+ranking.get(i).getPoints()+"\n");
+			file.write(ranking.get(i).getName()+"*"+ranking.get(i).getPoints()+"\n");
 		}
 		
 		file.flush();
