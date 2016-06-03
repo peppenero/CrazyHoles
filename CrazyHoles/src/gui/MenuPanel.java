@@ -103,6 +103,7 @@ public class MenuPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				frame.setVisible(false);
+				System.exit(0);
 				frame.dispose();
 			}
 		});
