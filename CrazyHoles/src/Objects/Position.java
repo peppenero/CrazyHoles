@@ -1,11 +1,11 @@
 package Objects;
-public class Position{
-	
+
+public class Position {
+
 	private String name;
 	private int points;
-	
-	public Position(String n,int p)
-	{
+
+	public Position(String n, int p) {
 		this.setName(n);
 		this.setPoints(p);
 	}

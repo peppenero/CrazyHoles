@@ -1,12 +1,10 @@
 package Objects;
 
-
 public class EquazioniCirconferenza {
 	private double noto;
 	private double x;
 	private double y;
-	
-		
+
 	public double getX() {
 		return x;
 	}
@@ -30,20 +28,11 @@ public class EquazioniCirconferenza {
 	public void setNoto(double noto) {
 		this.noto = noto;
 	}
-	
-	
-	
-	
-	
-	public  EquazioniCirconferenza(int xc,int yc,int r)
-	{
-		setNoto( (Math.pow(xc, 2) + Math.pow(yc, 2) + (Math.pow(r, 2)*-1)));
-		setX(-2*xc);
-		setY(-2*yc);		
+
+	public EquazioniCirconferenza(int xc, int yc, int r) {
+		setNoto((Math.pow(xc, 2) + Math.pow(yc, 2) + (Math.pow(r, 2) * -1)));
+		setX(-2 * xc);
+		setY(-2 * yc);
 	}
-	
-	
 
 }
-
-

@@ -5,55 +5,51 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
-public class MyTimer 
-{
+public class MyTimer {
 	private Timer timer;
 	private long startTime;
 	private long diffTime;
 	private int decSeconds;
 	private int seconds;
 	private int minutes;
-	
-	public MyTimer(){
-		
+
+	public MyTimer() {
+
 		timer = new Timer(100, new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				diffTime = System.currentTimeMillis() - startTime;
-				decSeconds = (int) (diffTime % 1000 /100);
-				seconds = (int) (diffTime /1000 %60);
-				minutes = (int) (diffTime /60000 %60);
+				decSeconds = (int) (diffTime % 1000 / 100);
+				seconds = (int) (diffTime / 1000 % 60);
+				minutes = (int) (diffTime / 60000 % 60);
 			}
 		});
 	}
-	
-	public void init()
-	{
-		startTime =  System.currentTimeMillis();
+
+	public void init() {
+		startTime = System.currentTimeMillis();
 		timer.start();
 	}
-	
-	public void setStartTime()
-	{
-		startTime= System.currentTimeMillis();
+
+	public void setStartTime() {
+		startTime = System.currentTimeMillis();
 	}
-	
-	public int getDecSeconds()
-	{
+
+	public int getDecSeconds() {
 		return decSeconds;
 	}
-	public int getSeconds()
-	{
+
+	public int getSeconds() {
 		return seconds;
 	}
-	public int getMinutes()
-	{
+
+	public int getMinutes() {
 		return minutes;
 	}
-	public void stop()
-	{
+
+	public void stop() {
 		timer.stop();
 	}
 }
