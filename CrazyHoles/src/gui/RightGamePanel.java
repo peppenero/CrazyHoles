@@ -38,7 +38,7 @@ public class RightGamePanel extends JPanel {
 	private Icon scoreBoardDeselected = new ImageIcon(
 			"images/scoreboard_deselected.png");
 	private Icon pauseDeselected = new ImageIcon("images/pause_deselected.png");
-	private JLabel timelabel;
+	private JLabel timeLabel;
 	private JLabel pointsLabel;
 	private Timer timer;
 	private long startTime;
@@ -46,10 +46,10 @@ public class RightGamePanel extends JPanel {
 	private BoxLayout layout;
 	private boolean started = false;
 
-	private MenuButton exit;
-	private MenuButton scoreboard;
-	private MenuButton pause;
-	private LeftGamePanel panel;
+	private MenuButton exitButton;
+	private MenuButton scoreboardButton;
+	private MenuButton pauseButton;
+	private LeftGamePanel leftGamePanel;
 
 	public RightGamePanel(final GameManager manager)
 			throws FontFormatException, IOException {
@@ -59,11 +59,11 @@ public class RightGamePanel extends JPanel {
 		this.setAlignmentX(LEFT_ALIGNMENT);
 		this.setLayout(layout);
 		setPreferredSize(new Dimension(450, 800));
-		exit = new MenuButton(exitIcon, exitSelected);
-		scoreboard = new MenuButton(scoreIcon, scoreSelected);
-		pause = new MenuButton(pauseIcon, pauseSelected);
-		pause.setDisabledIcon(pauseDeselected);
-		scoreboard.setDisabledIcon(scoreBoardDeselected);
+		exitButton = new MenuButton(exitIcon, exitSelected);
+		scoreboardButton = new MenuButton(scoreIcon, scoreSelected);
+		pauseButton = new MenuButton(pauseIcon, pauseSelected);
+		pauseButton.setDisabledIcon(pauseDeselected);
+		scoreboardButton.setDisabledIcon(scoreBoardDeselected);
 		String filename = "data/ARCADE_N.TTF";
 		Font font = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
 		font = font.deriveFont(Font.TRUETYPE_FONT, 30);
@@ -71,14 +71,14 @@ public class RightGamePanel extends JPanel {
 				.getLocalGraphicsEnvironment();
 		ge.registerFont(font);
 		Border lowered = BorderFactory.createLoweredBevelBorder();
-		timelabel = new JLabel("00:00.0");
-		timelabel.setOpaque(true);
-		timelabel.setBackground(Color.WHITE);
-		timelabel.setForeground(Color.black);
-		timelabel.setFont(font);
-		timelabel.setAlignmentY(TOP_ALIGNMENT);
-		timelabel.setAlignmentX(CENTER_ALIGNMENT);
-		timelabel.setBorder(lowered);
+		timeLabel = new JLabel("00:00.0");
+		timeLabel.setOpaque(true);
+		timeLabel.setBackground(Color.WHITE);
+		timeLabel.setForeground(Color.black);
+		timeLabel.setFont(font);
+		timeLabel.setAlignmentY(TOP_ALIGNMENT);
+		timeLabel.setAlignmentX(CENTER_ALIGNMENT);
+		timeLabel.setBorder(lowered);
 		String point = String.format("%02d", manager.getPoints());
 		pointsLabel = new JLabel(point);
 		pointsLabel.setBorder(lowered);
@@ -100,7 +100,7 @@ public class RightGamePanel extends JPanel {
 		String s = String.format("%02d:%02d.%d", manager.getTimer()
 				.getMinutes(), manager.getTimer().getSeconds(), manager
 				.getTimer().getDecSeconds());
-		timelabel.setText(s);
+		timeLabel.setText(s);
 		timer = new Timer(100, new ActionListener() {
 
 			@Override
@@ -108,72 +108,76 @@ public class RightGamePanel extends JPanel {
 				String s = String.format("%02d:%02d.%d", manager.getTimer()
 						.getMinutes(), manager.getTimer().getSeconds(), manager
 						.getTimer().getDecSeconds());
-				timelabel.setText(s);
+				timeLabel.setText(s);
 
 			}
 
 		});
 		setOpaque(false);
-		pause.addActionListener(new ActionListener() {
+		pauseButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (!panel.isPause()) {
-					pause.setIcon(restartIcon);
-					pause.setRolloverIcon(restartSelected);
+				if (!leftGamePanel.isPause()) {
+
+					pauseButton.setIcon(restartIcon);
+					pauseButton.setRolloverIcon(restartSelected);
+					scoreboardButton.setEnabled(false);
+					leftGamePanel.setPause(true);
+					
 					if (started) {
 						timer.stop();
 					}
-					scoreboard.setEnabled(false);
-					panel.setPause(true);
+
 				} else {
-					pause.setIcon(pauseIcon);
-					pause.setRolloverIcon(pauseSelected);
-					scoreboard.setEnabled(true);
+					
+					pauseButton.setIcon(pauseIcon);
+					pauseButton.setRolloverIcon(pauseSelected);
+					scoreboardButton.setEnabled(true);
 
-					if (started) {
+					/*if (started) {
 						timer.restart();
-					}
-					panel.setPause(false);
-
+					}*/
+					leftGamePanel.setPause(false);
+					timer.restart();
 				}
-				panel.repaint();
+				leftGamePanel.repaint();
 			}
 		});
 
-		scoreboard.addActionListener(new ActionListener() {
+		scoreboardButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				panel.setPause(true);
-				panel.setsBoardActive(true);
+				leftGamePanel.setPause(true);
+				leftGamePanel.setsBoardActive(true);
 				if (started) {
 					timer.stop();
 				}
-				panel.getScoreboard().setVisible(true);
-				panel.repaint();
+				leftGamePanel.getScoreboard().setVisible(true);
+				leftGamePanel.repaint();
 			}
 
 		});
 
-		exit.addActionListener(new ActionListener() {
+		exitButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				panel.getMenuPanel().setResumable(true);
-				panel.setBackFlag(true);
-				panel.exitToMenu();
+				leftGamePanel.getMenuPanel().setResumable(true);
+				leftGamePanel.setBackFlag(true);
+				leftGamePanel.exitToMenu();
 			}
 		});
 
 		this.add(numbersOfBall);
-		this.add(timelabel);
+		this.add(timeLabel);
 		this.add(pointsLabel);
-		this.add(pause);
-		this.add(scoreboard);
-		this.add(exit);
+		this.add(pauseButton);
+		this.add(scoreboardButton);
+		this.add(exitButton);
 	}
 
 	public void init() {
@@ -198,10 +202,10 @@ public class RightGamePanel extends JPanel {
 	}
 
 	public LeftGamePanel getPanel() {
-		return panel;
+		return leftGamePanel;
 	}
 
 	public void setPanel(LeftGamePanel panel) {
-		this.panel = panel;
+		this.leftGamePanel = panel;
 	}
 }
