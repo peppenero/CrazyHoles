@@ -4,17 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorldImpl implements World {
-	
-   
-    private ArrayList<Hole> holes = new ArrayList<>();
-    private List<Ball> balls = new ArrayList<>();
-	private int height= 60;
+
+	private ArrayList<Hole> holes = new ArrayList<>();
+	private List<Ball> balls = new ArrayList<>();
+	private int height = 60;
 	private int width = 80;
+<<<<<<< HEAD
 	private boolean lastLevel=false;
 	
 	
 	public void reset()
 	{
+=======
+	private boolean lastLevel = false;
+
+	@Override
+	public void update() {
+
+	}
+
+	public void reset() {
+>>>>>>> refs/remotes/origin/master
 		holes.clear();
 	}
 
@@ -49,13 +59,13 @@ public class WorldImpl implements World {
 	public void setBalls(List<Ball> balls) {
 		this.balls = balls;
 	}
+
 	public boolean isLastLevel() {
 		return lastLevel;
 	}
+
 	public void setLastLevel(boolean lastLevel) {
 		this.lastLevel = lastLevel;
 	}
-	
-	
 
 }

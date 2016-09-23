@@ -3,66 +3,81 @@ package Objects;
 import common.HasScore;
 
 public class Hole extends Object implements HasScore {
-	
-	private int score=0;
+
+	private int score = 0;
 	private int radius;
 	private float x1;
 	private float x2;
 	private float y1;
 	private float y2;
 	private int angle = 90;
-		
-	
-	public Hole(int s,int x,int y,int radius,World world,String color){
+
+	public Hole(int s, int x, int y, int radius, World world, String color) {
 		super(world);
 		this.setColor(color);
 		this.setScore(s);
 		setX(x);
 		setY(y);
 		setRadius(radius);
+<<<<<<< HEAD
 		setX1(this.getX()+this.getRadius()* (float) Math.cos(Math.toRadians((getAngle()-30))));
 		setY1(this.getY()+this.getRadius()* (float) Math.sin(Math.toRadians((getAngle()-30))));
 		setX2(this.getX()+this.getRadius()* (float) Math.cos(Math.toRadians((getAngle()+30))));
 		setY2(this.getY()+this.getRadius()* (float) Math.sin(Math.toRadians((getAngle()+30))));
+=======
+		setX1(this.getX() + this.getRadius()
+				* (float) Math.cos(Math.toRadians((getAngle() - 30))));
+		setY1(this.getY() + this.getRadius()
+				* (float) Math.sin(Math.toRadians((getAngle() - 30))));
+		setX2(this.getX() + this.getRadius()
+				* (float) Math.cos(Math.toRadians((getAngle() + 30))));
+		setY2(this.getY() + this.getRadius()
+				* (float) Math.sin(Math.toRadians((getAngle() + 30))));
+		// System.out.println(x1);
+		// System.out.println(y1);
+		// System.out.println(x2);
+		// System.out.println(y2);
+>>>>>>> refs/remotes/origin/master
 	}
-	
-	public EquazioniCirconferenza getEquation()
-	{
-		EquazioniCirconferenza eq = new EquazioniCirconferenza((int)this.getX(), (int) this.getY(), this.getRadius());
+
+	public EquazioniCirconferenza getEquation() {
+		EquazioniCirconferenza eq = new EquazioniCirconferenza(
+				(int) this.getX(), (int) this.getY(), this.getRadius());
 		return eq;
 	}
-	
+
 	@Override
 	public void setScore(int s) {
-		this.score=s;
+		this.score = s;
 	}
 
 	@Override
 	public int getScore() {
 		return this.score;
 	}
-	
-	
-	public void move()
-	{
-		setAngle(((angle+10)%360));
-		setX1(this.getX()+this.getRadius()* (float) Math.cos(Math.toRadians((getAngle()-30))));
-		setY1(this.getY()+this.getRadius()* (float) Math.sin(Math.toRadians((getAngle()-30))));
-		setX2(this.getX()+this.getRadius()* (float) Math.cos(Math.toRadians((getAngle()+30))));
-		setY2(this.getY()+this.getRadius()* (float) Math.sin(Math.toRadians((getAngle()+30))));
-		
+
+	public void move() {
+		setAngle(((angle + 10) % 360));
+		setX1(this.getX() + this.getRadius()
+				* (float) Math.cos(Math.toRadians((getAngle() - 30))));
+		setY1(this.getY() + this.getRadius()
+				* (float) Math.sin(Math.toRadians((getAngle() - 30))));
+		setX2(this.getX() + this.getRadius()
+				* (float) Math.cos(Math.toRadians((getAngle() + 30))));
+		setY2(this.getY() + this.getRadius()
+				* (float) Math.sin(Math.toRadians((getAngle() + 30))));
+
 	}
 
 	@Override
 	public String getColor() {
-		
+
 		return this.color;
 	}
-	
-	public void setWorld(final World world)
-    {
-        this.world = world;
-    }
+
+	public void setWorld(final World world) {
+		this.world = world;
+	}
 
 	public int getRadius() {
 		return radius;
@@ -112,12 +127,9 @@ public class Hole extends Object implements HasScore {
 		this.angle = angle;
 	}
 
-	
 	protected void setColor(String color) {
-		this.color=color;
-		
-	}
+		this.color = color;
 
-	
+	}
 
 }

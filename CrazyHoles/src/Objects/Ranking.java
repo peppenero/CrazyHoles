@@ -2,35 +2,28 @@ package Objects;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-public class Ranking 
-{
+public class Ranking {
 	private List<Position> ranking = new ArrayList<>();
-	
-	public Ranking() throws IOException
-	{
+
+	public Ranking() throws IOException {
 		readRanking();
 	}
-	
-	public List<Position> getRaking()
-	{
+
+	public List<Position> getRaking() {
 		return this.ranking;
 	}
-	
-	public boolean addPosition(Position p)
-	{
-		if(ranking.isEmpty())
-		{
+
+	public boolean addPosition(Position p) {
+		if (ranking.isEmpty()) {
 			ranking.add(p);
 			return true;
+<<<<<<< HEAD
 		}
 		else
 		{
@@ -40,41 +33,54 @@ public class Ranking
 				{
 					sort(i++,ranking.get(i));
 					ranking.add(i,p);
+=======
+		} else {
+			for (int i = 0; i < ranking.size(); i++) {
+				if (ranking.get(i).getPoints() < p.getPoints()) {
+					ranking.add(i, p);
+>>>>>>> refs/remotes/origin/master
 					return true;
 				}
 			}
+<<<<<<< HEAD
+=======
+			ranking.add(p);
+			return true;
+
+>>>>>>> refs/remotes/origin/master
 		}
 		
 		return false;
 	}
-	
-	private void readRanking() throws IOException
-	{
-		
-		BufferedReader file = new BufferedReader(new FileReader("data/scoreboard.txt"));
+
+	private void readRanking() throws IOException {
+
+		BufferedReader file = new BufferedReader(new FileReader(
+				"data/scoreboard.txt"));
 		String buffer = file.readLine();
-		
-		while(buffer!=null)
-		{
-			String[] string = buffer.split("\\*");			
-			Position pos = new Position(string[0],Integer.parseInt(string[string.length-1]));
+
+		while (buffer != null) {
+			String[] string = buffer.split("\\*");
+			Position pos = new Position(string[0],
+					Integer.parseInt(string[string.length - 1]));
 			this.addPosition(pos);
-			buffer=file.readLine();
+			buffer = file.readLine();
 		}
-		
+
 		file.close();
 	}
-	
-	public void writeRanking() throws IOException
-	{
-		BufferedWriter file = new BufferedWriter(new FileWriter("data/scoreboard.txt",false));
-		
-		for(int i=0;i<ranking.size();i++)
-		{
-			file.write(ranking.get(i).getName()+"*"+ranking.get(i).getPoints()+"\n");
+
+	public void writeRanking() throws IOException {
+		BufferedWriter file = new BufferedWriter(new FileWriter(
+				"data/scoreboard.txt", false));
+
+		for (int i = 0; i < ranking.size(); i++) {
+			file.write(ranking.get(i).getName() + "*"
+					+ ranking.get(i).getPoints() + "\n");
 		}
-		
+
 		file.flush();
+		file.close();
 	}
 	
 	private void sort(int i,Position p)
