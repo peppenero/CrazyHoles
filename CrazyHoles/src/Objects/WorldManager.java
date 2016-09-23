@@ -16,7 +16,11 @@ public class WorldManager {
 
 	private World loadWorld(int level) throws IOException {
 		world.reset();
-		String filename = new String("data/world" + level + ".txt");
+
+		String filename = new String("data/levels/world"+level+".txt");
+		
+
+
 
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 

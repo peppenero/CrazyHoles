@@ -36,7 +36,7 @@ public class PointsLabel extends JDialog
 		setUndecorated(true);
 		setSize(250,100);
 		setLocation(200,200);
-		setBackground(new Color(0,0,0,0));
+		setBackground(new Color(255,255,255,0));
 		layout= new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
 		setLayout(layout);
 		text=new JTextArea();
@@ -61,6 +61,7 @@ public class PointsLabel extends JDialog
 				GameManager.setPlayer(text.getText());
 				setSetted(true);
 				dispose();
+				leftP.setBackFlag(false);
 				leftP.repaint();
 			}
 		});

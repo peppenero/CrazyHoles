@@ -65,4 +65,12 @@ public class Ranking {
 		file.flush();
 		file.close();
 	}
+	
+	private void sort(int i,Position p)
+	{
+		if(i>9)
+			return;
+		ranking.add(i, p);
+		sort(i++,ranking.get(i));
+	}
 }

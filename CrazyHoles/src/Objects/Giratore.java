@@ -27,12 +27,26 @@ public class Giratore extends Thread {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (!panel.isPause())
-				for (int i = 0; i < holes.size(); i++) {
-					holes.get(i).move();
-					panel.repaint();
+
+			if(!panel.isPause())
+			for(int i=0;i<holes.size();i++)
+			{
+				holes.get(i).move();
+				panel.repaint();
+			}
+			if(manager.isStart())
+			{
+				
+				try {
+					sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-		}
+				
+				manager.setStart(false);			
+			}
+			
 		if (manager.isLevelOver()) {
 			panel.repaint();
 			try {
@@ -43,5 +57,8 @@ public class Giratore extends Thread {
 			}
 			panel.reset();
 		}
+		
+	}
+	
 	}
 }

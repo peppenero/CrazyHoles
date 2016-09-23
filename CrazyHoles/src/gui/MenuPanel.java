@@ -40,8 +40,14 @@ public class MenuPanel extends JPanel {
 	MenuButton exitButton = new MenuButton(exit,exitSelected);
 	Icon resume = new ImageIcon("images/resume.png");
 	Icon resumeSelected = new ImageIcon("images/resume_selected.png");
-	MenuButton resumeButton = new MenuButton(resume,resumeSelected);
 	Icon resumeDeselected = new ImageIcon("images/resume_deselected.png");
+	MenuButton resumeButton = new MenuButton(resume,resumeSelected);
+	Icon multi = new ImageIcon("images/Multiplayer.png");
+	Icon multiSelected = new ImageIcon("images/Multiplayer_Selected.png");
+	MenuButton multiplayer = new MenuButton(multi, multiSelected);
+	
+	
+	
 	
 	public MenuPanel(GameFrame frameSup){
 		frame=frameSup;

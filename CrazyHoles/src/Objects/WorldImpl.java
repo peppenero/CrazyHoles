@@ -9,7 +9,9 @@ public class WorldImpl implements World {
 	private List<Ball> balls = new ArrayList<>();
 	private int height = 60;
 	private int width = 80;
-	private boolean lastLevel = false;
+
+	private boolean lastLevel=false;
+
 
 	@Override
 	public void update() {
@@ -17,6 +19,7 @@ public class WorldImpl implements World {
 	}
 
 	public void reset() {
+
 		holes.clear();
 	}
 

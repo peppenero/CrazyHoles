@@ -47,7 +47,7 @@ public class ScoreBoardMenu extends JDialog
 		this.setLocation(200, 300);
 		this.setLayout(layout);
 		ranking=manager.getRanking();
-		String filename = "data/ARCADE_N.TTF";
+		String filename = "data/EASPORTS15.ttf";
 		font = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
 		font=font.deriveFont(Font.TRUETYPE_FONT,30);
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -69,7 +69,15 @@ public class ScoreBoardMenu extends JDialog
 	private void loadLabel() throws IOException
 	{
 		
-		label = new JLabel[ranking.getRaking().size()];
+		if(ranking.getRaking().size()<=3)
+		{
+			label = new JLabel[ranking.getRaking().size()];
+		}
+		else
+		{
+			label = new JLabel[3];
+		}
+		
 
 		for(int i =0;i<label.length;i++)
 		{
