@@ -202,14 +202,6 @@ public class RightGamePanel extends JPanel {
 		 }
 		 this.add(exitButton);
 
-
-		this.add(numbersOfBall);
-		this.add(timeLabel);
-		this.add(pointsLabel);
-		this.add(pauseButton);
-		this.add(scoreboardButton);
-		this.add(exitButton);
-
 	}
 
 	public void init() {
