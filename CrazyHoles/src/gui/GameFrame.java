@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import Objects.GameManager;
+import Objects.SinglePlayerGameManager;
 import Objects.WorldImpl;
 
 
@@ -22,6 +23,7 @@ public class GameFrame extends JFrame
 	private static LevelEditorPanel levelEditorPanel;
 	private static SettingsPanel settingsPanel;
 	private static CreditsPanel creditsPanel;
+	private static Multiplayer multiplayerPanel;
 	private GameManager manager;
 	
 	final static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
@@ -52,7 +54,9 @@ public class GameFrame extends JFrame
         creditsPanel = new CreditsPanel(frame);
         settingsPanel = new SettingsPanel(frame);
         
+        
         menuPanel = new MenuPanel(frame);
+        multiplayerPanel = new Multiplayer(menuPanel);
         switchTo(menuPanel);
         
         device.setFullScreenWindow(frame);
@@ -64,9 +68,14 @@ public class GameFrame extends JFrame
 		if(menuPanel.isResumable())
 			return new GamePanel(manager,menuPanel);
 		else{
-			manager = new GameManager();		
+			manager = new SinglePlayerGameManager();		
 			return new GamePanel(manager,menuPanel);
 		}
+	}
+	
+	public JPanel getMultiplayerPanel()
+	{
+		return multiplayerPanel;
 	}
 	
 	public JPanel getLevelEditorPanel(){

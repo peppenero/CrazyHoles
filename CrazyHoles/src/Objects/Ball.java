@@ -15,6 +15,7 @@ public class Ball extends Object implements HasScore {
 	private int d;
 	private boolean intersecate=false;
 	private int holePoint;
+	private boolean dropped=false;
 	
 	public EquazioniCirconferenza getEquation()
 	{
@@ -115,7 +116,7 @@ public class Ball extends Object implements HasScore {
 				return holePoint;
 			
 		}
-		if((((y+getBallRadius())+deltaY)>(world.getHeight())) ||(((y-getBallRadius())+deltaY)<0))
+		if((((y-getBallRadius())+deltaY)<0))
 		{
 			if((deltaY<0) && (y-getBallRadius()>0))
 			{
@@ -129,7 +130,10 @@ public class Ball extends Object implements HasScore {
 			}
 			deltaY=-deltaY;
 		}
-		
+		if(((y+getBallRadius())+deltaY)>(world.getHeight()))
+		{
+			setDropped(true);
+		}
 		if(!xflag && !yflag)
 		{
 			setX(getX()+deltaX);
@@ -379,6 +383,14 @@ public class Ball extends Object implements HasScore {
 	{
 		this.setX((world.getWidth()/2)-getBallRadius());
 		this.setY(world.getHeight()-getBallRadius());
+	}
+
+	public boolean isDropped() {
+		return dropped;
+	}
+
+	public void setDropped(boolean dropped) {
+		this.dropped = dropped;
 	}
 	
 }

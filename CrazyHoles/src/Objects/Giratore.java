@@ -39,6 +39,18 @@ public class Giratore extends Thread
 				holes.get(i).move();
 				panel.repaint();
 			}
+			if(manager.isStart())
+			{
+				
+				try {
+					sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				manager.setStart(false);			
+			}
 		}
 		if(manager.isLevelOver())
 		{
@@ -51,5 +63,7 @@ public class Giratore extends Thread
 			}
 			panel.reset();
 		}
+		
 	}
+	
 }

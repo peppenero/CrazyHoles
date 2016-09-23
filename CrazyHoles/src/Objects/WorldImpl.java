@@ -12,11 +12,7 @@ public class WorldImpl implements World {
 	private int width = 80;
 	private boolean lastLevel=false;
 	
-	@Override
-	public void update() {
-		
-		
-	}
+	
 	public void reset()
 	{
 		holes.clear();

@@ -26,7 +26,7 @@ public class Muovitore extends Thread{
 	public void run() {
 		// TODO Auto-generated method stub
 		int ris = ball.move();		
-		while((ris==1 || ris==0) && !p.isBackFlag() && !man.isGameOver()){
+		while((ris==1 || ris==0) && !p.isBackFlag() && !man.isGameOver() && !man.getBall().isDropped()){
 		try {
 			if(!p.isPause())
 			{
@@ -41,16 +41,12 @@ public class Muovitore extends Thread{
 		}
 		if(p.isBackFlag())
 		{
-			man.reset();
+			man.resetBall();
 		}
 		p.setMove(false);
-		try {
-			man.update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		
-		}
+			man.update();
+		
 		rp.refresh();
 		p.repaint();
 	}

@@ -13,7 +13,8 @@ public class MyTimer
 	private int decSeconds;
 	private int seconds;
 	private int minutes;
-	
+	private long diffTimeTmp=0;
+
 	public MyTimer(){
 		
 		timer = new Timer(100, new ActionListener() {
@@ -21,10 +22,11 @@ public class MyTimer
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				diffTime = System.currentTimeMillis() - startTime;
-				decSeconds = (int) (diffTime % 1000 /100);
-				seconds = (int) (diffTime /1000 %60);
-				minutes = (int) (diffTime /60000 %60);
+				diffTime = System.currentTimeMillis() - startTime +diffTimeTmp;	
+					decSeconds = (int) (diffTime % 1000 /100) ;
+					seconds = (int) (diffTime /1000 %60);
+					minutes = (int) (diffTime /60000 %60);
+			
 			}
 		});
 	}
@@ -52,8 +54,20 @@ public class MyTimer
 	{
 		return minutes;
 	}
+	public void restart()
+	{
+		setStartTime();
+		timer.restart();
+	}
+	public void reset()
+	{
+		minutes =0;
+		seconds =0;
+		decSeconds=0;
+	}
 	public void stop()
 	{
+		diffTimeTmp=diffTime;
 		timer.stop();
 	}
 }

@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
+import java.awt.Label;
 import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.Toolkit;
@@ -27,6 +28,7 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import Objects.GameManager;
+import Objects.SinglePlayerGameManager;
 import Objects.World;
 
 public class RightGamePanel extends JPanel 
@@ -111,9 +113,9 @@ public class RightGamePanel extends JPanel
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				 String s = String.format("%02d:%02d.%d", manager.getTimer().getMinutes(),manager.getTimer().getSeconds(),manager.getTimer().getDecSeconds());
-				timelabel.setText(s);
-				
+				timelabel.setText(s);				
 			}
+			
 			
 		});
 		setOpaque(false);
@@ -128,6 +130,7 @@ public class RightGamePanel extends JPanel
 					if(started)
 					{
 						timer.stop();
+						manager.getTimer().stop();
 					}
 					scoreboard.setEnabled(false);
 					panel.setPause(true);					
@@ -140,6 +143,7 @@ public class RightGamePanel extends JPanel
 					if(started)
 					{	
 						timer.restart();
+						manager.getTimer().restart();
 					}
 						panel.setPause(false);
 				}
@@ -169,6 +173,7 @@ public class RightGamePanel extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				manager.getTimer().stop();
 				panel.getMenuPanel().setResumable(true);
 				panel.setBackFlag(true);
 				panel.exitToMenu();		
@@ -179,7 +184,10 @@ public class RightGamePanel extends JPanel
 		 this.add(timelabel);
 		 this.add(pointsLabel);
 		 this.add(pause);
-		 this.add(scoreboard);
+		 if(manager instanceof SinglePlayerGameManager)
+		 {
+			 this.add(scoreboard);
+		 }
 		 this.add(exit);
 	}
 	
@@ -196,6 +204,11 @@ public class RightGamePanel extends JPanel
 		String number = String.format("%02d", manager.getBalls().size());
 		pointsLabel.setText(s);
 		numbersOfBall.setText(number);
+	}
+	public void resetTimerLabel()
+	{
+		String s = String.format("%02d:%02d.%d", manager.getTimer().getMinutes(),manager.getTimer().getSeconds(),manager.getTimer().getDecSeconds());
+		timelabel.setText(s);	
 	}
 	public void pause()
 	{

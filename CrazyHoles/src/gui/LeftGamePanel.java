@@ -29,12 +29,17 @@ import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.Timer;
 import javax.swing.border.Border;
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
+
+import org.omg.CosNaming.IstringHelper;
 
 import Objects.Ball;
 import Objects.GameManager;
 import Objects.Giratore;
 import Objects.Hole;
 import Objects.Muovitore;
+import Objects.OfflineGameManager;
+import Objects.SinglePlayerGameManager;
 import Objects.World;
 
 
@@ -56,7 +61,6 @@ public class LeftGamePanel extends JPanel
 	private boolean backFlag=false;
 	private Muovitore m ;
 	private ScoreBoardMenu scoreboard;
-	private boolean firstClick = true;
 	Giratore giratore;
 	private RightGamePanel panel;
 	private PointsLabel pointsLabel;
@@ -75,7 +79,10 @@ public class LeftGamePanel extends JPanel
 		y= world.getHeight();
 		gameManager.start(); 
 		prov = new ImageProv();
-		setScoreboard(new ScoreBoardMenu(this,gameManager));
+		if(gameManager instanceof SinglePlayerGameManager)
+		{
+			setScoreboard(new ScoreBoardMenu(this,gameManager));
+		}
 		setOpaque(false);
 		giratore = new Giratore(this, gameManager);
 		giratore.start();
@@ -110,12 +117,10 @@ public class LeftGamePanel extends JPanel
 				case KeyEvent.VK_SPACE:
 				{
 					gameManager.getBall().move();
-					try {
+				
 						gameManager.update();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					
+					
 					break;
 				}
 				case KeyEvent.VK_UP:
@@ -136,9 +141,9 @@ public class LeftGamePanel extends JPanel
 				{
 				case MouseEvent.BUTTON1:
 				{
-					if(firstClick)
+					if(gameManager.isFirstClick())
 					{
-						firstClick=false;
+						gameManager.setFirstClick(false);
 						gameManager.getTimer().init();
 						panel.init();
 					}
@@ -187,8 +192,11 @@ public class LeftGamePanel extends JPanel
 		Graphics2D g2 = (Graphics2D)g;
 	
 		
+		
+		
 		if(gameManager.isGameOver())
 		{
+			g.drawImage(prov.getGameOver(), 100,80, this);		
 			pointsLabel.setVisible(true);
 			try {
 				if(pointsLabel.isSetted())
@@ -206,16 +214,17 @@ public class LeftGamePanel extends JPanel
 		}
 		else
 		{
-			if(gameManager.isLevelOver())
+			if(((gameManager.isLevelOver() || gameManager.isStart())) || gameManager.isStart() )
 				{
 					panel.pause();
 					drawLevel(g);
-				}		
+				}
+			
 			else
 			{	
 				g.setColor(Color.black);
 				g.drawLine(0*10, 0*10, 0*10, y*10);
-				g.drawLine(0*10,y*10,x*10 ,y*10);
+			
 				g.drawLine(x*10, 0*10, x*10, y*10);
 				g.drawLine(0*10,0*10,x*10,0*10);
 			
@@ -223,7 +232,6 @@ public class LeftGamePanel extends JPanel
 				{
 					g.drawImage(prov.getPause(),200,200,this);
 				}
-		
 				if(!isMove())
 				{
 					float directionX = (gameManager.getBall().getX());
@@ -324,23 +332,26 @@ public class LeftGamePanel extends JPanel
 		this.scoreboard = scoreboard;
 	}
 
-	public boolean isFirstClick() {
-		return firstClick;
-	}
-
-	public void setFirstClick(boolean firstClick) {
-		this.firstClick = firstClick;
-	}
+	
 	public void reset()
 	{
 		gameManager.setLevelOver(false);
+		gameManager.getTimer().reset();
+		panel.resetTimerLabel();
 		giratore = new Giratore(this, gameManager);
 		giratore.start();
-		firstClick=true;
+		gameManager.setFirstClick(true);
 	}
 	public void drawLevel(final Graphics g)
 	{
-		g.drawImage(prov.level,300,200, this);
+		if(gameManager instanceof SinglePlayerGameManager)
+		{
+			g.drawImage(prov.getLevel(gameManager.getLevel()),300,200, this);
+		}
+		if(gameManager instanceof OfflineGameManager)
+		{
+			drawPlayer(g);
+		}
 	}
 	public RightGamePanel getPanel() {
 		return panel;
@@ -348,5 +359,17 @@ public class LeftGamePanel extends JPanel
 
 	public void setPanel(RightGamePanel panel) {
 		this.panel = panel;
+	}
+	
+	protected void drawPlayer(Graphics g)
+	{
+		if(((OfflineGameManager) gameManager).isFirstPlayer())
+		{
+			g.drawImage(prov.getFirstPlayer(),200,100,this);
+		}
+		if(((OfflineGameManager) gameManager).isSecondPlayer())
+		{
+			g.drawImage(prov.getSecondPlayer(),200,100,this);
+		}
 	}
 }

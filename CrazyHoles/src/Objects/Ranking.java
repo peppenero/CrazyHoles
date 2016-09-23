@@ -36,16 +36,16 @@ public class Ranking
 		{
 			for(int i=0;i<ranking.size();i++)
 			{
-				if(ranking.get(i).getPoints()<p.getPoints())
+				if(p.getPoints()>ranking.get(i).getPoints())
 				{
-					ranking.add(i, p);
+					sort(i++,ranking.get(i));
+					ranking.add(i,p);
 					return true;
 				}
 			}
-			ranking.add(p);
-			return true;
-			
 		}
+		
+		return false;
 	}
 	
 	private void readRanking() throws IOException
@@ -75,5 +75,13 @@ public class Ranking
 		}
 		
 		file.flush();
+	}
+	
+	private void sort(int i,Position p)
+	{
+		if(i>9)
+			return;
+		ranking.add(i, p);
+		sort(i++,ranking.get(i));
 	}
 }
