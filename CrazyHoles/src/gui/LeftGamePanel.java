@@ -15,15 +15,12 @@ import java.awt.geom.AffineTransform;
 import java.io.IOException;
 
 import javax.swing.JPanel;
-<<<<<<< HEAD
 import javax.swing.JRootPane;
 import javax.swing.Timer;
 import javax.swing.border.Border;
 import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 import org.omg.CosNaming.IstringHelper;
-=======
->>>>>>> refs/remotes/origin/master
 
 import Objects.GameManager;
 import Objects.Giratore;
@@ -66,14 +63,14 @@ public class LeftGamePanel extends JPanel {
 		y = world.getHeight();
 		gameManager.start();
 		prov = new ImageProv();
-<<<<<<< HEAD
+
 		if(gameManager instanceof SinglePlayerGameManager)
 		{
 			setScoreboard(new ScoreBoardMenu(this,gameManager));
 		}
-=======
+
 		setScoreboard(new ScoreBoardMenu(this, gameManager));
->>>>>>> refs/remotes/origin/master
+
 		setOpaque(false);
 		giratore = new Giratore(this, gameManager);
 		giratore.start();
@@ -117,23 +114,13 @@ public class LeftGamePanel extends JPanel {
 
 		addMouseListener(new MouseAdapter() {
 
-<<<<<<< HEAD
 			public void mouseClicked(MouseEvent e)
 			{
-				switch(e.getButton())
-				{
-				case MouseEvent.BUTTON1:
-				{
-					if(gameManager.isFirstClick())
-					{
-						gameManager.setFirstClick(false);
-=======
-			public void mouseClicked(MouseEvent e) {
 				switch (e.getButton()) {
 				case MouseEvent.BUTTON1: {
-					if (firstClick) {
-						firstClick = false;
->>>>>>> refs/remotes/origin/master
+					if (gameManager.isFirstClick()) {
+						gameManager.setFirstClick(true);
+
 						gameManager.getTimer().init();
 						panel.init();
 					}
@@ -179,20 +166,12 @@ public class LeftGamePanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-<<<<<<< HEAD
+
 		Graphics2D g2 = (Graphics2D)g;
 	
-		
-		
-		
-		if(gameManager.isGameOver())
-		{
-			g.drawImage(prov.getGameOver(), 100,80, this);		
-=======
-		Graphics2D g2 = (Graphics2D) g;
 
 		if (gameManager.isGameOver()) {
->>>>>>> refs/remotes/origin/master
+
 			pointsLabel.setVisible(true);
 			try {
 				if (pointsLabel.isSetted()) {
@@ -205,29 +184,24 @@ public class LeftGamePanel extends JPanel {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-<<<<<<< HEAD
+
 			
 		}
 		else
 		{
 			if(((gameManager.isLevelOver() || gameManager.isStart())) || gameManager.isStart() )
 				{
-					panel.pause();
+					rightGamePanel.pause();
 					drawLevel(g);
 				}
-			
-			else
-			{	
-=======
-
-		} else {
+			else {
 			if (gameManager.isLevelOver()) {
 				rightGamePanel.pause();
 				drawLevel(g);
 			} else {
->>>>>>> refs/remotes/origin/master
+
 				g.setColor(Color.black);
-<<<<<<< HEAD
+
 				g.drawLine(0*10, 0*10, 0*10, y*10);
 			
 				g.drawLine(x*10, 0*10, x*10, y*10);
@@ -236,23 +210,18 @@ public class LeftGamePanel extends JPanel {
 				if(isPause() && !isBoardActive())
 				{
 					g.drawImage(prov.getPause(),200,200,this);
-=======
+
 				g.drawLine(0 * 10, 0 * 10, 0 * 10, y * 10);
 				g.drawLine(0 * 10, y * 10, x * 10, y * 10);
 				g.drawLine(x * 10, 0 * 10, x * 10, y * 10);
 				g.drawLine(0 * 10, 0 * 10, x * 10, 0 * 10);
 
-				if (isPause() && !isBoardActive()) {
-					g.drawImage(prov.getPause(), 200, 200, this);
->>>>>>> refs/remotes/origin/master
 				}
-<<<<<<< HEAD
-				if(!isMove())
-				{
-=======
 
-				if (!isMove()) {
->>>>>>> refs/remotes/origin/master
+
+				if (!isMove())
+				{
+
 					float directionX = (gameManager.getBall().getX());
 					float directionY = (gameManager.getBall().getY());
 
@@ -310,6 +279,7 @@ public class LeftGamePanel extends JPanel {
 
 		g.dispose();
 	}
+	}
 
 	public boolean isMove() {
 		return move;
@@ -364,33 +334,18 @@ public class LeftGamePanel extends JPanel {
 		this.scoreboard = scoreboard;
 	}
 
-<<<<<<< HEAD
-	
-	public void reset()
-	{
-=======
-	public boolean isFirstClick() {
-		return firstClick;
-	}
 
-	public void setFirstClick(boolean firstClick) {
-		this.firstClick = firstClick;
-	}
 
 	public void reset() {
->>>>>>> refs/remotes/origin/master
+
 		gameManager.setLevelOver(false);
 		gameManager.getTimer().reset();
-		panel.resetTimerLabel();
+		rightGamePanel.resetTimerLabel();
 		giratore = new Giratore(this, gameManager);
 		giratore.start();
-<<<<<<< HEAD
 		gameManager.setFirstClick(true);
-=======
-		firstClick = true;
->>>>>>> refs/remotes/origin/master
 	}
-<<<<<<< HEAD
+
 	public void drawLevel(final Graphics g)
 	{
 		if(gameManager instanceof SinglePlayerGameManager)
@@ -401,12 +356,8 @@ public class LeftGamePanel extends JPanel {
 		{
 			drawPlayer(g);
 		}
-=======
-
-	public void drawLevel(final Graphics g) {
-		g.drawImage(prov.level, 300, 200, this);
->>>>>>> refs/remotes/origin/master
 	}
+
 
 	public RightGamePanel getPanel() {
 		return rightGamePanel;

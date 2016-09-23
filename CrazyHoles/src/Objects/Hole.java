@@ -19,12 +19,7 @@ public class Hole extends Object implements HasScore {
 		setX(x);
 		setY(y);
 		setRadius(radius);
-<<<<<<< HEAD
-		setX1(this.getX()+this.getRadius()* (float) Math.cos(Math.toRadians((getAngle()-30))));
-		setY1(this.getY()+this.getRadius()* (float) Math.sin(Math.toRadians((getAngle()-30))));
-		setX2(this.getX()+this.getRadius()* (float) Math.cos(Math.toRadians((getAngle()+30))));
-		setY2(this.getY()+this.getRadius()* (float) Math.sin(Math.toRadians((getAngle()+30))));
-=======
+
 		setX1(this.getX() + this.getRadius()
 				* (float) Math.cos(Math.toRadians((getAngle() - 30))));
 		setY1(this.getY() + this.getRadius()
@@ -37,7 +32,7 @@ public class Hole extends Object implements HasScore {
 		// System.out.println(y1);
 		// System.out.println(x2);
 		// System.out.println(y2);
->>>>>>> refs/remotes/origin/master
+
 	}
 
 	public EquazioniCirconferenza getEquation() {

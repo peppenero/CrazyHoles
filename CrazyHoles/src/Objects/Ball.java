@@ -16,18 +16,15 @@ public class Ball extends Object implements HasScore {
 	private int d;
 	private boolean intersecate = false;
 	private int holePoint;
-<<<<<<< HEAD
+
 	private boolean dropped=false;
 	
-	public EquazioniCirconferenza getEquation()
-	{
-		EquazioniCirconferenza eq = new EquazioniCirconferenza((int)this.getX(), (int) this.getY(), this.getBallRadius());
-=======
+	
 
 	public EquazioniCirconferenza getEquation() {
 		EquazioniCirconferenza eq = new EquazioniCirconferenza(
 				(int) this.getX(), (int) this.getY(), this.getBallRadius());
->>>>>>> refs/remotes/origin/master
+
 		return eq;
 	}
 
@@ -67,106 +64,87 @@ public class Ball extends Object implements HasScore {
 		return this.color;
 	}
 
-	public int move() {
 
-		float x = getX();
-		float y = getY();
-		float diff = 0;
-		boolean xflag = false;
-		boolean yflag = false;
+		public int move() {
 
-		if ((((x + getBallRadius()) + deltaX) > (world.getWidth()))
-				|| (((x - getBallRadius()) + deltaX) < 0)) {
-			if ((deltaX < 0) && (x - getBallRadius() > 0)) {
-				xflag = true;
-				diff = (getX() - (x - getBallRadius()));
-			}
-			if ((deltaX > 0) && (x + getBallRadius() < world.getWidth())) {
-				xflag = true;
-				diff = getX() + (world.getWidth() - (x + getBallRadius()));
-			}
-			deltaX = -deltaX;
-		}
-		for (int i = 0; i < holes.size(); i++) {
+			float x = getX();
+			float y = getY();
+			float diff = 0;
+			boolean xflag = false;
+			boolean yflag = false;
 
-			setD(this.intersezioni(this, holes.get(i)));
-			System.out.println(getD());
-			if (getD() == 1) {
-				if (intersecate)
-					return holePoint;
+			if ((((x + getBallRadius()) + deltaX) > (world.getWidth()))
+					|| (((x - getBallRadius()) + deltaX) < 0)) {
+				if ((deltaX < 0) && (x - getBallRadius() > 0)) {
+					xflag = true;
+					diff = (getX() - (x - getBallRadius()));
+				}
+				if ((deltaX > 0) && (x + getBallRadius() < world.getWidth())) {
+					xflag = true;
+					diff = getX() + (world.getWidth() - (x + getBallRadius()));
+				}
 				deltaX = -deltaX;
+			}
+			for (int i = 0; i < holes.size(); i++) {
+
+				setD(this.intersezioni(this, holes.get(i)));
+				System.out.println(getD());
+				if (getD() == 1) {
+					if (intersecate)
+						return holePoint;
+					deltaX = -deltaX;
+					deltaY = -deltaY;
+				}
+
+				// int dst = (int)
+				// Math.sqrt(Math.pow((holes.get(i).getX()-getX()),2)+
+				// Math.pow((holes.get(i).getY()-getY()), 2));
+				// if((dst)<=(getBallRadius()+holes.get(i).getRadius()))
+				// {
+				// deltaX=-deltaX;
+				// deltaY=-deltaY;
+				// }
+
+				if (getD() != 1 && getD() != 0) {
+					setX(getX() + deltaX);
+					setY(getY() + deltaY);
+					setIntersecate(true);
+					holePoint = getD();
+				}
+				if (isIntersecate() && getY() < holes.get(i).getY())
+					return holePoint;
+
+			}
+			if ((((y + getBallRadius()) + deltaY) > (world.getHeight()))
+					|| (((y - getBallRadius()) + deltaY) < 0)) {
+				if ((deltaY < 0) && (y - getBallRadius() > 0)) {
+					yflag = true;
+					diff = getY() - (y - getBallRadius());
+				}
+				if (deltaY > 0 && (y + getBallRadius()) < world.getHeight()) {
+					yflag = true;
+					diff = getY() + (world.getHeight() - (y + getBallRadius()));
+				}
 				deltaY = -deltaY;
 			}
 
-			// int dst = (int)
-			// Math.sqrt(Math.pow((holes.get(i).getX()-getX()),2)+
-			// Math.pow((holes.get(i).getY()-getY()), 2));
-			// if((dst)<=(getBallRadius()+holes.get(i).getRadius()))
-			// {
-			// deltaX=-deltaX;
-			// deltaY=-deltaY;
-			// }
-
-			if (getD() != 1 && getD() != 0) {
+			if (!xflag && !yflag) {
 				setX(getX() + deltaX);
 				setY(getY() + deltaY);
-				setIntersecate(true);
-				holePoint = getD();
+			} else {
+				if (xflag) {
+					setX(diff);
+					setY(getY() + deltaY);
+				}
+				if (yflag) {
+					setX(getX() + deltaX);
+					setY(diff);
+				}
 			}
-			if (isIntersecate() && getY() < holes.get(i).getY())
-				return holePoint;
+			return 0;
+		}
 
-		}
-<<<<<<< HEAD
-		if((((y-getBallRadius())+deltaY)<0))
-		{
-			if((deltaY<0) && (y-getBallRadius()>0))
-			{
-=======
-		if ((((y + getBallRadius()) + deltaY) > (world.getHeight()))
-				|| (((y - getBallRadius()) + deltaY) < 0)) {
-			if ((deltaY < 0) && (y - getBallRadius() > 0)) {
->>>>>>> refs/remotes/origin/master
-				yflag = true;
-				diff = getY() - (y - getBallRadius());
-			}
-			if (deltaY > 0 && (y + getBallRadius()) < world.getHeight()) {
-				yflag = true;
-				diff = getY() + (world.getHeight() - (y + getBallRadius()));
-			}
-			deltaY = -deltaY;
-		}
-<<<<<<< HEAD
-		if(((y+getBallRadius())+deltaY)>(world.getHeight()))
-		{
-			setDropped(true);
-		}
-		if(!xflag && !yflag)
-		{
-			setX(getX()+deltaX);
-			setY(getY()+deltaY);
-		}
-		else{
-			if(xflag)
-			{
-=======
-
-		if (!xflag && !yflag) {
-			setX(getX() + deltaX);
-			setY(getY() + deltaY);
-		} else {
-			if (xflag) {
->>>>>>> refs/remotes/origin/master
-				setX(diff);
-				setY(getY() + deltaY);
-			}
-			if (yflag) {
-				setX(getX() + deltaX);
-				setY(diff);
-			}
-		}
-		return 0;
-	}
+	
 
 	public void moveRight() {
 		if ((getX() + getBallRadius()) < world.getWidth())
@@ -391,7 +369,7 @@ public class Ball extends Object implements HasScore {
 		this.setY(world.getHeight() - getBallRadius());
 	}
 
-<<<<<<< HEAD
+
 	public boolean isDropped() {
 		return dropped;
 	}
@@ -399,7 +377,5 @@ public class Ball extends Object implements HasScore {
 	public void setDropped(boolean dropped) {
 		this.dropped = dropped;
 	}
-	
-=======
->>>>>>> refs/remotes/origin/master
+
 }

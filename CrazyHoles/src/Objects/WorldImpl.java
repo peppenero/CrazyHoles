@@ -9,14 +9,9 @@ public class WorldImpl implements World {
 	private List<Ball> balls = new ArrayList<>();
 	private int height = 60;
 	private int width = 80;
-<<<<<<< HEAD
+
 	private boolean lastLevel=false;
-	
-	
-	public void reset()
-	{
-=======
-	private boolean lastLevel = false;
+
 
 	@Override
 	public void update() {
@@ -24,7 +19,7 @@ public class WorldImpl implements World {
 	}
 
 	public void reset() {
->>>>>>> refs/remotes/origin/master
+
 		holes.clear();
 	}
 
