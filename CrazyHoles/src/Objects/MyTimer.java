@@ -22,9 +22,7 @@ public class MyTimer {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub	
-			
-			
+				// TODO Auto-generated method stub		
 				diffTime = System.currentTimeMillis() - startTime;
 				decSeconds = (int) (diffTime % 1000 / 100);
 				seconds = (int) (diffTime / 1000 % 60);
@@ -55,7 +53,6 @@ public class MyTimer {
 	}
 	public void restart()
 	{
-		setStartTime();
 		timer.restart();
 	}
 	public void reset()
