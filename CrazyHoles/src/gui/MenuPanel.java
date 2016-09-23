@@ -133,9 +133,10 @@ public class MenuPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				
+				GameFrame.switchTo(frame.getMultiplayerPanel());
 			}
 		});
+		
 
 
 		add(newGameButton);
