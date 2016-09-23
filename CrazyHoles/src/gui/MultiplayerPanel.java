@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import Objects.GameManager;
 import Objects.OfflineGameManager;
 
-public class Multiplayer extends JPanel
+public class MultiplayerPanel extends JPanel
 {
 	private Image background;
 	private Icon off = new ImageIcon("images/Offline.png");
@@ -26,7 +26,7 @@ public class Multiplayer extends JPanel
 	private MenuButton online = new MenuButton(on,onSelected);
 	private MenuPanel menuPanel;
 	
-	public Multiplayer(MenuPanel panel)
+	public MultiplayerPanel(MenuPanel panel)
 	{		
 		menuPanel = panel;
 		setLayout(null);

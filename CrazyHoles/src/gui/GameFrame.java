@@ -23,7 +23,7 @@ public class GameFrame extends JFrame
 	private static LevelEditorPanel levelEditorPanel;
 	private static SettingsPanel settingsPanel;
 	private static CreditsPanel creditsPanel;
-	private static Multiplayer multiplayerPanel;
+	private static MultiplayerPanel multiplayerPanel;
 	private GameManager manager;
 	
 	final static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
@@ -56,7 +56,7 @@ public class GameFrame extends JFrame
         
         
         menuPanel = new MenuPanel(frame);
-        multiplayerPanel = new Multiplayer(menuPanel);
+        multiplayerPanel = new MultiplayerPanel(menuPanel);
         switchTo(menuPanel);
         
         device.setFullScreenWindow(frame);
