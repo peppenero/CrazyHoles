@@ -69,7 +69,7 @@ public class LeftGamePanel extends JPanel {
 			setScoreboard(new ScoreBoardMenu(this,gameManager));
 		}
 
-		setScoreboard(new ScoreBoardMenu(this, gameManager));
+		
 
 		setOpaque(false);
 		giratore = new Giratore(this, gameManager);
@@ -119,7 +119,7 @@ public class LeftGamePanel extends JPanel {
 				switch (e.getButton()) {
 				case MouseEvent.BUTTON1: {
 					if (gameManager.isFirstClick()) {
-						gameManager.setFirstClick(true);
+						gameManager.setFirstClick(false);
 
 						gameManager.getTimer().init();
 						panel.init();
@@ -212,7 +212,6 @@ public class LeftGamePanel extends JPanel {
 					g.drawImage(prov.getPause(),200,200,this);
 
 				g.drawLine(0 * 10, 0 * 10, 0 * 10, y * 10);
-				g.drawLine(0 * 10, y * 10, x * 10, y * 10);
 				g.drawLine(x * 10, 0 * 10, x * 10, y * 10);
 				g.drawLine(0 * 10, 0 * 10, x * 10, 0 * 10);
 
