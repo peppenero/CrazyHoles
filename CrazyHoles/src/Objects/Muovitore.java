@@ -26,7 +26,7 @@ public class Muovitore extends Thread {
 
 		int ris = ball.move();
 		while ((ris == 1 || ris == 0) && !leftGamePanel.isBackFlag()
-				&& !gameManager.isGameOver()) {
+				&& !gameManager.isGameOver() && !ball.isDropped()) {
 			try {
 				if (!leftGamePanel.isPause()) {
 					System.out.println("-----------");

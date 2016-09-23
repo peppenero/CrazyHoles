@@ -132,8 +132,7 @@ public class RightGamePanel extends JPanel {
 					leftGamePanel.setPause(true);
 					
 					if (started) {
-						timer.stop();
-						manager.getTimer().stop();
+						manager.getTimer().pause();
 					}
 
 				} else {
@@ -141,18 +140,9 @@ public class RightGamePanel extends JPanel {
 					pauseButton.setIcon(pauseIcon);
 					pauseButton.setRolloverIcon(pauseSelected);
 					scoreboardButton.setEnabled(true);
-
-					/*if (started) {
-						timer.restart();
-<<<<<<< HEAD
-						manager.getTimer().restart();
-					}
-						panel.setPause(false);
-=======
-					}*/
 					leftGamePanel.setPause(false);
-					timer.restart();
-
+					manager.getTimer().restart();
+					
 				}
 				leftGamePanel.repaint();
 			}
@@ -201,7 +191,6 @@ public class RightGamePanel extends JPanel {
 			 this.add(scoreboardButton);
 		 }
 		 this.add(exitButton);
-
 	}
 
 	public void init() {

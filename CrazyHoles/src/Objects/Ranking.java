@@ -23,17 +23,25 @@ public class Ranking {
 		if (ranking.isEmpty()) {
 			ranking.add(p);
 			return true;
-		} else {
-			for (int i = 0; i < ranking.size(); i++) {
-				if (ranking.get(i).getPoints() < p.getPoints()) {
-					ranking.add(i, p);
+
+		}
+		else
+		{
+			for(int i=0;i<ranking.size();i++)
+			{
+				if(p.getPoints()>ranking.get(i).getPoints())
+				{
+					sort(i++,ranking.get(i));
+					ranking.add(i,p);
 					return true;
 				}
 			}
-			ranking.add(p);
-			return true;
+
+
 
 		}
+		
+		return false;
 	}
 
 	private void readRanking() throws IOException {

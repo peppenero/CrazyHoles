@@ -14,6 +14,7 @@ public class MyTimer {
 	private int minutes;
 
 
+
 	public MyTimer() {
 
 
@@ -22,7 +23,8 @@ public class MyTimer {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub	
-
+			
+			
 				diffTime = System.currentTimeMillis() - startTime;
 				decSeconds = (int) (diffTime % 1000 / 100);
 				seconds = (int) (diffTime / 1000 % 60);
@@ -63,8 +65,15 @@ public class MyTimer {
 		decSeconds=0;
 	}
 
-	public void stop() {
-
+	public void pause()
+	{
+		startTime = diffTime;
 		timer.stop();
 	}
+	
+	public void stop() {
+		
+		timer.stop();
+	}
+	
 }

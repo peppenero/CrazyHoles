@@ -16,7 +16,6 @@ public class Ball extends Object implements HasScore {
 	private int d;
 	private boolean intersecate = false;
 	private int holePoint;
-
 	private boolean dropped=false;
 	
 	
@@ -88,7 +87,7 @@ public class Ball extends Object implements HasScore {
 			for (int i = 0; i < holes.size(); i++) {
 
 				setD(this.intersezioni(this, holes.get(i)));
-				System.out.println(getD());
+				
 				if (getD() == 1) {
 					if (intersecate)
 						return holePoint;
@@ -115,8 +114,7 @@ public class Ball extends Object implements HasScore {
 					return holePoint;
 
 			}
-			if ((((y + getBallRadius()) + deltaY) > (world.getHeight()))
-					|| (((y - getBallRadius()) + deltaY) < 0)) {
+			if ((((y - getBallRadius()) + deltaY) < 0)) {
 				if ((deltaY < 0) && (y - getBallRadius() > 0)) {
 					yflag = true;
 					diff = getY() - (y - getBallRadius());
@@ -126,6 +124,10 @@ public class Ball extends Object implements HasScore {
 					diff = getY() + (world.getHeight() - (y + getBallRadius()));
 				}
 				deltaY = -deltaY;
+			}
+			if(((y + getBallRadius()) + deltaY) > (world.getHeight()))
+			{
+				setDropped(true);
 			}
 
 			if (!xflag && !yflag) {
