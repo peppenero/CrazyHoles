@@ -12,6 +12,10 @@ import javax.swing.JPanel;
 
 public class LevelEditorPanel extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Image background;
 	GameFrame frame;
 	

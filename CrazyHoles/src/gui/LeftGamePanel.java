@@ -15,12 +15,6 @@ import java.awt.geom.AffineTransform;
 import java.io.IOException;
 
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
-import javax.swing.Timer;
-import javax.swing.border.Border;
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
-
-import org.omg.CosNaming.IstringHelper;
 
 import Objects.GameManager;
 import Objects.Giratore;
@@ -200,7 +194,7 @@ public class LeftGamePanel extends JPanel {
 				drawLevel(g);
 			} else {
 
-				g.setColor(Color.black);
+				g.setColor(Color.white);
 
 				g.drawLine(0*10, 0*10, 0*10, y*10);
 			

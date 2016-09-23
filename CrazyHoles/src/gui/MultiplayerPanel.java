@@ -17,6 +17,10 @@ import Objects.OfflineGameManager;
 
 public class MultiplayerPanel extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private GameFrame frame;
 	private Image background;
 	private Icon off = new ImageIcon("images/Offline.png");

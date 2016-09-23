@@ -1,7 +1,6 @@
 package gui;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class MenuButton extends JButton {

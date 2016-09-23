@@ -12,11 +12,15 @@ import javax.swing.SwingUtilities;
 
 import Objects.GameManager;
 import Objects.SinglePlayerGameManager;
-import Objects.WorldImpl;
 
 
 public class GameFrame extends JFrame
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static JPanel contentPanel;
 	
 	private static MenuPanel menuPanel;
@@ -36,7 +40,7 @@ public class GameFrame extends JFrame
 		this.setUndecorated(true);
 		this.setSize(1280, 800);
 		this.setResizable(true);
-		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(GameFrame.EXIT_ON_CLOSE);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 	

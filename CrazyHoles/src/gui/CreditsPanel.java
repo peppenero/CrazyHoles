@@ -11,6 +11,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class CreditsPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	GameFrame frame;
 	
 	Image background;

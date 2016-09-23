@@ -3,24 +3,22 @@ package gui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import Objects.GameManager;
-import Objects.Ranking;
 
 public class PointsLabel extends JDialog
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextArea text;
 	private JButton okay;
 	private BoxLayout layout;

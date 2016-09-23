@@ -1,30 +1,17 @@
 package gui;
 
 
-import java.awt.Color;
 import java.awt.ComponentOrientation;
-import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.geom.AffineTransform;
 import java.io.IOException;
-import java.util.List;
-import java.util.prefs.BackingStoreException;
 
 import javax.swing.JPanel;
 
-import Objects.Ball;
 import Objects.GameManager;
-import Objects.Giratore;
-import Objects.Hole;
-import Objects.Muovitore;
-import Objects.World;
 
 
 
