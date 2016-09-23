@@ -56,7 +56,7 @@ public class GameFrame extends JFrame
         
         
         menuPanel = new MenuPanel(frame);
-        multiplayerPanel = new MultiplayerPanel(menuPanel);
+        multiplayerPanel = new MultiplayerPanel(frame);
         switchTo(menuPanel);
         
         device.setFullScreenWindow(frame);
