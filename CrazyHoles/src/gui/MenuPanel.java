@@ -48,6 +48,7 @@ public class MenuPanel extends JPanel {
 	
 	
 	
+	
 	public MenuPanel(GameFrame frameSup){
 		frame=frameSup;
 		
@@ -127,18 +128,9 @@ public class MenuPanel extends JPanel {
 				}
 			}
 		});
-		multiplayer.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				GameFrame.switchTo(frame.getMultiplayerPanel());
-			}
-		});
 
 
 		add(newGameButton);
-		add(multiplayer);
 		add(resumeButton);
 		add(levelEditorButton);
 		add(settingsButton);
@@ -146,14 +138,12 @@ public class MenuPanel extends JPanel {
 		add(exitButton);
 
 
-		resumeButton.setBounds(100,200,newGame.getIconWidth(),newGame.getIconHeight());
-		newGameButton.setBounds(100,280,newGame.getIconWidth(),newGame.getIconHeight());
-		multiplayer.setBounds(100, 360,multi.getIconWidth(),newGame.getIconHeight());
-		levelEditorButton.setBounds(100,440,newGame.getIconWidth(),newGame.getIconHeight());
-		settingsButton.setBounds(100,520,newGame.getIconWidth(),newGame.getIconHeight());
-		creditsButton.setBounds(100,600,newGame.getIconWidth(),newGame.getIconHeight());
-		exitButton.setBounds(100,680,newGame.getIconWidth(),newGame.getIconHeight());
-		
+		resumeButton.setBounds(100,260,newGame.getIconWidth(),newGame.getIconHeight());
+		newGameButton.setBounds(100,340,newGame.getIconWidth(),newGame.getIconHeight());
+		levelEditorButton.setBounds(100,420,newGame.getIconWidth(),newGame.getIconHeight());
+		settingsButton.setBounds(100,500,newGame.getIconWidth(),newGame.getIconHeight());
+		creditsButton.setBounds(100,580,newGame.getIconWidth(),newGame.getIconHeight());
+		exitButton.setBounds(100,660,newGame.getIconWidth(),newGame.getIconHeight());
 
 	}
 
