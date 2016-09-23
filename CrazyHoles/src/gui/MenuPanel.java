@@ -42,6 +42,7 @@ public class MenuPanel extends JPanel {
 	Icon resumeSelected = new ImageIcon("images/resume_selected.png");
 	MenuButton resumeButton = new MenuButton(resume,resumeSelected);
 	Icon resumeDeselected = new ImageIcon("images/resume_deselected.png");
+	
 	public MenuPanel(GameFrame frameSup){
 		frame=frameSup;
 		

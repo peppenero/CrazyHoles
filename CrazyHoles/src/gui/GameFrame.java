@@ -48,7 +48,7 @@ public class GameFrame extends JFrame
        
         
         
-        levelEditorPanel = new LevelEditorPanel();
+        levelEditorPanel = new LevelEditorPanel(frame);
         creditsPanel = new CreditsPanel(frame);
         settingsPanel = new SettingsPanel(frame);
         
