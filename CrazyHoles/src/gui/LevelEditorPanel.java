@@ -1,8 +1,5 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -10,16 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.IOException;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class LevelEditorPanel extends JPanel{
 	
@@ -31,19 +23,9 @@ public class LevelEditorPanel extends JPanel{
 	GameFrame frame;
 	
 	
-	
-	Icon add = new ImageIcon("images/add.png");
-	Icon addSelected = new ImageIcon("images/add_selected.png");
-	MenuButton addButton = new MenuButton(add,addSelected);
-	
-	Icon move = new ImageIcon("images/move.png");
-	Icon moveSelected = new ImageIcon("images/move_selected.png");
-	MenuButton moveButton = new MenuButton(move,moveSelected);
-	
-	Icon delete = new ImageIcon("images/delete.png");
-	Icon deleteSelected = new ImageIcon("images/delete_selected.png");
-	MenuButton deleteButton = new MenuButton(delete,deleteSelected);
-	
+	private OurButton addButton = new OurButton("ADD OBJECT");
+	private OurButton moveButton = new OurButton("MOVE OBJECT");
+	private OurButton deleteButton = new OurButton("DELETE OBJECT");
 	private OurButton backToMenuButton = new OurButton("BACK TO MENU");
 	
 	public LevelEditorPanel(GameFrame frameSup){
@@ -60,13 +42,13 @@ public class LevelEditorPanel extends JPanel{
 		backToMenuButton.setBounds(1000,700,OurButton.WIDTH,OurButton.HEIGHT);
 		add(backToMenuButton);
 		
-		addButton.setBounds(1000,170,add.getIconWidth(),add.getIconHeight());
+		addButton.setBounds(1000,170,OurButton.WIDTH,OurButton.HEIGHT);
 		add(addButton);
 		
-		moveButton.setBounds(1000, 300, move.getIconWidth(), move.getIconHeight());
+		moveButton.setBounds(1000, 300, OurButton.WIDTH, OurButton.HEIGHT);
 		add(moveButton);
 		
-		deleteButton.setBounds(1000, 350, delete.getIconWidth(), delete.getIconHeight());
+		deleteButton.setBounds(1000, 350, OurButton.WIDTH, OurButton.HEIGHT);
 		add(deleteButton);
 		
 		final JComboBox<String> comboBox = new JComboBox<String>();
