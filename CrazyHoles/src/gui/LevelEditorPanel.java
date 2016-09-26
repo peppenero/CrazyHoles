@@ -30,9 +30,7 @@ public class LevelEditorPanel extends JPanel{
 	Image background;
 	GameFrame frame;
 	
-	Icon backToMenu = new ImageIcon("images/backtomenu.png");
-	Icon backToMenuSelected = new ImageIcon("images/backtomenu_selected.png");
-	MenuButton backToMenuButton = new MenuButton(backToMenu,backToMenuSelected);
+	
 	
 	Icon add = new ImageIcon("images/add.png");
 	Icon addSelected = new ImageIcon("images/add_selected.png");
@@ -46,32 +44,20 @@ public class LevelEditorPanel extends JPanel{
 	Icon deleteSelected = new ImageIcon("images/delete_selected.png");
 	MenuButton deleteButton = new MenuButton(delete,deleteSelected);
 	
-	OurButton etiche = new OurButton("Picchiarello");
+	private OurButton backToMenuButton = new OurButton("BACK TO MENU");
 	
 	public LevelEditorPanel(GameFrame frameSup){
 		frame=frameSup;
 		setLayout(null);
 		background = Toolkit.getDefaultToolkit().createImage("images/Vuoto.jpg");
 		
-		etiche.setOnClickBehaviour(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e)  
-		    {
-				GameFrame.switchTo(frame.getMenuPanel());
-		    }
-		});
-		etiche.setBounds(200, 200, 200, 80);
-		add(etiche);
-		
-		backToMenuButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+		backToMenuButton.setOnClickBehaviour(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
 				GameFrame.switchTo(frame.getMenuPanel());
 			}
 		});
 		
-		backToMenuButton.setBounds(1000,700,backToMenu.getIconWidth(),backToMenu.getIconHeight());
+		backToMenuButton.setBounds(1000,700,OurButton.WIDTH,OurButton.HEIGHT);
 		add(backToMenuButton);
 		
 		addButton.setBounds(1000,170,add.getIconWidth(),add.getIconHeight());

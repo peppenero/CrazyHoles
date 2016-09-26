@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -20,27 +22,21 @@ public class SettingsPanel extends JPanel{
 	GameFrame frame;
 	
 	Image background;
-	Icon backToMenu = new ImageIcon("images/backtomenu.png");
-	Icon backToMenuSelected = new ImageIcon("images/backtomenu_selected.png");
-	MenuButton backToMenuButton = new MenuButton(backToMenu,backToMenuSelected);
+	OurButton backToMenuButton = new OurButton("BACK TO MENU");
 	
 	public SettingsPanel(GameFrame f){
 		frame = f;
 		setLayout(null);
 		background = Toolkit.getDefaultToolkit().createImage("images/Settings.jpg");
 		
-		backToMenuButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+		backToMenuButton.setOnClickBehaviour(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
 				GameFrame.switchTo(frame.getMenuPanel());
 			}
 		});
 		
+		backToMenuButton.setBounds(100,700,OurButton.WIDTH,OurButton.HEIGHT);
 		add(backToMenuButton);
-		
-		backToMenuButton.setBounds(100,700,backToMenu.getIconWidth(),backToMenu.getIconHeight());
 		
 	}
 	

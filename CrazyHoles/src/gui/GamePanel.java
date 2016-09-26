@@ -23,12 +23,12 @@ public class GamePanel extends JPanel
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	Image background;
-	FlowLayout layout;
-	LeftGamePanel left;
-	RightGamePanel right;
-	GameManager manager;
-	MenuPanel menuPanel;
+	private Image background;
+	private FlowLayout layout;
+	private LeftGamePanel left;
+	private RightGamePanel right;
+	private GameManager manager;
+	private MenuPanel menuPanel;
 	
 	public GamePanel(GameManager manager,final MenuPanel menu) throws IOException, FontFormatException
 	{

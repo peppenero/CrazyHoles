@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.swing.Icon;
@@ -29,10 +31,9 @@ public class MultiplayerPanel extends JPanel
 	private Icon on = new ImageIcon("images/Online.png");
 	private Icon onSelected = new ImageIcon("images/Online_Selected.png");
 	private MenuButton online = new MenuButton(on,onSelected);
-	private Icon backToMenu = new ImageIcon("images/backtomenu.png");
-	private Icon backToMenuSelected = new ImageIcon("images/backtomenu_selected.png");
-	private MenuButton backToMenuButton = new MenuButton(backToMenu,backToMenuSelected);
+	
 	private MenuPanel menuPanel;
+	private OurButton backToMenuButton = new OurButton("BACK TO MENU");
 	
 	public MultiplayerPanel(GameFrame f)
 	{	
@@ -40,13 +41,20 @@ public class MultiplayerPanel extends JPanel
 		setLayout(null);
 		add(offline);
 		add(online);
-		add(backToMenuButton);
 		
 		background = Toolkit.getDefaultToolkit().createImage("images/Background.jpg");
 	   
 		offline.setBounds(100, 400, off.getIconWidth(),off.getIconHeight());
 		online.setBounds(100, 480, on.getIconWidth(), on.getIconHeight());
-		backToMenuButton.setBounds(100, 700, backToMenu.getIconWidth(), backToMenu.getIconHeight());
+		
+		backToMenuButton .setOnClickBehaviour(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
+				GameFrame.switchTo(frame.getMenuPanel());
+			}
+		});
+		
+		backToMenuButton.setBounds(100,700,OurButton.WIDTH,OurButton.HEIGHT);
+		add(backToMenuButton);
 
 		offline.addActionListener(new ActionListener() {
 			
@@ -70,14 +78,6 @@ public class MultiplayerPanel extends JPanel
 			}
 		});
 		
-		backToMenuButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				GameFrame.switchTo(frame.getMenuPanel());
-			}
-		});
 	}
 	
 
