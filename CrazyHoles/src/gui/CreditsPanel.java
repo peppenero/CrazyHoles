@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
@@ -48,6 +49,9 @@ public class CreditsPanel extends JPanel {
 		
 		gMuratore.setFont(font);
 		gSpanò.setFont(font);
+		
+		gMuratore.setForeground(Color.BLACK);
+		gSpanò.setForeground(Color.BLACK);
 		
 		gMuratore.setBounds(100, 250, 600, 100);
 		gSpanò.setBounds(100, 400, 600, 100);
