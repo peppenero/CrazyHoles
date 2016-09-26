@@ -166,6 +166,7 @@ public class LeftGamePanel extends JPanel {
 
 		if (gameManager.isGameOver()) {
 
+		g.drawImage(prov.getGameOver(),50,50,this);
 			pointsLabel.setVisible(true);
 			try {
 				if (pointsLabel.isSetted()) {
@@ -183,16 +184,12 @@ public class LeftGamePanel extends JPanel {
 		}
 		else
 		{
-			if(((gameManager.isLevelOver() || gameManager.isStart())) || gameManager.isStart() )
+			if(((gameManager.isLevelOver() || gameManager.isStart())))
 				{
 					rightGamePanel.pause();
 					drawLevel(g);
 				}
 			else {
-			if (gameManager.isLevelOver()) {
-				rightGamePanel.pause();
-				drawLevel(g);
-			} else {
 
 				g.setColor(Color.white);
 
@@ -272,7 +269,7 @@ public class LeftGamePanel extends JPanel {
 
 		g.dispose();
 	}
-	}
+	
 
 	public boolean isMove() {
 		return move;

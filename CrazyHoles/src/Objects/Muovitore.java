@@ -27,22 +27,25 @@ public class Muovitore extends Thread {
 		int ris = ball.move();
 		while ((ris == 1 || ris == 0) && !leftGamePanel.isBackFlag()
 				&& !gameManager.isGameOver() && !ball.isDropped()) {
-			try {
+		
 				if (!leftGamePanel.isPause()) {
-					System.out.println("-----------");
-					sleep(50);
 					leftGamePanel.repaint();
 					ris = ball.move();
 				}
-
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				try {
+					sleep(50);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			
 		}
 		if (leftGamePanel.isBackFlag()) {
 			gameManager.reset();
 		}
+		
 
 		leftGamePanel.setMove(false);
 		gameManager.update();

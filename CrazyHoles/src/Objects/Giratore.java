@@ -27,7 +27,6 @@ public class Giratore extends Thread {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 			if(!panel.isPause())
 			for(int i=0;i<holes.size();i++)
 			{
@@ -46,6 +45,7 @@ public class Giratore extends Thread {
 				
 				manager.setStart(false);			
 			}
+	}
 			
 		if (manager.isLevelOver()) {
 			panel.repaint();
@@ -58,7 +58,11 @@ public class Giratore extends Thread {
 			panel.reset();
 		}
 		
-	}
+	
 	
 	}
+	
 }
+
+
+
