@@ -59,7 +59,7 @@ public class OfflineGameManager extends GameManager
 	 			if(getWorld().getBalls().isEmpty())
 	 	 		{
 	 				game++;
-	 				if(game==4)
+	 				if(game==4)//modificare quando ci saranno tutti i livelli
  					{
  						setGameOver(true);
  					}
