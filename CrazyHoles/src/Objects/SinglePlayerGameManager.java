@@ -44,8 +44,8 @@ public class SinglePlayerGameManager extends GameManager
  			}
  			setBall(getOneBall());
  		}
- 			if(getBall().isIntersecate())
-		 		{
+ 		if(getBall().isIntersecate())
+		 	{
 		 			setPoints(this.getPoints() + getBall().getHolePoint()+getBall().getScore());
 		 		
 		 			

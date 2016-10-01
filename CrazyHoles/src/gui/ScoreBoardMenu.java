@@ -67,24 +67,21 @@ public class ScoreBoardMenu extends JDialog
 	private void loadLabel() throws IOException
 	{
 		
-		if(ranking.getRaking().size()<=3)
+		if(ranking.getRaking().length<=3)
 		{
-			label = new JLabel[ranking.getRaking().size()];
+			label = new JLabel[ranking.getRaking().length];
 		}
 		else
 		{
 			label = new JLabel[3];
 		}
-		
-
-		for(int i =0;i<label.length;i++)
+		for(int i =label.length-1;i>=0;i--)
 		{
-			label[i] = new JLabel(ranking.getRaking().get(i).getName()+" "+ranking.getRaking().get(i).getPoints());
+			label[i] = new JLabel(ranking.getRaking()[i].getName()+" "+ranking.getRaking()[i].getPoints());
 			label[i].setFont(font);
 			label[i].setForeground(Color.black);
 			label[i].setAlignmentX(CENTER_ALIGNMENT);
 			label[i].setAlignmentY(TOP_ALIGNMENT);
-
 		}
 		for(int i =0;i<label.length;i++)
 		{

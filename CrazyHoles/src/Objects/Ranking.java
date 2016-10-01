@@ -7,40 +7,48 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+//non mi piace che viene istanziata ogni volta
 public class Ranking {
-	private List<Position> ranking = new ArrayList<>();
-
+	private Position ranking[] = new Position[10];
+	private Position nulla = new Position("nulla",0);
 	public Ranking() throws IOException {
 		readRanking();
+		for(int i=0;i<ranking.length;i++)
+		{
+			if(ranking[i]==null)
+			{
+				ranking[i]=nulla;
+			}
+		}
 	}
 
-	public List<Position> getRaking() {
+	public Position[] getRaking() {
 		return this.ranking;
 	}
 
 	public boolean addPosition(Position p) {
-		if (ranking.isEmpty()) {
-			ranking.add(p);
+		if (ranking.length==0) {
+			ranking[ranking.length-1]=p;
 			return true;
-
 		}
 		else
 		{
-			for(int i=0;i<ranking.size();i++)
+			for(int i=0;i<ranking.length;i++)
 			{
-				if(p.getPoints()>ranking.get(i).getPoints())
+				if(ranking[i]==nulla)
 				{
-					sort(i++,ranking.get(i));
-					ranking.add(i,p);
-					return true;
+					ranking[i]=p;
+				}
+				else
+				{
+					if(p.getPoints()>ranking[i].getPoints())
+					{
+						sort(i--,ranking[i]);
+						ranking[i]=p;
+					}
 				}
 			}
-
-
-
-		}
-		
+		}		
 		return false;
 	}
 
@@ -65,9 +73,9 @@ public class Ranking {
 		BufferedWriter file = new BufferedWriter(new FileWriter(
 				"data/scoreboard.txt", false));
 
-		for (int i = 0; i < ranking.size(); i++) {
-			file.write(ranking.get(i).getName() + "*"
-					+ ranking.get(i).getPoints() + "\n");
+		for (int i = 0; i < ranking.length; i++) {
+			file.write(ranking[i].getName() + "*"
+					+ ranking[i].getPoints() + "\n");
 		}
 
 		file.flush();
@@ -76,9 +84,9 @@ public class Ranking {
 	
 	private void sort(int i,Position p)
 	{
-		if(i>9)
+		if(i<0)
 			return;
-		ranking.add(i, p);
-		sort(i++,ranking.get(i));
+		sort(i--,ranking[i]);
+		ranking[i]=p;
 	}
 }

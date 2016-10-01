@@ -7,6 +7,7 @@ import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.font.NumericShaper;
 import java.io.File;
 import java.io.IOException;
 
@@ -20,6 +21,7 @@ import javax.swing.Timer;
 import javax.swing.border.Border;
 
 import Objects.GameManager;
+import Objects.OfflineGameManager;
 import Objects.SinglePlayerGameManager;
 
 
@@ -44,12 +46,19 @@ public class RightGamePanel extends JPanel {
 	private Timer timer;
 	private long startTime;
 	private JLabel numbersOfBall;
+	private JLabel playerOnePoints;
+	private JLabel playerTwoPoints;
+	private JLabel playerOneSet;
+	private JLabel playerTwoSet;
 	private BoxLayout layout;
 	private boolean started = false;
 	private MenuButton exitButton;
 	private MenuButton scoreboardButton;
 	private MenuButton pauseButton;
 	private LeftGamePanel leftGamePanel;
+	private JPanel top;
+	private JPanel center;
+	private JPanel bottom;
 
 	public RightGamePanel(final GameManager manager)
 			throws FontFormatException, IOException {
@@ -64,7 +73,7 @@ public class RightGamePanel extends JPanel {
 		pauseButton = new MenuButton(pauseIcon, pauseSelected);
 		pauseButton.setDisabledIcon(pauseDeselected);
 		scoreboardButton.setDisabledIcon(scoreBoardDeselected);
-		String filename = "data/ARCADE_N.TTF";
+		String filename = "data/EASPORTS15.ttf";
 		Font font = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
 		font = font.deriveFont(Font.TRUETYPE_FONT, 30);
 		GraphicsEnvironment ge = GraphicsEnvironment
@@ -95,8 +104,8 @@ public class RightGamePanel extends JPanel {
 		 numbersOfBall.setOpaque(true);
 		 numbersOfBall.setBackground(Color.white);
 		 numbersOfBall.setForeground(Color.BLACK);
-		 numbersOfBall.setAlignmentX(CENTER_ALIGNMENT);
 		 numbersOfBall.setAlignmentY(TOP_ALIGNMENT);
+		 numbersOfBall.setAlignmentX(CENTER_ALIGNMENT);
 		 numbersOfBall.setFont(font);
 		 String s = String.format("%02d:%02d.%d", manager.getTimer().getMinutes(),manager.getTimer().getSeconds(),manager.getTimer().getDecSeconds());
 			timeLabel.setText(s);
@@ -111,6 +120,48 @@ public class RightGamePanel extends JPanel {
 			
 			
 		});
+		 if(manager instanceof OfflineGameManager)
+		 {	 
+			 String pointsPone = String.format("%02d", ((OfflineGameManager) manager).getFirstPlayerPoints());
+			 playerOnePoints = new JLabel(pointsPone);
+			 playerOnePoints.setBorder(lowered);
+			 playerOnePoints.setOpaque(true);
+			 playerOnePoints.setBackground(Color.white);
+			 playerOnePoints.setForeground(Color.BLACK);
+			 playerOnePoints.setAlignmentY(TOP_ALIGNMENT);
+			 playerOnePoints.setAlignmentX(CENTER_ALIGNMENT);
+			 playerOnePoints.setFont(font);
+			 
+			 String pointsPtwo = String.format("%02d", ((OfflineGameManager) manager).getSecondPlayerpoints());
+			 playerTwoPoints = new JLabel(pointsPtwo);
+			 playerTwoPoints.setBorder(lowered);
+			 playerTwoPoints.setOpaque(true);
+			 playerTwoPoints.setBackground(Color.white);
+			 playerTwoPoints.setForeground(Color.BLACK);
+			 playerTwoPoints.setAlignmentY(TOP_ALIGNMENT);
+			 playerTwoPoints.setAlignmentX(CENTER_ALIGNMENT);
+			 playerTwoPoints.setFont(font);
+			 
+			 String setPone = String.format("%02d", ((OfflineGameManager) manager).getPlayerOneSet());
+			 playerOneSet = new JLabel(setPone);
+			 playerOneSet.setBorder(lowered);
+			 playerOneSet.setOpaque(true);
+			 playerOneSet.setBackground(Color.white);
+			 playerOneSet.setForeground(Color.BLACK);
+			 playerOneSet.setAlignmentY(TOP_ALIGNMENT);
+			 playerOneSet.setAlignmentX(CENTER_ALIGNMENT);
+			 playerOneSet.setFont(font);
+			 
+			 String setPtwo = String.format("%02d", ((OfflineGameManager) manager).getPlayertwoSet());
+			 playerTwoSet = new JLabel(setPtwo);
+			 playerTwoSet.setBorder(lowered);
+			 playerTwoSet.setOpaque(true);
+			 playerTwoSet.setBackground(Color.white);
+			 playerTwoSet.setForeground(Color.BLACK);
+			 playerTwoSet.setAlignmentY(TOP_ALIGNMENT);
+			 playerTwoSet.setAlignmentX(CENTER_ALIGNMENT);
+			 playerTwoSet.setFont(font);
+		 }
 		setOpaque(false);
 		
 
@@ -163,28 +214,38 @@ public class RightGamePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-
-				manager.getTimer().stop();
-				leftGamePanel.getMenuPanel().setResumable(true);
-				leftGamePanel.setBackFlag(true);
-				leftGamePanel.exitToMenu();		
-				leftGamePanel.getMenuPanel().setResumable(true);
-				leftGamePanel.setBackFlag(true);
-				leftGamePanel.exitToMenu();
-
+				if(manager instanceof SinglePlayerGameManager)
+				{
+					manager.getTimer().stop();
+					leftGamePanel.getMenuPanel().setResumable(true);
+					leftGamePanel.setBackFlag(true);
+					leftGamePanel.exitToMenu();		
+					leftGamePanel.getMenuPanel().setResumable(true);
+					leftGamePanel.setBackFlag(true);
+					leftGamePanel.exitToMenu();
+				}
 			}
 		});
 
-		
-		 this.add(numbersOfBall);	
-		 this.add(timeLabel);
-		 this.add(pointsLabel);
-		 this.add(pauseButton);
+		 add(numbersOfBall);	
+		 add(timeLabel);
+		 add(pointsLabel);
+		 
+		 if(manager instanceof OfflineGameManager)
+		 {
+			 add(playerOnePoints);
+			 add(playerTwoPoints);
+			 add(playerOneSet);
+			 add(playerTwoSet);
+		 }
+		 
+		 add(pauseButton);
 		 if(manager instanceof SinglePlayerGameManager)
 		 {
-			 this.add(scoreboardButton);
+			 add(scoreboardButton);
 		 }
-		 this.add(exitButton);
+		 add(exitButton);
+		 
 	}
 
 	public void init() {
@@ -198,6 +259,17 @@ public class RightGamePanel extends JPanel {
 		String number = String.format("%02d", manager.getBalls().size());
 		pointsLabel.setText(s);
 		numbersOfBall.setText(number);
+		if(manager instanceof OfflineGameManager)
+		{
+			String onePoints = String.format("%02d", ((OfflineGameManager) manager).getFirstPlayerPoints());
+			playerOnePoints.setText(onePoints);
+			String twoPoints = String.format("%02d", ((OfflineGameManager) manager).getSecondPlayerpoints());
+			playerTwoPoints.setText(twoPoints);
+			String oneSet = String.format("%02d", ((OfflineGameManager) manager).getPlayerOneSet());
+			playerOneSet.setText(oneSet);
+			String twoSet = String.format("%02d", ((OfflineGameManager) manager).getPlayertwoSet());
+			playerTwoSet.setText(twoSet);
+		}
 	}
 
 	public void resetTimerLabel()

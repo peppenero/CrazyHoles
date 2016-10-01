@@ -164,23 +164,34 @@ public class LeftGamePanel extends JPanel {
 		Graphics2D g2 = (Graphics2D)g;
 	
 
-		if (gameManager.isGameOver()) {
-
-		g.drawImage(prov.getGameOver(),50,50,this);
-			pointsLabel.setVisible(true);
-			try {
-				if (pointsLabel.isSetted()) {
-					gameManager.addPosition();
-					pointsLabel.setVisible(false);
-					exitToMenu();
-
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		if (gameManager.isGameOver()) 
+		{
+			if(gameManager instanceof SinglePlayerGameManager)
+			{
+				g.drawImage(prov.getGameOver(),50,50,this);
+					pointsLabel.setVisible(true);
+					try {
+						if (pointsLabel.isSetted()) {
+							gameManager.addPosition();
+							pointsLabel.setVisible(false);
+							exitToMenu();
+						}
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}	
 			}
-
-			
+			if(gameManager instanceof OfflineGameManager)
+			{
+				if(((OfflineGameManager) gameManager).getWinner()==0)
+				{
+					g.drawImage(prov.getFirstPlayerWinner() ,50, 50,this);
+				}
+				if(((OfflineGameManager) gameManager).getWinner()==1)
+				{
+					g.drawImage(prov.getSecondPlayerWinner(),50,50,this);
+				}
+			}
 		}
 		else
 		{

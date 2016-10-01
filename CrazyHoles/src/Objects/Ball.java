@@ -89,7 +89,9 @@ public class Ball extends Object implements HasScore {
 				
 				if (getD() == 1) {
 					if (intersecate)
+					{
 						return holePoint;
+					}
 					deltaX = -deltaX;
 					deltaY = -deltaY;
 				}
@@ -110,7 +112,10 @@ public class Ball extends Object implements HasScore {
 					holePoint = getD();
 				}
 				if (isIntersecate() && getY() < holes.get(i).getY())
+				{
+					System.out.println("ntoni");
 					return holePoint;
+				}
 
 			}
 			if ((((y - getBallRadius()) + deltaY) < 0)) {
@@ -142,7 +147,8 @@ public class Ball extends Object implements HasScore {
 					setY(diff);
 				}
 			}
-			return d;
+			
+			return 0;
 		}
 
 	

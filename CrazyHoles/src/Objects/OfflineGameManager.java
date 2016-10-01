@@ -16,8 +16,10 @@ public class OfflineGameManager extends GameManager
 	private boolean secondPlayer;
 	private int firstPlayerPoints = 0;
 	private int secondPlayerpoints = 0;
-	private int playedLevel[] = new int[6];
-	private boolean changeLevel = false;
+	private int playedLevel[] = new int[3];
+	private int playerOneSet = 0;
+	private int playertwoSet=0;
+	private int winner;
 	
 	public OfflineGameManager() throws IOException
 	{
@@ -33,7 +35,7 @@ public class OfflineGameManager extends GameManager
 	}
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		
 		if(getBall().isDropped())
  		{
  			getBall().setDropped(false);
@@ -56,55 +58,91 @@ public class OfflineGameManager extends GameManager
 	 			getWorld().getBalls().remove(0);
 	 			if(getWorld().getBalls().isEmpty())
 	 	 		{
+	 				game++;
+	 				if(game==4)
+ 					{
+ 						setGameOver(true);
+ 					}
 	 				setLevelOver(true);
-	 	 		}
-	 			if(isLevelOver())
-	 			{
+	 	
 	 				if(isFirstPlayer())
 	 				{
-	 					setFirstPlayerPoints(getPoints()+getFirstPlayerPoints());
+	 					setFirstPlayerPoints(getPoints());
 	 				}
 	 				if(isSecondPlayer())
 	 				{
-	 					setSecondPlayerpoints(getPoints()+getSecondPlayerpoints());
+	 					setSecondPlayerpoints(getPoints());
 	 				}
+	 				setPoints(0);
 	 				setFirstPlayer(!firstPlayer);
 	 				setSecondPlayer(!secondPlayer);
-	 				if(game%2 !=0)
+	 				
+	 				if(game%2 ==0)
 	 				{
-	 					setLevel(getLevel()+1);
-	 					try {
-							setWorld( (WorldImpl) getwManager().getworld(getLevel()));
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-	 					changeLevel=true;
-	 				}
+	 					if(firstPlayerPoints>secondPlayerpoints)
+	 					{
+	 						setPlayerOneSet(getPlayerOneSet() + 1);
+	 					}
+	 					else
+	 					{
+	 						if(firstPlayerPoints==secondPlayerpoints)
+	 						{
+	 							setPlayerOneSet(getPlayerOneSet() + 1);
+	 							setPlayertwoSet(getPlayertwoSet() + 1);
+	 						}
+	 						else
+	 						{
+	 							setPlayertwoSet(getPlayertwoSet() + 1);
+	 						}
+	 					}	
+	 					setFirstPlayerPoints(0);
+	 					setSecondPlayerpoints(0);
+	 					if(!isGameOver())
+	 					{
+		 					setLevel(getLevel()+1);
+		 					try {
+								setWorld( (WorldImpl) getwManager().getworld(getLevel()));
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+	 					}
+			 									
+	 				} 
 	 				else
 	 				{
-		 				try {
-							setWorld((WorldImpl) getwManager().getworld(getLevel()));
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+	 					if(!isGameOver())
+	 					{
+		 					try {
+								setWorld((WorldImpl) getwManager().getworld(getLevel()));
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}	
+	 					}
 	 				}
-	 				
-	 				
-	 				game++;
-	 				
-	 			}
-	 			
+	 								
+	 			}	 			
 	 				if(!isGameOver())
 	 				{
 	 					setBall(getOneBall());
-	 				}	
-	 			
-	 			
-	 				
-	 			
+	 				}	 			
 	 		}
+		if(isGameOver())
+		{
+			getTimer().stop();
+			if(isFirstPlayer())
+			{
+				setWinner(0);
+			}
+			if(isSecondPlayer())
+			{
+				setWinner(1);
+			}
+				
+		}
+	
+		
 	}
 	public boolean isFirstPlayer() {
 		return firstPlayer;
@@ -129,6 +167,24 @@ public class OfflineGameManager extends GameManager
 	}
 	public void setSecondPlayerpoints(int secondPlayerpoints) {
 		this.secondPlayerpoints = secondPlayerpoints;
+	}
+	public int getPlayerOneSet() {
+		return playerOneSet;
+	}
+	public void setPlayerOneSet(int playerOneSet) {
+		this.playerOneSet = playerOneSet;
+	}
+	public int getPlayertwoSet() {
+		return playertwoSet;
+	}
+	public void setPlayertwoSet(int playertwoSet) {
+		this.playertwoSet = playertwoSet;
+	}
+	public int getWinner() {
+		return winner;
+	}
+	public void setWinner(int winner) {
+		this.winner = winner;
 	}
 	
 }
