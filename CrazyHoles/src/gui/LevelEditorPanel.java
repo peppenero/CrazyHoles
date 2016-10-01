@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -11,6 +12,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 public class LevelEditorPanel extends JPanel{
@@ -21,6 +23,7 @@ public class LevelEditorPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	Image background;
 	GameFrame frame;
+	ImageProv imageProv = new ImageProv();
 	
 	
 	private OurButton addButton = new OurButton("ADD OBJECT");
@@ -69,10 +72,14 @@ public class LevelEditorPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(comboBox.getSelectedItem()=="Obstacle"){
-					comboBox_1.setEnabled(false);
+					comboBox_1.removeAllItems();
+					comboBox_1.addItem("Square");
+					comboBox_1.addItem("Circle");
 				}
 				else{
-					comboBox_1.setEnabled(true);
+					comboBox_1.removeAllItems();
+					comboBox_1.addItem("Yellow");
+					comboBox_1.addItem("Green");
 				}
 			}
 		});
@@ -81,8 +88,6 @@ public class LevelEditorPanel extends JPanel{
 	}
 	
 	public void paintComponent(Graphics g){
-
 		g.drawImage(background, 0, 0, this);
-
 	}
 }

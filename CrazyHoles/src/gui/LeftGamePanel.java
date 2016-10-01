@@ -58,12 +58,9 @@ public class LeftGamePanel extends JPanel {
 		gameManager.start();
 		prov = new ImageProv();
 
-		if(gameManager instanceof SinglePlayerGameManager)
-		{
-			setScoreboard(new ScoreBoardMenu(this,gameManager));
+		if (gameManager instanceof SinglePlayerGameManager) {
+			setScoreboard(new ScoreBoardMenu(this, gameManager));
 		}
-
-		
 
 		setOpaque(false);
 		giratore = new Giratore(this, gameManager);
@@ -91,10 +88,9 @@ public class LeftGamePanel extends JPanel {
 				}
 				case KeyEvent.VK_SPACE: {
 					gameManager.getBall().move();
-				
-						gameManager.update();
-					
-					
+
+					gameManager.update();
+
 					break;
 				}
 				case KeyEvent.VK_UP: {
@@ -108,8 +104,7 @@ public class LeftGamePanel extends JPanel {
 
 		addMouseListener(new MouseAdapter() {
 
-			public void mouseClicked(MouseEvent e)
-			{
+			public void mouseClicked(MouseEvent e) {
 				switch (e.getButton()) {
 				case MouseEvent.BUTTON1: {
 					if (gameManager.isFirstClick()) {
@@ -161,8 +156,7 @@ public class LeftGamePanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		Graphics2D g2 = (Graphics2D)g;
-	
+		Graphics2D g2 = (Graphics2D) g;
 
 		if (gameManager.isGameOver()) 
 		{
