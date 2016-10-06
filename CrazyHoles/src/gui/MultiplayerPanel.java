@@ -78,6 +78,15 @@ public class MultiplayerPanel extends JPanel
 			}
 		});
 		
+		online.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				GameFrame.switchTo(new OnlinePanel());
+			}
+		});
+		
 	}
 	
 

@@ -9,47 +9,28 @@ import java.util.ArrayList;
 import java.util.List;
 //non mi piace che viene istanziata ogni volta
 public class Ranking {
-	private Position ranking[] = new Position[10];
-	private Position nulla = new Position("nulla",0);
-	public Ranking() throws IOException {
+	private ArrayList<Position> ranking = new ArrayList<Position>(10);
+	public Ranking() throws IOException
+	{
 		readRanking();
-		for(int i=0;i<ranking.length;i++)
-		{
-			if(ranking[i]==null)
-			{
-				ranking[i]=nulla;
-			}
-		}
 	}
 
-	public Position[] getRaking() {
+	public ArrayList<Position> getRaking() {
 		return this.ranking;
 	}
 
 	public boolean addPosition(Position p) {
-		if (ranking.length==0) {
-			ranking[ranking.length-1]=p;
+		if (ranking.isEmpty()) {
+			ranking.add(0,p);
 			return true;
 		}
 		else
 		{
-			for(int i=0;i<ranking.length;i++)
-			{
-				if(ranking[i]==nulla)
-				{
-					ranking[i]=p;
-				}
-				else
-				{
-					if(p.getPoints()>ranking[i].getPoints())
-					{
-						sort(i--,ranking[i]);
-						ranking[i]=p;
-					}
-				}
-			}
-		}		
+					
+		}	
+		
 		return false;
+		
 	}
 
 	private void readRanking() throws IOException {
@@ -57,13 +38,14 @@ public class Ranking {
 		BufferedReader file = new BufferedReader(new FileReader(
 				"data/scoreboard.txt"));
 		String buffer = file.readLine();
-
+		int i=0;
 		while (buffer != null) {
 			String[] string = buffer.split("\\*");
 			Position pos = new Position(string[0],
 					Integer.parseInt(string[string.length - 1]));
-			this.addPosition(pos);
+			this.getRaking().add(i,pos);
 			buffer = file.readLine();
+			i++;
 		}
 
 		file.close();
@@ -73,20 +55,13 @@ public class Ranking {
 		BufferedWriter file = new BufferedWriter(new FileWriter(
 				"data/scoreboard.txt", false));
 
-		for (int i = 0; i < ranking.length; i++) {
-			file.write(ranking[i].getName() + "*"
-					+ ranking[i].getPoints() + "\n");
+		for (int i = 0; i < ranking.size(); i++) {
+			file.write(ranking.get(i).getName() + "*"
+					+ ranking.get(i).getPoints() + "\n");
 		}
 
 		file.flush();
 		file.close();
 	}
 	
-	private void sort(int i,Position p)
-	{
-		if(i<0)
-			return;
-		sort(i--,ranking[i]);
-		ranking[i]=p;
-	}
 }

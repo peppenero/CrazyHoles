@@ -14,12 +14,14 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Objects.GameManager;
 import Objects.Giratore;
 import Objects.Muovitore;
 import Objects.OfflineGameManager;
+import Objects.OnlineGameManager;
 import Objects.SinglePlayerGameManager;
 import Objects.World;
 
@@ -157,7 +159,8 @@ public class LeftGamePanel extends JPanel {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
-
+	
+	
 		if (gameManager.isGameOver()) 
 		{
 			if(gameManager instanceof SinglePlayerGameManager)
@@ -373,4 +376,6 @@ public class LeftGamePanel extends JPanel {
 			g.drawImage(prov.getSecondPlayer(),200,100,this);
 		}
 	}
+	
+	
 }

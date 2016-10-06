@@ -35,13 +35,14 @@ public class PointsLabel extends JDialog
 		setSize(250,100);
 		setLocation(200,200);
 		setBackground(new Color(255,255,255,0));
+	
 		layout= new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
 		setLayout(layout);
 		text=new JTextArea();
 		text.setVisible(true);
 		text.setForeground(Color.black);
 		okay = new JButton("okay");
-
+		text.setOpaque(false);
 		text.addKeyListener(new KeyAdapter() {
 		
 			
