@@ -1,18 +1,12 @@
 package gui;
 
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 public class LevelEditorPanel extends JPanel{
@@ -24,17 +18,29 @@ public class LevelEditorPanel extends JPanel{
 	Image background;
 	GameFrame frame;
 	ImageProv imageProv = new ImageProv();
+	LevelEditorLeftPanel leftPanel = new LevelEditorLeftPanel();
 	
 	
 	private OurButton addButton = new OurButton("ADD OBJECT");
 	private OurButton moveButton = new OurButton("MOVE OBJECT");
 	private OurButton deleteButton = new OurButton("DELETE OBJECT");
+	private OurButton saveButton = new OurButton("SAVE LEVEL");
 	private OurButton backToMenuButton = new OurButton("BACK TO MENU");
+	
+	private JComboBox<Integer> bucheBox;
+	private JComboBox<String> coloriBox;
+	private int numBuche=0,lastIndex=0;
 	
 	public LevelEditorPanel(GameFrame frameSup){
 		frame=frameSup;
 		setLayout(null);
 		background = Toolkit.getDefaultToolkit().createImage("images/Vuoto.jpg");
+		
+		bucheBox = new JComboBox<Integer>();
+		coloriBox = new JComboBox<String>();
+		coloriBox.addItem("blu");
+		coloriBox.addItem("verde");
+		coloriBox.addItem("giallo");
 		
 		backToMenuButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
@@ -42,45 +48,69 @@ public class LevelEditorPanel extends JPanel{
 			}
 		});
 		
+		leftPanel.setBounds(40,20,700,750);
+		add(leftPanel);
+		
 		backToMenuButton.setBounds(1000,700,OurButton.WIDTH,OurButton.HEIGHT);
 		add(backToMenuButton);
 		
-		addButton.setBounds(1000,170,OurButton.WIDTH,OurButton.HEIGHT);
+		addButton.setBounds(1000,50,OurButton.WIDTH,OurButton.HEIGHT);
 		add(addButton);
+		
+		coloriBox.setBounds(1000,120,100,30);
+		add(coloriBox);
+		
+		bucheBox.setBounds(1000, 250, 100, 30);
+		add(bucheBox);
 		
 		moveButton.setBounds(1000, 300, OurButton.WIDTH, OurButton.HEIGHT);
 		add(moveButton);
+		moveButton.setEnabled(false);
 		
 		deleteButton.setBounds(1000, 350, OurButton.WIDTH, OurButton.HEIGHT);
 		add(deleteButton);
+		deleteButton.setEnabled(false);
 		
-		final JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setBounds(1000, 70, 150, 30);
-		comboBox.addItem("Hole");
-		comboBox.addItem("Obstacle");
-		add(comboBox);
+		saveButton.setBounds(1000, 400, OurButton.WIDTH, OurButton.HEIGHT);
+		add(saveButton);
+		saveButton.setEnabled(false);
 		
-		final JComboBox<String> comboBox_1 = new JComboBox<String>();
-		comboBox_1.setBounds(1000, 120, 150, 30);
-		comboBox_1.addItem("Yellow");
-		comboBox_1.addItem("Green");
-		add(comboBox_1);
+		addButton.setOnClickBehaviour(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
+				leftPanel.addBuca(++lastIndex,coloriBox.getSelectedItem());
+				++numBuche;
+				bucheBox.addItem(lastIndex);
+				System.out.println(lastIndex);
+				moveButton.setEnabled(true);
+				deleteButton.setEnabled(true);
+				saveButton.setEnabled(true);
+				leftPanel.repaint();
+			}
+		});
 		
-		comboBox.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				if(comboBox.getSelectedItem()=="Obstacle"){
-					comboBox_1.removeAllItems();
-					comboBox_1.addItem("Square");
-					comboBox_1.addItem("Circle");
+		moveButton.setOnClickBehaviour(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
+				leftPanel.muoviBuca((Integer)bucheBox.getSelectedItem());
+			}
+		});
+		
+		deleteButton.setOnClickBehaviour(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
+				leftPanel.removeBuca((Integer)bucheBox.getSelectedItem());
+				bucheBox.removeItem(bucheBox.getSelectedItem());
+				numBuche--;
+				if(numBuche==0){
+					moveButton.setEnabled(false);
+					deleteButton.setEnabled(false);
+					saveButton.setEnabled(false);
 				}
-				else{
-					comboBox_1.removeAllItems();
-					comboBox_1.addItem("Yellow");
-					comboBox_1.addItem("Green");
-				}
+				leftPanel.repaint();
+			}
+		});
+
+		saveButton.setOnClickBehaviour(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
+				leftPanel.saveLevel();
 			}
 		});
 		
@@ -88,6 +118,7 @@ public class LevelEditorPanel extends JPanel{
 	}
 	
 	public void paintComponent(Graphics g){
+		super.paintComponent(g);
 		g.drawImage(background, 0, 0, this);
 	}
 }
