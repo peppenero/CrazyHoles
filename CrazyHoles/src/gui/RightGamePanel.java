@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.font.NumericShaper;
 import java.io.File;
 import java.io.IOException;
 
@@ -33,16 +32,7 @@ public class RightGamePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private GameManager manager;
-	private Icon pauseIcon = new ImageIcon("images/pause.png");
-	private Icon pauseSelected = new ImageIcon("images/pause_selected.png");
-	private Icon exitIcon = new ImageIcon("images/exit.png");
-	private Icon exitSelected = new ImageIcon("images/exit_selected.png");
-	private Icon scoreIcon = new ImageIcon("images/scoreboard.png");
-	private Icon scoreSelected = new ImageIcon("images/scoreboard_selected.png");
-	private Icon restartIcon = new ImageIcon("images/resume.png");
-	private Icon restartSelected = new ImageIcon("images/resume_selected.png");
-	private Icon scoreBoardDeselected = new ImageIcon("images/scoreboard_deselected.png");
-	private Icon pauseDeselected = new ImageIcon("images/pause_deselected.png");
+	
 	private JLabel timeLabel;
 	private JLabel pointsLabel;
 	private Timer timer;
@@ -58,9 +48,6 @@ public class RightGamePanel extends JPanel {
 	private OurButton scoreboardButton;
 	private OurButton pauseButton;
 	private LeftGamePanel leftGamePanel;
-	private JPanel top;
-	private JPanel center;
-	private JPanel bottom;
 
 	public RightGamePanel(final GameManager manager)
 			throws FontFormatException, IOException {
@@ -73,8 +60,6 @@ public class RightGamePanel extends JPanel {
 		exitButton = new OurButton("EXIT");
 		scoreboardButton = new OurButton("SCOREBOARD");
 		pauseButton = new OurButton("PAUSE");
-		pauseButton.setDisabledIcon(pauseDeselected);
-		scoreboardButton.setDisabledIcon(scoreBoardDeselected);
 		String filename = "data/EASPORTS15.ttf";
 		Font font = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
 		font = font.deriveFont(Font.TRUETYPE_FONT, 30);
@@ -170,7 +155,7 @@ public class RightGamePanel extends JPanel {
 			public void mouseClicked(MouseEvent e){
 				if (!leftGamePanel.isPause()) {
 
-					pauseButton.setIcon(restartIcon);
+					pauseButton.setText("RESTART");
 					//AGGIUSTARE
 					//pauseButton.setRolloverIcon(restartSelected);
 					scoreboardButton.setEnabled(false);
@@ -182,7 +167,7 @@ public class RightGamePanel extends JPanel {
 
 				} else {
 					
-					pauseButton.setIcon(pauseIcon);
+					pauseButton.setText("PAUSE");
 					//AGGIUSTARE
 					//pauseButton.setRolloverIcon(pauseSelected);
 					scoreboardButton.setEnabled(true);
