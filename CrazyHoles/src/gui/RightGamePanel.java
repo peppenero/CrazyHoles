@@ -7,6 +7,8 @@ import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.font.NumericShaper;
 import java.io.File;
 import java.io.IOException;
@@ -52,9 +54,9 @@ public class RightGamePanel extends JPanel {
 	private JLabel playerTwoSet;
 	private BoxLayout layout;
 	private boolean started = false;
-	private MenuButton exitButton;
-	private MenuButton scoreboardButton;
-	private MenuButton pauseButton;
+	private OurButton exitButton;
+	private OurButton scoreboardButton;
+	private OurButton pauseButton;
 	private LeftGamePanel leftGamePanel;
 	private JPanel top;
 	private JPanel center;
@@ -68,9 +70,9 @@ public class RightGamePanel extends JPanel {
 		this.setAlignmentX(LEFT_ALIGNMENT);
 		this.setLayout(layout);
 		setPreferredSize(new Dimension(450, 800));
-		exitButton = new MenuButton(exitIcon, exitSelected);
-		scoreboardButton = new MenuButton(scoreIcon, scoreSelected);
-		pauseButton = new MenuButton(pauseIcon, pauseSelected);
+		exitButton = new OurButton("EXIT");
+		scoreboardButton = new OurButton("SCOREBOARD");
+		pauseButton = new OurButton("PAUSE");
 		pauseButton.setDisabledIcon(pauseDeselected);
 		scoreboardButton.setDisabledIcon(scoreBoardDeselected);
 		String filename = "data/EASPORTS15.ttf";
@@ -164,15 +166,13 @@ public class RightGamePanel extends JPanel {
 		 }
 		setOpaque(false);
 		
-
-		pauseButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
+		pauseButton.setOnClickBehaviour(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
 				if (!leftGamePanel.isPause()) {
 
 					pauseButton.setIcon(restartIcon);
-					pauseButton.setRolloverIcon(restartSelected);
+					//AGGIUSTARE
+					//pauseButton.setRolloverIcon(restartSelected);
 					scoreboardButton.setEnabled(false);
 					leftGamePanel.setPause(true);
 					
@@ -183,7 +183,8 @@ public class RightGamePanel extends JPanel {
 				} else {
 					
 					pauseButton.setIcon(pauseIcon);
-					pauseButton.setRolloverIcon(pauseSelected);
+					//AGGIUSTARE
+					//pauseButton.setRolloverIcon(pauseSelected);
 					scoreboardButton.setEnabled(true);
 					leftGamePanel.setPause(false);
 					manager.getTimer().restart();
@@ -193,11 +194,10 @@ public class RightGamePanel extends JPanel {
 			}
 		});
 
-		scoreboardButton.addActionListener(new ActionListener() {
+		
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+		scoreboardButton.setOnClickBehaviour(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
 				leftGamePanel.setPause(true);
 				leftGamePanel.setsBoardActive(true);
 				if (started) {
@@ -206,14 +206,10 @@ public class RightGamePanel extends JPanel {
 				leftGamePanel.getScoreboard().setVisible(true);
 				leftGamePanel.repaint();
 			}
-
 		});
-
-		exitButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+		
+		exitButton.setOnClickBehaviour(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e ){
 				if(manager instanceof SinglePlayerGameManager)
 				{
 					manager.getTimer().stop();

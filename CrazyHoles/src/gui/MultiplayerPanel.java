@@ -25,12 +25,8 @@ public class MultiplayerPanel extends JPanel
 	private static final long serialVersionUID = 1L;
 	private GameFrame frame;
 	private Image background;
-	private Icon off = new ImageIcon("images/Offline.png");
-	private Icon offSelected = new ImageIcon("images/Offline_Selected.png");
-	private MenuButton offline  = new MenuButton(off,offSelected);
-	private Icon on = new ImageIcon("images/Online.png");
-	private Icon onSelected = new ImageIcon("images/Online_Selected.png");
-	private MenuButton online = new MenuButton(on,onSelected);
+	private OurButton offline  = new OurButton("Offline");
+	private OurButton online = new OurButton("Online");
 	
 	private MenuPanel menuPanel;
 	private OurButton backToMenuButton = new OurButton("BACK TO MENU");
@@ -44,8 +40,8 @@ public class MultiplayerPanel extends JPanel
 		
 		background = Toolkit.getDefaultToolkit().createImage("images/Background.jpg");
 	   
-		offline.setBounds(100, 400, off.getIconWidth(),off.getIconHeight());
-		online.setBounds(100, 480, on.getIconWidth(), on.getIconHeight());
+		offline.setBounds(100, 400, OurButton.WIDTH,OurButton.HEIGHT);
+		online.setBounds(100, 480, OurButton.WIDTH,OurButton.HEIGHT);
 		
 		backToMenuButton .setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
@@ -55,37 +51,29 @@ public class MultiplayerPanel extends JPanel
 		
 		backToMenuButton.setBounds(100,700,OurButton.WIDTH,OurButton.HEIGHT);
 		add(backToMenuButton);
-
-		offline.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-				 
+		
+		offline.setOnClickBehaviour(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
 				try {
 					GameManager manager = new OfflineGameManager();
 					GamePanel panel = new GamePanel(manager,menuPanel);
 					GameFrame.switchTo(panel);
-				} catch (IOException e) {
+				} catch (IOException ex) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (FontFormatException e) {
+					ex.printStackTrace();
+				} catch (FontFormatException ex) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					ex.printStackTrace();
 				}
-				
-				
 			}
 		});
 		
-		online.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+		online.setOnClickBehaviour(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
 				GameFrame.switchTo(new OnlinePanel());
 			}
 		});
+
 		
 	}
 	
