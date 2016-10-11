@@ -8,7 +8,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JComponent;
 
 
-public class Buca extends JComponent {
+public class Hole extends JComponent {
 	
 	private int x=250,y=250;
 	private int dimx=100,dimy=105;
@@ -19,7 +19,7 @@ public class Buca extends JComponent {
 	public String colore;
 	
 
-	public Buca(int i,String c){
+	public Hole(int i,String c){
 		index=i;
 		System.out.println(c);
 		switch(c){

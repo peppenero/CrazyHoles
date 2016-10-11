@@ -27,20 +27,20 @@ public class LevelEditorPanel extends JPanel{
 	private OurButton saveButton = new OurButton("SAVE LEVEL");
 	private OurButton backToMenuButton = new OurButton("BACK TO MENU");
 	
-	private JComboBox<Integer> bucheBox;
-	private JComboBox<String> coloriBox;
-	private int numBuche=0,lastIndex=0;
+	private JComboBox<Integer> holesBox;
+	private JComboBox<String> colorsBox;
+	private int numHoles=0,lastIndex=0;
 	
 	public LevelEditorPanel(GameFrame frameSup){
 		frame=frameSup;
 		setLayout(null);
 		background = Toolkit.getDefaultToolkit().createImage("images/Vuoto.jpg");
 		
-		bucheBox = new JComboBox<Integer>();
-		coloriBox = new JComboBox<String>();
-		coloriBox.addItem("blu");
-		coloriBox.addItem("verde");
-		coloriBox.addItem("giallo");
+		holesBox = new JComboBox<Integer>();
+		colorsBox = new JComboBox<String>();
+		colorsBox.addItem("Red");
+		colorsBox.addItem("Green");
+		colorsBox.addItem("Yellow");
 		
 		backToMenuButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
@@ -57,11 +57,11 @@ public class LevelEditorPanel extends JPanel{
 		addButton.setBounds(1000,50,OurButton.WIDTH,OurButton.HEIGHT);
 		add(addButton);
 		
-		coloriBox.setBounds(1000,120,100,30);
-		add(coloriBox);
+		colorsBox.setBounds(1000,120,100,30);
+		add(colorsBox);
 		
-		bucheBox.setBounds(1000, 250, 100, 30);
-		add(bucheBox);
+		holesBox.setBounds(1000, 250, 100, 30);
+		add(holesBox);
 		
 		moveButton.setBounds(1000, 300, OurButton.WIDTH, OurButton.HEIGHT);
 		add(moveButton);
@@ -77,9 +77,9 @@ public class LevelEditorPanel extends JPanel{
 		
 		addButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
-				leftPanel.addBuca(++lastIndex,coloriBox.getSelectedItem());
-				++numBuche;
-				bucheBox.addItem(lastIndex);
+				leftPanel.addHole(++lastIndex,colorsBox.getSelectedItem());
+				++numHoles;
+				holesBox.addItem(lastIndex);
 				System.out.println(lastIndex);
 				moveButton.setEnabled(true);
 				deleteButton.setEnabled(true);
@@ -90,16 +90,16 @@ public class LevelEditorPanel extends JPanel{
 		
 		moveButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
-				leftPanel.muoviBuca((Integer)bucheBox.getSelectedItem());
+				leftPanel.muoviBuca((Integer)holesBox.getSelectedItem());
 			}
 		});
 		
 		deleteButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
-				leftPanel.removeBuca((Integer)bucheBox.getSelectedItem());
-				bucheBox.removeItem(bucheBox.getSelectedItem());
-				numBuche--;
-				if(numBuche==0){
+				leftPanel.removeHole((Integer)holesBox.getSelectedItem());
+				holesBox.removeItem(holesBox.getSelectedItem());
+				numHoles--;
+				if(numHoles==0){
 					moveButton.setEnabled(false);
 					deleteButton.setEnabled(false);
 					saveButton.setEnabled(false);

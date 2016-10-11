@@ -21,28 +21,28 @@ public class LevelEditorLeftPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	ArrayList<Buca> buche = new ArrayList<Buca>();
-	Buca bucaSelezionata;
+	ArrayList<Hole> holes = new ArrayList<Hole>();
+	Hole selectedHole;
 	ImageProv imageProv = new ImageProv();
 	
 	public LevelEditorLeftPanel(){
 		this.setBackground(Color.BLACK);
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(700,750));
-		for(Buca b:buche){
+		for(Hole b:holes){
 			this.add(b);
 		}
 	}
 	
 	public void muoviBuca(int n){
 		//C'è qualche problemino perchè si crea ogni volta un mouseAdapter.
-		bucaSelezionata=buche.get(n-1);
+		selectedHole=holes.get(n-1);
 				
 		MouseAdapter ma = new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if((e.getX()+bucaSelezionata.getDimx()/2<=bucaSelezionata.getDimPx() && e.getX()-bucaSelezionata.getDimx()/2>=0) && (e.getY()+bucaSelezionata.getDimy()/2<=bucaSelezionata.getDimPy() && e.getY()-bucaSelezionata.getDimy()/2>=0)){
-				bucaSelezionata.setX(e.getX());
-				bucaSelezionata.setY(e.getY());
+				if((e.getX()+selectedHole.getDimx()/2<=selectedHole.getDimPx() && e.getX()-selectedHole.getDimx()/2>=0) && (e.getY()+selectedHole.getDimy()/2<=selectedHole.getDimPy() && e.getY()-selectedHole.getDimy()/2>=0)){
+				selectedHole.setX(e.getX());
+				selectedHole.setY(e.getY());
 
 				repaint();
 				}
@@ -52,23 +52,23 @@ public class LevelEditorLeftPanel extends JPanel {
 	}
 	
 		
-	public void addBuca(int lastIndex,Object color){
-		buche.add(new Buca(lastIndex,(String)color));
+	public void addHole(int lastIndex,Object color){
+		holes.add(new Hole(lastIndex,(String)color));
 		System.out.println((String)color);
 	}
 	
-	public void removeBuca(Integer selectedItem) {
+	public void removeHole(Integer selectedItem) {
 		// TODO Auto-generated method stub
 		System.out.println("selected item" + selectedItem);
-		Buca daEliminare = new Buca(0,"Verde");
-		for(int i=0;i<buche.size();i++){
-			System.out.println(buche.get(i).index+","+selectedItem);
-			if(buche.get(i).index==selectedItem){
-				daEliminare=buche.get(i);
+		Hole daEliminare = new Hole(0,"Verde");
+		for(int i=0;i<holes.size();i++){
+			System.out.println(holes.get(i).index+","+selectedItem);
+			if(holes.get(i).index==selectedItem){
+				daEliminare=holes.get(i);
 				break;
 			}
 		}
-		buche.remove(daEliminare);
+		holes.remove(daEliminare);
 	}
 	
 	public void saveLevel(){
@@ -79,8 +79,8 @@ public class LevelEditorLeftPanel extends JPanel {
 	            try
 	            {
 	                final PrintWriter pw = new PrintWriter(fileChooser.getSelectedFile());
-	                for(int i=0;i<buche.size();i++){
-						pw.print("Buca, " + buche.get(i).getX() + " "  + buche.get(i).getY() + " " + buche.get(i).getColor());
+	                for(int i=0;i<holes.size();i++){
+						pw.print("Buca, " + holes.get(i).getX() + " "  + holes.get(i).getY() + " " + holes.get(i).getColor());
 						pw.println();
 	                }
 	                pw.close();
@@ -96,7 +96,7 @@ public class LevelEditorLeftPanel extends JPanel {
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		for(Buca b:buche){
+		for(Hole b:holes){
 			g.drawImage(imageProv.getHole(b.colore), b.getX()-50, b.getY()-50, this);
 		}
 	}
