@@ -1,19 +1,21 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.MouseListener;
-
 
 import javax.swing.JComponent;
 
 
 public class Hole extends JComponent {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int x=250,y=250;
 	private int dimx=100,dimy=105;
 	private int dimCampox=700, dimCampoy=750;
-	public MouseListener ml;
+	private MouseListener ml;
 	public int index;
 	private Color color;
 	public String colore;
@@ -23,17 +25,17 @@ public class Hole extends JComponent {
 		index=i;
 		System.out.println(c);
 		switch(c){
-		case "verde":
+		case "Green":
 			color = Color.GREEN;
-			colore = "verde";
+			colore = "Green";
 			break;
-		case "giallo":
+		case "Yellow":
 			color = Color.YELLOW;
-			colore = "giallo";
+			colore = "Yellow";
 			break;
-		case "blu":
-			color = Color.BLUE;
-			colore = "blu";
+		case "Red":
+			color = Color.RED;
+			colore = "Red";
 			break;
 		}
 			

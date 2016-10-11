@@ -15,10 +15,9 @@ public class LevelEditorPanel extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Image background;
-	GameFrame frame;
-	ImageProv imageProv = new ImageProv();
-	LevelEditorLeftPanel leftPanel = new LevelEditorLeftPanel();
+	private Image background;
+	private GameFrame frame;
+	private LevelEditorLeftPanel leftPanel = new LevelEditorLeftPanel();
 	
 	
 	private OurButton addButton = new OurButton("ADD OBJECT");

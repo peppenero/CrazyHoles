@@ -21,9 +21,9 @@ public class LevelEditorLeftPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	ArrayList<Hole> holes = new ArrayList<Hole>();
-	Hole selectedHole;
-	ImageProv imageProv = new ImageProv();
+	private ArrayList<Hole> holes = new ArrayList<Hole>();
+	private Hole selectedHole;
+	private ImageProv imageProv = new ImageProv();
 	
 	public LevelEditorLeftPanel(){
 		this.setBackground(Color.BLACK);
