@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -7,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class LevelEditorPanel extends JPanel{
@@ -15,19 +17,21 @@ public class LevelEditorPanel extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Image background;
-	private GameFrame frame;
-	private LevelEditorLeftPanel leftPanel = new LevelEditorLeftPanel();
+	private final Image background;
+	private final GameFrame frame;
+	private final LevelEditorLeftPanel leftPanel = new LevelEditorLeftPanel();
 	
 	
-	private OurButton addButton = new OurButton("ADD OBJECT");
-	private OurButton moveButton = new OurButton("MOVE OBJECT");
-	private OurButton deleteButton = new OurButton("DELETE OBJECT");
-	private OurButton saveButton = new OurButton("SAVE LEVEL");
-	private OurButton backToMenuButton = new OurButton("BACK TO MENU");
+	private final OurButton addButton = new OurButton("ADD OBJECT");
+	private final OurButton moveButton = new OurButton("MOVE OBJECT");
+	private final OurButton deleteButton = new OurButton("DELETE OBJECT");
+	private final OurButton saveButton = new OurButton("SAVE LEVEL");
+	private final OurButton backToMenuButton = new OurButton("BACK TO MENU");
+	private final JLabel color = new JLabel("Color");
+	private final JLabel selectedHole = new JLabel("Selected hole");
 	
-	private JComboBox<Integer> holesBox;
-	private JComboBox<String> colorsBox;
+	private final JComboBox<Integer> holesBox;
+	private final JComboBox<String> colorsBox;
 	private int numHoles=0,lastIndex=0;
 	
 	public LevelEditorPanel(GameFrame frameSup){
@@ -53,11 +57,19 @@ public class LevelEditorPanel extends JPanel{
 		backToMenuButton.setBounds(1000,700,OurButton.WIDTH,OurButton.HEIGHT);
 		add(backToMenuButton);
 		
-		addButton.setBounds(1000,50,OurButton.WIDTH,OurButton.HEIGHT);
+		addButton.setBounds(1000,120,OurButton.WIDTH,OurButton.HEIGHT);
 		add(addButton);
 		
-		colorsBox.setBounds(1000,120,100,30);
+		color.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 14));
+		color.setBounds(1000,50,100,50);
+		add(color);
+		
+		colorsBox.setBounds(1000,85,100,30);
 		add(colorsBox);
+		
+		selectedHole.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 14));
+		selectedHole.setBounds(1000, 215, 135, 50);
+		add(selectedHole);
 		
 		holesBox.setBounds(1000, 250, 100, 30);
 		add(holesBox);
@@ -70,7 +82,7 @@ public class LevelEditorPanel extends JPanel{
 		add(deleteButton);
 		deleteButton.setEnabled(false);
 		
-		saveButton.setBounds(1000, 400, OurButton.WIDTH, OurButton.HEIGHT);
+		saveButton.setBounds(1000, 500, OurButton.WIDTH, OurButton.HEIGHT);
 		add(saveButton);
 		saveButton.setEnabled(false);
 		

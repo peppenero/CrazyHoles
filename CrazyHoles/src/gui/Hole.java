@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.MouseListener;
 
 import javax.swing.JComponent;
@@ -116,6 +117,11 @@ public class Hole extends JComponent {
 
 	public void setMl(MouseListener ml) {
 		this.ml = ml;
+	}
+	
+	public void paintComponent(Graphics g){
+		g.setColor(Color.WHITE);
+		g.drawString(Integer.toString(index), x, y);
 	}
 	
 }

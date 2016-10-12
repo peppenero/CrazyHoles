@@ -25,17 +25,7 @@ public class OurButton extends JLabel {
 
 	public OurButton(String t){
 		super(t);
-		Font font = null;
-		try {
-			 font= Font.createFont(Font.TRUETYPE_FONT, new File("data/EASPORTS15.ttf"));
-		} catch (FontFormatException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		font = font.deriveFont(Font.TRUETYPE_FONT, 30);
+		Font font = OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 30);
 		setForeground(Color.BLACK);
 		this.setFont(font);
 		setSize(WIDTH, HEIGHT);

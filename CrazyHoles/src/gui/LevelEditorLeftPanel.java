@@ -97,6 +97,7 @@ public class LevelEditorLeftPanel extends JPanel {
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		for(Hole b:holes){
+			b.paintComponent(g);
 			g.drawImage(imageProv.getHole(b.colore), b.getX()-50, b.getY()-50, this);
 		}
 	}
