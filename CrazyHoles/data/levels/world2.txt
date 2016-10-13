@@ -1,4 +1,4 @@
-buca verde 10 10 20
-buca giallo 40 10 10
+buca Green 10 10 20
+buca Yellow 40 10 10
 numeroPalle 1
 ultimo

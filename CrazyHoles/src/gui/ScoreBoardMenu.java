@@ -4,16 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
@@ -23,13 +19,11 @@ import Objects.Ranking;
 public class ScoreBoardMenu extends JDialog 
 {
 	private static final long serialVersionUID = 1L;
-	private List<String> palore = new ArrayList<String>();
 	private Ranking ranking;
 	private JLabel[] label;
 	private BoxLayout layout;
 	private Font font;
-	private MenuButton back;
-	private Icon escIcon = new ImageIcon("images/esc.png");
+	private OurButton back;
 	private GameManager manager;
 	boolean addable=true;
 
@@ -50,17 +44,16 @@ public class ScoreBoardMenu extends JDialog
 		font=font.deriveFont(Font.TRUETYPE_FONT,30);
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		ge.registerFont(font);
-		back = new MenuButton(escIcon, escIcon);
-		back.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+		back = new OurButton("BACK");
+		
+		back.setOnClickBehaviour(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
 				panel.setsBoardActive(false);
 				panel.setPause(false);
 				dispose();
 			}
 		});
+		
 		loadLabel();
 	}
 
