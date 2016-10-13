@@ -18,7 +18,6 @@ public class Giratore extends Thread {
 	public void run() {
 
 		holes = manager.getHoles();
-
 		while (true && !panel.isBackFlag() && !manager.isLevelOver()
 				&& !manager.isGameOver()) {
 			try {

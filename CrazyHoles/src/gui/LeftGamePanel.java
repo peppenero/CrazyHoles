@@ -14,6 +14,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -41,31 +42,36 @@ public class LeftGamePanel extends JPanel {
 	private boolean backFlag = false;
 	private Muovitore m;
 	private ScoreBoardMenu scoreboard;
-	Giratore giratore;
+	private Giratore giratore;
 	private RightGamePanel rightGamePanel;
 	private PointsLabel pointsLabel;
-
-	private MenuPanel menuPanel;
+	private ReturnDialog returns;
+	
+	private JPanel menuPanel;
 
 	public LeftGamePanel(GameManager manager, final RightGamePanel panel,
-			final MenuPanel menu) throws IOException, FontFormatException {
+			final JPanel menu) throws IOException, FontFormatException {
 		this.rightGamePanel = panel;
 		setMenuPanel(menu);
-		this.gameManager = manager;
-		pointsLabel = new PointsLabel(gameManager, this);
-		this.world = gameManager.getWorld();
+		this.setGameManager(manager);
+		pointsLabel = new PointsLabel(getGameManager(), this);
+		this.world = getGameManager().getWorld();
 		setPreferredSize(new Dimension(810, 800));
 		x = world.getWidth();
 		y = world.getHeight();
-		gameManager.start();
+		getGameManager().start();
 		prov = new ImageProv();
 
-		if (gameManager instanceof SinglePlayerGameManager) {
-			setScoreboard(new ScoreBoardMenu(this, gameManager));
+		if (getGameManager() instanceof SinglePlayerGameManager) {
+			setScoreboard(new ScoreBoardMenu(this, getGameManager()));
+		}
+		if(getGameManager() instanceof OnlineGameManager)
+		{
+			returns = new ReturnDialog(this);
 		}
 
 		setOpaque(false);
-		giratore = new Giratore(this, gameManager);
+		giratore = new Giratore(this, getGameManager());
 		giratore.start();
 
 		addKeyListener(new KeyAdapter() {
@@ -80,23 +86,23 @@ public class LeftGamePanel extends JPanel {
 
 				case KeyEvent.VK_LEFT: {
 					if (!isMove() && !isPause())
-						gameManager.getBall().moveLeft();
+						getGameManager().getBall().moveLeft();
 					break;
 				}
 				case KeyEvent.VK_RIGHT: {
 					if (!isMove() && !isPause())
-						gameManager.getBall().moveRight();
+						getGameManager().getBall().moveRight();
 					break;
 				}
 				case KeyEvent.VK_SPACE: {
-					gameManager.getBall().move();
+					getGameManager().getBall().move();
 
-					gameManager.update();
+					getGameManager().update();
 
 					break;
 				}
 				case KeyEvent.VK_UP: {
-					gameManager.getHoles().get(0).move();
+					getGameManager().getHoles().get(0).move();
 					break;
 				}
 				}
@@ -109,16 +115,16 @@ public class LeftGamePanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				switch (e.getButton()) {
 				case MouseEvent.BUTTON1: {
-					if (gameManager.isFirstClick()) {
-						gameManager.setFirstClick(false);
+					if (getGameManager().isFirstClick()) {
+						getGameManager().setFirstClick(false);
 
-						gameManager.getTimer().init();
+						getGameManager().getTimer().init();
 						panel.init();
 					}
-					if (!isMove() && !isPause()) {
+					if (!isMove() && !isPause() && !getGameManager().isGameOver()) {
 						setMove(true);
-						m = new Muovitore(gameManager.getBall(),
-								LeftGamePanel.this, panel, gameManager);
+						m = new Muovitore(getGameManager().getBall(),
+								LeftGamePanel.this, panel, getGameManager());
 						m.start();
 					}
 					break;
@@ -135,10 +141,10 @@ public class LeftGamePanel extends JPanel {
 				if (!isMove() && !isPause()) {
 					xMouse = e.getX();
 					yMouse = e.getY();
-					double m = (yMouse - gameManager.getBall().getY() * 10)
-							/ (xMouse - gameManager.getBall().getX() * 10);
+					double m = (yMouse - getGameManager().getBall().getY() * 10)
+							/ (xMouse - getGameManager().getBall().getX() * 10);
 					double corner = Math.atan(m);
-					gameManager.getBall().setCorner(
+					getGameManager().getBall().setCorner(
 							(float) (Math.toDegrees((corner)) - 360) % 180);
 					repaint();
 				}
@@ -159,17 +165,24 @@ public class LeftGamePanel extends JPanel {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
-	
-	
-		if (gameManager.isGameOver()) 
+		
+		
+		if(getGameManager() instanceof OnlineGameManager  && ((OnlineGameManager) getGameManager()).isServer() && !((OnlineGameManager) getGameManager()).getHost().isAccepted())
 		{
-			if(gameManager instanceof SinglePlayerGameManager)
+			g.drawImage(prov.getWaiting(),100,100,this);
+		}
+		else
+		{
+	
+		if (getGameManager().isGameOver()) 
+		{
+			if(getGameManager() instanceof SinglePlayerGameManager)
 			{
 				g.drawImage(prov.getGameOver(),50,50,this);
 					pointsLabel.setVisible(true);
 					try {
 						if (pointsLabel.isSetted()) {
-							gameManager.addPosition();
+							getGameManager().addPosition();
 							pointsLabel.setVisible(false);
 							exitToMenu();
 						}
@@ -178,21 +191,75 @@ public class LeftGamePanel extends JPanel {
 						e.printStackTrace();
 					}	
 			}
-			if(gameManager instanceof OfflineGameManager)
+			if(getGameManager() instanceof OfflineGameManager)
 			{
-				if(((OfflineGameManager) gameManager).getWinner()==0)
+				if(((OfflineGameManager) getGameManager()).getWinner()==0)
 				{
 					g.drawImage(prov.getFirstPlayerWinner() ,50, 50,this);
 				}
-				if(((OfflineGameManager) gameManager).getWinner()==1)
+				if(((OfflineGameManager) getGameManager()).getWinner()==1)
 				{
 					g.drawImage(prov.getSecondPlayerWinner(),50,50,this);
+				}
+			}
+			if(getGameManager() instanceof OnlineGameManager)
+			{
+				System.out.println(((OnlineGameManager) getGameManager()).getOpponentPoints());
+				if(!((OnlineGameManager) getGameManager()).isOpponentEnds())
+				{
+					g.drawImage(prov.getWaiting(), 100,100,this);
+				}
+				else
+				{
+					if(((OnlineGameManager) getGameManager()).getWinner().equals("pari"))
+					{
+						g.drawImage(prov.getTie(), 100,100,this);
+						rightGamePanel.onlineRefresh();
+					}
+					else
+					{
+						if(((OnlineGameManager) getGameManager()).isServer())
+						{
+																																	
+								if( ((OnlineGameManager) getGameManager()).getWinner().equals("host"))
+								{
+									g.drawImage(prov.getYouWin(), 100,100,this);
+									rightGamePanel.onlineRefresh();
+									returns.setVisible(true);
+								}
+								else
+								{
+									g.drawImage(prov.getYouLose(), 100,100,this);
+									rightGamePanel.onlineRefresh();
+									returns.setVisible(true);
+								}
+						}
+						else
+						{
+							System.out.println(((OnlineGameManager) getGameManager()).getWinner());
+							if(((OnlineGameManager) getGameManager()).getWinner().equals("host"))
+							{
+								g.drawImage(prov.getYouLose(),100,100,this);
+								rightGamePanel.onlineRefresh();
+								returns.setVisible(true);
+								
+							}
+							else
+							{
+								g.drawImage(prov.getYouWin(),100,100,this);
+								rightGamePanel.onlineRefresh();
+								returns.setVisible(true);
+							}
+						}
+					}
+					
+					
 				}
 			}
 		}
 		else
 		{
-			if(((gameManager.isLevelOver() || gameManager.isStart())))
+			if(((getGameManager().isLevelOver() || getGameManager().isStart())))
 				{
 					rightGamePanel.pause();
 					drawLevel(g);
@@ -220,10 +287,10 @@ public class LeftGamePanel extends JPanel {
 				if (!isMove())
 				{
 
-					float directionX = (gameManager.getBall().getX());
-					float directionY = (gameManager.getBall().getY());
+					float directionX = (getGameManager().getBall().getX());
+					float directionY = (getGameManager().getBall().getY());
 
-					float deltaX = gameManager.getBall().getDeltaX();
+					float deltaX = getGameManager().getBall().getDeltaX();
 					int bal = 0;
 
 					while (bal < 30) {
@@ -237,39 +304,40 @@ public class LeftGamePanel extends JPanel {
 										* 10
 										- prov.getDirectionBall()
 												.getWidth(this) / 2,
-								(directionY + gameManager.getBall().getDeltaY()) * 10);
+								(directionY + getGameManager().getBall().getDeltaY()) * 10);
 						g2.drawImage(prov.getDirectionBall(), at2, this);
 						directionX += (deltaX);
-						directionY += (gameManager.getBall().getDeltaY());
+						directionY += (getGameManager().getBall().getDeltaY());
 						bal++;
 					}
 				}
 
 				AffineTransform at1 = new AffineTransform();
 				at1.translate(
-						((gameManager.getBall().getX()) * 10)
-								- prov.getBall(gameManager.getBall().getColor())
+						((getGameManager().getBall().getX()) * 10)
+								- prov.getBall(getGameManager().getBall().getColor())
 										.getWidth(this) / 2,
-						((gameManager.getBall().getY()) * 10)
-								- prov.getBall(gameManager.getBall().getColor())
+						((getGameManager().getBall().getY()) * 10)
+								- prov.getBall(getGameManager().getBall().getColor())
 										.getHeight(this) / 2);
 				at1.scale(1, 1);
-				g2.drawImage(prov.getBall(gameManager.getBall().getColor()),
+				g2.drawImage(prov.getBall(getGameManager().getBall().getColor()),
 						at1, this);
 
-				for (int i = 0; i < gameManager.getHoles().size(); i++) {
-					holeImage = prov.getHole(gameManager.getHoles().get(i)
+				for (int i = 0; i < getGameManager().getHoles().size(); i++) {
+					holeImage = prov.getHole(getGameManager().getHoles().get(i)
 							.getColor());
 					AffineTransform at = new AffineTransform();
-					at.translate((gameManager.getHoles().get(i).getX()) * 10,
-							(gameManager.getHoles().get(i).getY()) * 10);
-					at.rotate(Math.toRadians(gameManager.getHoles().get(i)
+					at.translate((getGameManager().getHoles().get(i).getX()) * 10,
+							(getGameManager().getHoles().get(i).getY()) * 10);
+					at.rotate(Math.toRadians(getGameManager().getHoles().get(i)
 							.getAngle()));
 					at.translate(-holeImage.getWidth(this) / 2,
 							-holeImage.getHeight(this) / 2);
 					g2.drawImage(holeImage, at, this);
 				}
 			}
+		}
 		}
 		requestFocus();
 		setFocusable(true);
@@ -316,11 +384,11 @@ public class LeftGamePanel extends JPanel {
 		this.backFlag = backFlag;
 	}
 
-	public MenuPanel getMenuPanel() {
+	public JPanel getMenuPanel() {
 		return menuPanel;
 	}
 
-	public void setMenuPanel(MenuPanel menuPanel) {
+	public void setMenuPanel(JPanel menuPanel) {
 		this.menuPanel = menuPanel;
 	}
 
@@ -336,21 +404,21 @@ public class LeftGamePanel extends JPanel {
 
 	public void reset() {
 
-		gameManager.setLevelOver(false);
-		gameManager.getTimer().reset();
+		getGameManager().setLevelOver(false);
+		getGameManager().getTimer().reset();
 		rightGamePanel.resetTimerLabel();
-		giratore = new Giratore(this, gameManager);
+		giratore = new Giratore(this, getGameManager());
 		giratore.start();
-		gameManager.setFirstClick(true);
+		getGameManager().setFirstClick(true);
 	}
 
 	public void drawLevel(final Graphics g)
 	{
-		if(gameManager instanceof SinglePlayerGameManager)
+		if(getGameManager() instanceof SinglePlayerGameManager)
 		{
-			g.drawImage(prov.getLevel(gameManager.getLevel()),300,200, this);
+			g.drawImage(prov.getLevel(getGameManager().getLevel()),300,200, this);
 		}
-		if(gameManager instanceof OfflineGameManager)
+		if(getGameManager() instanceof OfflineGameManager)
 		{
 			drawPlayer(g);
 		}
@@ -367,14 +435,22 @@ public class LeftGamePanel extends JPanel {
 	
 	protected void drawPlayer(Graphics g)
 	{
-		if(((OfflineGameManager) gameManager).isFirstPlayer())
+		if(((OfflineGameManager) getGameManager()).isFirstPlayer())
 		{
 			g.drawImage(prov.getFirstPlayer(),200,100,this);
 		}
-		if(((OfflineGameManager) gameManager).isSecondPlayer())
+		if(((OfflineGameManager) getGameManager()).isSecondPlayer())
 		{
 			g.drawImage(prov.getSecondPlayer(),200,100,this);
 		}
+	}
+
+	public GameManager getGameManager() {
+		return gameManager;
+	}
+
+	public void setGameManager(GameManager gameManager) {
+		this.gameManager = gameManager;
 	}
 	
 	

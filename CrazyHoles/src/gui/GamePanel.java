@@ -30,7 +30,7 @@ public class GamePanel extends JPanel
 	private GameManager manager;
 	private MenuPanel menuPanel;
 	
-	public GamePanel(GameManager manager,final MenuPanel menu) throws IOException, FontFormatException
+	public GamePanel(GameManager manager,final JPanel menu) throws IOException, FontFormatException
 	{
 		this.manager = manager;
 		right = new RightGamePanel(manager);

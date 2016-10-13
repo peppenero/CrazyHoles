@@ -22,6 +22,7 @@ import javax.swing.border.Border;
 
 import Objects.GameManager;
 import Objects.OfflineGameManager;
+import Objects.OnlineGameManager;
 import Objects.SinglePlayerGameManager;
 
 
@@ -43,6 +44,7 @@ public class RightGamePanel extends JPanel {
 	private Icon pauseDeselected = new ImageIcon("images/pause_deselected.png");
 	private JLabel timeLabel;
 	private JLabel pointsLabel;
+	private JLabel opponetPointsLabel;
 	private Timer timer;
 	private long startTime;
 	private JLabel numbersOfBall;
@@ -120,6 +122,19 @@ public class RightGamePanel extends JPanel {
 			
 			
 		});
+		 if(manager instanceof OnlineGameManager)
+		 {
+			 String pointsOpponent = String.format("%02d", (((OnlineGameManager) manager).getOpponentPoints()));
+			 opponetPointsLabel = new JLabel(pointsOpponent);
+			 opponetPointsLabel.setBorder(lowered);
+			 opponetPointsLabel.setOpaque(true);
+			 opponetPointsLabel.setBackground(Color.white);
+			 opponetPointsLabel.setForeground(Color.BLACK);
+			 opponetPointsLabel.setAlignmentY(TOP_ALIGNMENT);
+			 opponetPointsLabel.setAlignmentX(CENTER_ALIGNMENT);
+			 opponetPointsLabel.setFont(font);
+			 
+		 }
 		 if(manager instanceof OfflineGameManager)
 		 {	 
 			 String pointsPone = String.format("%02d", ((OfflineGameManager) manager).getFirstPlayerPoints());
@@ -217,10 +232,10 @@ public class RightGamePanel extends JPanel {
 				if(manager instanceof SinglePlayerGameManager)
 				{
 					manager.getTimer().stop();
-					leftGamePanel.getMenuPanel().setResumable(true);
+					((MenuPanel)leftGamePanel.getMenuPanel()).setResumable(true);
 					leftGamePanel.setBackFlag(true);
 					leftGamePanel.exitToMenu();		
-					leftGamePanel.getMenuPanel().setResumable(true);
+					((MenuPanel)leftGamePanel.getMenuPanel()).setResumable(true);
 					leftGamePanel.setBackFlag(true);
 					leftGamePanel.exitToMenu();
 				}
@@ -230,6 +245,10 @@ public class RightGamePanel extends JPanel {
 		 add(numbersOfBall);	
 		 add(timeLabel);
 		 add(pointsLabel);
+		 if(manager instanceof OnlineGameManager)
+		 {
+			 add(opponetPointsLabel);
+		 }
 		 
 		 if(manager instanceof OfflineGameManager)
 		 {
@@ -270,6 +289,17 @@ public class RightGamePanel extends JPanel {
 			String twoSet = String.format("%02d", ((OfflineGameManager) manager).getPlayertwoSet());
 			playerTwoSet.setText(twoSet);
 		}
+		if(manager instanceof OnlineGameManager)
+		{
+			 String pointsOpponent = String.format("%02d", (((OnlineGameManager) manager).getOpponentPoints()));
+			 opponetPointsLabel.setText(pointsOpponent);
+		}
+	}
+	public void onlineRefresh()
+	{
+		System.out.println("rightpanl " + ((OnlineGameManager) manager).getOpponentPoints());
+		String pointsOpponent = String.format("%02d", (((OnlineGameManager) manager).getOpponentPoints()));
+		 opponetPointsLabel.setText(pointsOpponent);
 	}
 
 	public void resetTimerLabel()
@@ -294,5 +324,13 @@ public class RightGamePanel extends JPanel {
 
 	public void setPanel(LeftGamePanel panel) {
 		this.leftGamePanel = panel;
+	}
+
+	public JLabel getOpponetPointsLabel() {
+		return opponetPointsLabel;
+	}
+
+	public void setOpponetPointsLabel(JLabel opponetPointsLabel) {
+		this.opponetPointsLabel = opponetPointsLabel;
 	}
 }

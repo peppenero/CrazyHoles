@@ -32,7 +32,6 @@ public class MultiplayerPanel extends JPanel
 	private Icon onSelected = new ImageIcon("images/Online_Selected.png");
 	private MenuButton online = new MenuButton(on,onSelected);
 	
-	private MenuPanel menuPanel;
 	private OurButton backToMenuButton = new OurButton("BACK TO MENU");
 	
 	public MultiplayerPanel(GameFrame f)
@@ -64,7 +63,7 @@ public class MultiplayerPanel extends JPanel
 				 
 				try {
 					GameManager manager = new OfflineGameManager();
-					GamePanel panel = new GamePanel(manager,menuPanel);
+					GamePanel panel = new GamePanel(manager,frame.getMenuPanel());
 					GameFrame.switchTo(panel);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -83,7 +82,7 @@ public class MultiplayerPanel extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				GameFrame.switchTo(new OnlinePanel());
+				GameFrame.switchTo(new OnlinePanel(MultiplayerPanel.this));
 			}
 		});
 		

@@ -38,9 +38,11 @@ public class Muovitore extends Thread {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
-			
+				if(gameManager instanceof OnlineGameManager && ((OnlineGameManager) gameManager).isRefresh())
+				{
+					rightGamePanel.onlineRefresh();
+				}
+							
 		}
 		if (leftGamePanel.isBackFlag()) {
 			gameManager.reset();

@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
+import Objects.Host;
 import Objects.OnlineGameManager;
 
 
@@ -37,17 +38,21 @@ public class ListOfLevelPanel extends JPanel
 	private String[] items;
 	private File world;
 	private OnlineGameManager manager;
+	private OurButton backButton = new OurButton("BACK");
+	private JPanel backPanel;
 
 	
-	public ListOfLevelPanel() 
+	public ListOfLevelPanel(JPanel back)
 	{
 		background = Toolkit.getDefaultToolkit().getImage("images/Background.jpg");
 		items = dir.list();
 		setLayout(null);
+		backPanel=back;
 		list = new JList(items);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setOpaque(false);
 		list.setBackground(new Color(255,255,255,0));
+		add(backButton);
 		add(list);
 		 list.addMouseListener(new MouseAdapter() {
 		     public void mouseClicked(MouseEvent evt) {
@@ -57,14 +62,16 @@ public class ListOfLevelPanel extends JPanel
 		             // Double-click detected
 		             int index = list.locationToIndex(evt.getPoint());
 		             world = new File("data/levels/"+items[index]);
+		           
 		             try {
-						manager = new OnlineGameManager(world);
+		            	  Host host = new Host(world);
+						manager = new OnlineGameManager(host,world);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 		             try {
-						GameFrame.switchTo(new GamePanel(manager, null));
+						GameFrame.switchTo(new GamePanel(manager, ListOfLevelPanel.this));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -75,6 +82,12 @@ public class ListOfLevelPanel extends JPanel
 		         } 
 		    	 }
 		    });
+			backButton .setOnClickBehaviour(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e){
+					GameFrame.switchTo(backPanel);
+				}
+			});
+			backButton.setBounds(100,700,OurButton.WIDTH,OurButton.HEIGHT);
 		 list.setBounds(100,280,100,200);
 	}
 	

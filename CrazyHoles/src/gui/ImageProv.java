@@ -32,6 +32,9 @@ public class ImageProv
 	private final Image firstPlayerWin;
 	private final Image secondPlayerWin;
 	private final Image waiting;
+	private final Image youLose;
+	private final Image youWin;
+	private final Image tie;
 	
 	public ImageProv()
 	{
@@ -60,6 +63,9 @@ public class ImageProv
 		firstPlayerWin = tk.getImage("images/Player1winner.png");
 		secondPlayerWin = tk.getImage("images/Player2winner.png");
 		waiting = tk.getImage("images/Waiting.png");
+		youLose = tk.getImage("images/Youlose.png");
+		youWin = tk.getImage("images/Youwin.png");
+		tie = tk.getImage("images/Tie.png");
 	}
 	
 	public Image getHole(final String color)
@@ -183,6 +189,18 @@ public class ImageProv
 
 	public Image getWaiting() {
 		return waiting;
+	}
+
+	public Image getYouLose() {
+		return youLose;
+	}
+
+	public Image getYouWin() {
+		return youWin;
+	}
+
+	public Image getTie() {
+		return tie;
 	}
 	
 }
