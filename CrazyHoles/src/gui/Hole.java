@@ -22,9 +22,16 @@ public class Hole extends JComponent {
 	public String colore;
 	
 
+	public String getColore() {
+		return colore;
+	}
+
+	public void setColore(String colore) {
+		this.colore = colore;
+	}
+
 	public Hole(int i,String c){
 		index=i;
-		System.out.println(c);
 		switch(c){
 		case "Green":
 			color = Color.GREEN;
@@ -124,5 +131,8 @@ public class Hole extends JComponent {
 		g.drawString(Integer.toString(index), x, y);
 	}
 	
+	public String toString(){
+		return ("Buca, " + getX()/10 + " "  + getY()/10 + " " + getColore());
+	}
 }
 

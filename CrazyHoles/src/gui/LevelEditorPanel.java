@@ -10,6 +10,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class LevelEditorPanel extends JPanel{
 	
@@ -29,6 +31,9 @@ public class LevelEditorPanel extends JPanel{
 	private final OurButton backToMenuButton = new OurButton("BACK TO MENU");
 	private final JLabel color = new JLabel("Color");
 	private final JLabel selectedHole = new JLabel("Selected hole");
+	private final JLabel ballsNumber = new JLabel("Balls number");
+	private final SpinnerNumberModel model = new SpinnerNumberModel(1, 1, 9, 1);
+	private final JSpinner spinner = new JSpinner(model);
 	
 	private final JComboBox<Integer> holesBox;
 	private final JComboBox<String> colorsBox;
@@ -82,6 +87,12 @@ public class LevelEditorPanel extends JPanel{
 		add(deleteButton);
 		deleteButton.setEnabled(false);
 		
+		ballsNumber.setBounds(1000, 410, 150, 20);
+		ballsNumber.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 14));
+		add(ballsNumber);
+		spinner.setBounds(1000, 430, 50, 20);
+		add(spinner);
+		
 		saveButton.setBounds(1000, 500, OurButton.WIDTH, OurButton.HEIGHT);
 		add(saveButton);
 		saveButton.setEnabled(false);
@@ -121,7 +132,7 @@ public class LevelEditorPanel extends JPanel{
 
 		saveButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
-				leftPanel.saveLevel();
+				leftPanel.saveLevel(model.getNumber().intValue());
 			}
 		});
 		

@@ -71,7 +71,7 @@ public class LevelEditorLeftPanel extends JPanel {
 		holes.remove(daEliminare);
 	}
 	
-	public void saveLevel(){
+	public void saveLevel(int ballsNumber){
 		 final JFileChooser fileChooser = new JFileChooser();
 	        final int response = fileChooser.showSaveDialog(this);
 	        if (response == JFileChooser.APPROVE_OPTION)
@@ -80,9 +80,11 @@ public class LevelEditorLeftPanel extends JPanel {
 	            {
 	                final PrintWriter pw = new PrintWriter(fileChooser.getSelectedFile());
 	                for(int i=0;i<holes.size();i++){
-						pw.print("Buca, " + holes.get(i).getX() + " "  + holes.get(i).getY() + " " + holes.get(i).getColor());
+						pw.print(holes.get(i).toString());
 						pw.println();
 	                }
+	                pw.print(ballsNumber);
+	                pw.println();
 	                pw.close();
 	                JOptionPane.showMessageDialog(null, "File " + fileChooser.getSelectedFile().getAbsolutePath()
 	                        + " saved");
