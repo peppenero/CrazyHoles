@@ -212,10 +212,17 @@ public class RightGamePanel extends JPanel {
 			public void mouseClicked(MouseEvent e ){
 				if(manager instanceof SinglePlayerGameManager)
 				{
-					manager.getTimer().stop();
-					((MenuPanel)leftGamePanel.getMenuPanel()).setResumable(true);
-					leftGamePanel.setBackFlag(true);
-					leftGamePanel.exitToMenu();		
+					if(!manager.isGameOver())
+					{
+						manager.getTimer().stop();
+						((MenuPanel)leftGamePanel.getMenuPanel()).setResumable(true);
+						leftGamePanel.setBackFlag(true);
+						leftGamePanel.exitToMenu();	
+					}
+					else
+					{
+						leftGamePanel.exitToMenu();	
+					}
 				}
 			}
 		});

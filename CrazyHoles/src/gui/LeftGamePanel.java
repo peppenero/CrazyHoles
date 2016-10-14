@@ -18,6 +18,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Objects.FreePracticeGameManager;
 import Objects.GameManager;
 import Objects.Giratore;
 import Objects.Muovitore;
@@ -45,7 +46,7 @@ public class LeftGamePanel extends JPanel {
 	private Giratore giratore;
 	private RightGamePanel rightGamePanel;
 	private PointsLabel pointsLabel;
-	private ReturnDialog returns;
+	
 	
 	private JPanel menuPanel;
 
@@ -65,10 +66,6 @@ public class LeftGamePanel extends JPanel {
 		if (getGameManager() instanceof SinglePlayerGameManager) {
 			setScoreboard(new ScoreBoardMenu(this, getGameManager()));
 		}
-		if(getGameManager() instanceof OnlineGameManager)
-		{
-			returns = new ReturnDialog(this);
-		}
 
 		setOpaque(false);
 		giratore = new Giratore(this, getGameManager());
@@ -80,7 +77,35 @@ public class LeftGamePanel extends JPanel {
 
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_ESCAPE: {
-					GameFrame.switchTo(menu);
+					if(gameManager instanceof OnlineGameManager)
+					{
+					
+						if(((OnlineGameManager) gameManager).isServer())
+						{
+							try {
+								((OnlineGameManager) gameManager).getHost().ends();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							GameFrame.switchTo(LeftGamePanel.this.getMenuPanel());
+						}
+						else
+						{
+							try {
+								((OnlineGameManager) gameManager).getClient().ends();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							GameFrame.switchTo(LeftGamePanel.this.getMenuPanel());
+						}
+					}
+					else
+					{
+						GameFrame.switchTo(menu);
+					}
+					
 					break;
 				}
 
@@ -92,17 +117,6 @@ public class LeftGamePanel extends JPanel {
 				case KeyEvent.VK_RIGHT: {
 					if (!isMove() && !isPause())
 						getGameManager().getBall().moveRight();
-					break;
-				}
-				case KeyEvent.VK_SPACE: {
-					getGameManager().getBall().move();
-
-					getGameManager().update();
-
-					break;
-				}
-				case KeyEvent.VK_UP: {
-					getGameManager().getHoles().get(0).move();
 					break;
 				}
 				}
@@ -191,6 +205,13 @@ public class LeftGamePanel extends JPanel {
 						e.printStackTrace();
 					}	
 			}
+			
+			if(gameManager instanceof FreePracticeGameManager)
+			{
+				g.drawImage(prov.getEnds(),100,100,this);
+				g.drawImage(prov.getEsc(), 100,200,this);
+			}
+			
 			if(getGameManager() instanceof OfflineGameManager)
 			{
 				if(((OfflineGameManager) getGameManager()).getWinner()==0)
@@ -215,6 +236,7 @@ public class LeftGamePanel extends JPanel {
 					{
 						g.drawImage(prov.getTie(), 100,100,this);
 						rightGamePanel.onlineRefresh();
+						g.drawImage(prov.getEsc(), 100,200,this);
 					}
 					else
 					{
@@ -225,13 +247,13 @@ public class LeftGamePanel extends JPanel {
 								{
 									g.drawImage(prov.getYouWin(), 100,100,this);
 									rightGamePanel.onlineRefresh();
-									returns.setVisible(true);
+									g.drawImage(prov.getEsc(), 100,200,this);
 								}
 								else
 								{
 									g.drawImage(prov.getYouLose(), 100,100,this);
 									rightGamePanel.onlineRefresh();
-									returns.setVisible(true);
+									g.drawImage(prov.getEsc(), 100,200,this);
 								}
 						}
 						else
@@ -241,14 +263,13 @@ public class LeftGamePanel extends JPanel {
 							{
 								g.drawImage(prov.getYouLose(),100,100,this);
 								rightGamePanel.onlineRefresh();
-								returns.setVisible(true);
-								
+								g.drawImage(prov.getEsc(), 100,200,this);
 							}
 							else
 							{
 								g.drawImage(prov.getYouWin(),100,100,this);
-								rightGamePanel.onlineRefresh();
-								returns.setVisible(true);
+								rightGamePanel.onlineRefresh();	
+								g.drawImage(prov.getEsc(), 100,200,this);
 							}
 						}
 					}

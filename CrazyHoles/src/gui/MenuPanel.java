@@ -50,6 +50,7 @@ public class MenuPanel extends JPanel {
 	*/
 	
 	OurButton newGameButton = new OurButton("NEW GAME");
+	OurButton freePracticeButton = new OurButton("FREE PRACTICE");
 	OurButton levelEditorButton = new OurButton("LEVEL EDITOR");
 	OurButton settingsButton = new OurButton("SETTINGS");
 	OurButton creditsButton = new OurButton("CREDITS");
@@ -201,9 +202,18 @@ public class MenuPanel extends JPanel {
 				GameFrame.switchTo(frame.getMultiplayerPanel());
 			}
 		});
+		
+		freePracticeButton.setOnClickBehaviour(new MouseAdapter() {
+		
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GameFrame.switchTo(new ListOfLevelPanel(frame.getMenuPanel(), "FreePractice"));
+			}
+		});
 
 
 		add(newGameButton);
+		add(freePracticeButton);
 		add(multiplayerButton);
 		add(resumeButton);
 		add(levelEditorButton);
@@ -213,8 +223,9 @@ public class MenuPanel extends JPanel {
 		
 
 
-		resumeButton.setBounds(100,200,OurButton.WIDTH,OurButton.HEIGHT);
-		newGameButton.setBounds(100,280,OurButton.WIDTH,OurButton.HEIGHT);
+		resumeButton.setBounds(100,120,OurButton.WIDTH,OurButton.HEIGHT);
+		newGameButton.setBounds(100,200,OurButton.WIDTH,OurButton.HEIGHT);
+		freePracticeButton.setBounds(100, 280, OurButton.WIDTH, OurButton.HEIGHT);
 		multiplayerButton.setBounds(100,360,OurButton.WIDTH,OurButton.HEIGHT);
 		levelEditorButton.setBounds(100,440,OurButton.WIDTH,OurButton.HEIGHT);
 		settingsButton.setBounds(100,520,OurButton.WIDTH,OurButton.HEIGHT);

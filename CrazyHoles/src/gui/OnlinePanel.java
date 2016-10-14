@@ -81,7 +81,7 @@ public class OnlinePanel extends JPanel
 		newMatch.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
 				
-					GameFrame.switchTo(new ListOfLevelPanel(OnlinePanel.this));
+					GameFrame.switchTo(new ListOfLevelPanel(OnlinePanel.this,"Online"));
 				
 			}
 			

@@ -1,4 +1,6 @@
 package gui;
+
+import Objects.FreePracticeGameManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -20,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
+import Objects.GameManager;
 import Objects.Host;
 import Objects.OnlineGameManager;
 
@@ -37,16 +40,17 @@ public class ListOfLevelPanel extends JPanel
 	private JList list;
 	private String[] items;
 	private File world;
-	private OnlineGameManager manager;
+	private GameManager manager;
 	private OurButton backButton = new OurButton("BACK");
 	private JPanel backPanel;
-
+	private String type;
 	
-	public ListOfLevelPanel(JPanel back)
+	public ListOfLevelPanel(JPanel back, final String type)
 	{
 		background = Toolkit.getDefaultToolkit().getImage("images/Background.jpg");
 		items = dir.list();
 		setLayout(null);
+		this.type=type;
 		backPanel=back;
 		list = new JList(items);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -62,7 +66,8 @@ public class ListOfLevelPanel extends JPanel
 		             // Double-click detected
 		             int index = list.locationToIndex(evt.getPoint());
 		             world = new File("data/levels/"+items[index]);
-		           
+		           if(type.equals("Online"))
+		           {
 		             try {
 		            	  Host host = new Host(world);
 						manager = new OnlineGameManager(host,world);
@@ -79,6 +84,20 @@ public class ListOfLevelPanel extends JPanel
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+		           }
+		           else
+		           {
+		        	   try {
+						manager = new FreePracticeGameManager(world);
+						GameFrame.switchTo(new GamePanel(manager, ListOfLevelPanel.this));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (FontFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		           }
 		         } 
 		    	 }
 		    });

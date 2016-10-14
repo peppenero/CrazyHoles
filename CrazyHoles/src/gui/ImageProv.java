@@ -11,7 +11,8 @@ public class ImageProv {
 	private final Image redBall;
 	private final Image greenBall;
 	private final Image yellowBall;
-
+	private final Image esc;
+	private final Image ends;
 	private final Image directionBall;
 	private final Image pause;
 	private final Toolkit tk;
@@ -60,6 +61,8 @@ public class ImageProv {
 		youLose = tk.getImage("images/Youlose.png");
 		youWin = tk.getImage("images/Youwin.png");
 		tie = tk.getImage("images/Tie.png");
+		esc = tk.getImage("images/Esc.png");
+		ends = tk.getImage("images/Ends.png");
 	}
 
 	public Image getHole(final String color) {
@@ -169,6 +172,14 @@ public class ImageProv {
 
 	public Image getTie() {
 		return tie;
+	}
+
+	public Image getEsc() {
+		return esc;
+	}
+
+	public Image getEnds() {
+		return ends;
 	}
 
 }
