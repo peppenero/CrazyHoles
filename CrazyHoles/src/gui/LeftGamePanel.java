@@ -194,15 +194,9 @@ public class LeftGamePanel extends JPanel {
 			{
 				g.drawImage(prov.getGameOver(),50,50,this);
 					pointsLabel.setVisible(true);
-					try {
-						if (pointsLabel.isSetted()) {
-							getGameManager().addRecord();
-							pointsLabel.setVisible(false);
-							exitToMenu();
-						}
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					if (pointsLabel.isSetted()) {
+						pointsLabel.setVisible(false);
+						exitToMenu();
 					}	
 			}
 			

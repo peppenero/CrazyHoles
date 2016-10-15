@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -58,6 +59,12 @@ public class PointsLabel extends JDialog
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				GameManager.setPlayer(text.getText());
+				try {
+					GameManager.addRecord();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				setSetted(true);
 				dispose();
 				leftP.setBackFlag(false);
