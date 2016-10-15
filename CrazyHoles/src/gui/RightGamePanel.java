@@ -36,20 +36,18 @@ public class RightGamePanel extends JPanel {
 	private GameManager manager;
 	
 	private JLabel timeLabel;
-	private JLabel pointsLabel;
-	private JLabel opponetPointsLabel;
-	private Timer timer;
+
 	private long startTime;
-	private JLabel numbersOfBall;
 	private BoxLayout layout;
 	private boolean started = false;
 	private OurButton exitButton;
 	private OurButton scoreboardButton;
 	private OurButton pauseButton;
 	private LeftGamePanel leftGamePanel;
-	private JPanel topPanel;
 	private CenterRightPanel centerPanel;
 	private JPanel bottomPanel;
+	private TopRightPanel topPanel;
+	private CenterOnlineRightPanel centerOnlinePanel;
 
 	public RightGamePanel(final GameManager manager)
 			throws FontFormatException, IOException {
@@ -59,7 +57,7 @@ public class RightGamePanel extends JPanel {
 		layout = new BoxLayout(this, BoxLayout.Y_AXIS);
 		this.setLayout(layout);
 		setPreferredSize(new Dimension(450,400));
-		topPanel = new JPanel();
+		topPanel = new TopRightPanel(manager);
 		bottomPanel = new JPanel();
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
 		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
@@ -76,52 +74,13 @@ public class RightGamePanel extends JPanel {
 		scoreboardButton.setAlignmentY(BOTTOM_ALIGNMENT);
 		exitButton.setAlignmentX(CENTER_ALIGNMENT);
 		exitButton.setAlignmentY(BOTTOM_ALIGNMENT);
-		String filename = "data/EASPORTS15.ttf";
-		Font font = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
-		font = font.deriveFont(Font.TRUETYPE_FONT, 30);
-		GraphicsEnvironment ge = GraphicsEnvironment
-				.getLocalGraphicsEnvironment();
-		ge.registerFont(font);
+		
 		
 		 
-		 timeLabel = new JLabel("00:00.00");
-		 timeLabel.setForeground(Color.black);
-		 timeLabel.setFont(font);
-		 timeLabel.setAlignmentY(TOP_ALIGNMENT);
-		 timeLabel.setAlignmentX(CENTER_ALIGNMENT);
-		 String point = String.format("%02d", manager.getPoints());
-		 pointsLabel = new JLabel(point);
-		 pointsLabel.setForeground(Color.BLACK);
-		 pointsLabel.setAlignmentY(TOP_ALIGNMENT);
-		 pointsLabel.setAlignmentX(CENTER_ALIGNMENT);
-		 pointsLabel. setFont(font);
-		 String number = String.format("%02d", manager.getBalls().size());
-		 numbersOfBall=new JLabel(number);
-		 numbersOfBall.setForeground(Color.BLACK);
-		 numbersOfBall.setAlignmentY(TOP_ALIGNMENT);
-		 numbersOfBall.setAlignmentX(CENTER_ALIGNMENT);
-		 numbersOfBall.setFont(font);
-		 String s = String.format("%02d:%02d.%02d", manager.getTimer().getMinutes(),manager.getTimer().getSeconds(),manager.getTimer().getDecSeconds());
-			timeLabel.setText(s);
-		 timer = new Timer(100, new ActionListener() {
-		
-			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				 String s = String.format("%02d:%02d.%d", manager.getTimer().getMinutes(),manager.getTimer().getSeconds(),manager.getTimer().getDecSeconds());
-				timeLabel.setText(s);				
-			}
-			
-			
-		});
+
 		 if(manager instanceof OnlineGameManager)
 		 {
-			 String pointsOpponent = String.format("%02d", (((OnlineGameManager) manager).getOpponentPoints()));
-			 opponetPointsLabel = new JLabel(pointsOpponent);
-			 opponetPointsLabel.setForeground(Color.BLACK);
-			 opponetPointsLabel.setAlignmentY(TOP_ALIGNMENT);
-			 opponetPointsLabel.setAlignmentX(CENTER_ALIGNMENT);
-			 opponetPointsLabel.setFont(font);
+			 centerOnlinePanel = new CenterOnlineRightPanel(manager);
 			 
 		 }
 		 if(manager instanceof OfflineGameManager)
@@ -166,7 +125,7 @@ public class RightGamePanel extends JPanel {
 				leftGamePanel.setPause(true);
 				leftGamePanel.setsBoardActive(true);
 				if (started) {
-					timer.stop();
+					topPanel.getTimer().stop();
 				}
 				leftGamePanel.getScoreboard().setVisible(true);
 				leftGamePanel.repaint();
@@ -192,13 +151,11 @@ public class RightGamePanel extends JPanel {
 			}
 		});
 
-		 topPanel.add(numbersOfBall);	
-		 topPanel.add(timeLabel);
-		 topPanel.add(pointsLabel);
 		 add(topPanel);
+		 
 		 if(manager instanceof OnlineGameManager)
 		 {
-			 add(opponetPointsLabel);
+			 add(centerOnlinePanel);
 		 }
 		 
 		 if(manager instanceof OfflineGameManager)
@@ -220,15 +177,15 @@ public class RightGamePanel extends JPanel {
 
 	public void init() {
 		startTime = System.currentTimeMillis();
-		timer.start();
+		topPanel.getTimer().start();
 		started = true;
 	}
 
 	public void refresh() {
 		String s = String.format("%02d", manager.getPoints());
 		String number = String.format("%02d", manager.getBalls().size());
-		pointsLabel.setText(s);
-		numbersOfBall.setText(number);
+		topPanel.getPointsLabel().setText(s);
+		topPanel.getNumbersOfBall().setText(number);
 		if(manager instanceof OfflineGameManager)
 		{
 			String onePoints = String.format("%02d", ((OfflineGameManager) manager).getFirstPlayerPoints());
@@ -243,14 +200,13 @@ public class RightGamePanel extends JPanel {
 		if(manager instanceof OnlineGameManager)
 		{
 			 String pointsOpponent = String.format("%02d", (((OnlineGameManager) manager).getOpponentPoints()));
-			 opponetPointsLabel.setText(pointsOpponent);
+			 centerOnlinePanel.getOpponetPointsLabel().setText(pointsOpponent);
 		}
 	}
 	public void onlineRefresh()
 	{
-		System.out.println("rightpanl " + ((OnlineGameManager) manager).getOpponentPoints());
 		String pointsOpponent = String.format("%02d", (((OnlineGameManager) manager).getOpponentPoints()));
-		 opponetPointsLabel.setText(pointsOpponent);
+		 centerOnlinePanel.getOpponetPointsLabel().setText(pointsOpponent);
 	}
 
 	public void resetTimerLabel()
@@ -262,11 +218,11 @@ public class RightGamePanel extends JPanel {
 
 	public void pause() {
 
-		timer.stop();
+		topPanel.getTimer().stop();
 	}
 
 	public void restart() {
-		timer.restart();
+		topPanel.getTimer().restart();
 	}
 
 	public LeftGamePanel getPanel() {
@@ -277,11 +233,5 @@ public class RightGamePanel extends JPanel {
 		this.leftGamePanel = panel;
 	}
 
-	public JLabel getOpponetPointsLabel() {
-		return opponetPointsLabel;
-	}
-
-	public void setOpponetPointsLabel(JLabel opponetPointsLabel) {
-		this.opponetPointsLabel = opponetPointsLabel;
-	}
+	
 }
