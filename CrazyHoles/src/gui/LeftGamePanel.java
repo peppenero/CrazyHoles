@@ -196,7 +196,7 @@ public class LeftGamePanel extends JPanel {
 					pointsLabel.setVisible(true);
 					try {
 						if (pointsLabel.isSetted()) {
-							getGameManager().addPosition();
+							getGameManager().addRecord();
 							pointsLabel.setVisible(false);
 							exitToMenu();
 						}

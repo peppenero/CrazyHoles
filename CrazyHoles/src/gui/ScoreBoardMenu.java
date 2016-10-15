@@ -71,7 +71,7 @@ public class ScoreBoardMenu extends JDialog
 		for(int i =label.length-1;i>=0;i--)
 		{
 			
-				label[i] = new JLabel(ranking.getRaking().get(i).getName()+" "+ranking.getRaking().get(i).getPoints());
+				label[i] = new JLabel(ranking.getRaking().get(i).getName()+" "+ranking.getRaking().get(i).getScore());
 				label[i].setFont(font);
 				label[i].setForeground(Color.black);
 				label[i].setAlignmentX(CENTER_ALIGNMENT);
