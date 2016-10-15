@@ -3,6 +3,7 @@ package gui;
 import Objects.FreePracticeGameManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
@@ -55,9 +56,14 @@ public class ListOfLevelPanel extends JPanel
 		list = new JList(items);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setOpaque(false);
-		list.setBackground(new Color(255,255,255,0));
+		list.setBackground(new Color(255,255,255,0));	
+		JScrollPane listScroller = new JScrollPane(list);	
+		listScroller.getViewport().setOpaque(false);
+		listScroller.setBorder(null);
+		listScroller.setOpaque(false);
+		add(listScroller);
 		add(backButton);
-		add(list);
+	
 		 list.addMouseListener(new MouseAdapter() {
 		     public void mouseClicked(MouseEvent evt) {
 		    	 JList list = (JList)evt.getSource();
@@ -101,13 +107,15 @@ public class ListOfLevelPanel extends JPanel
 		         } 
 		    	 }
 		    });
+		 
 			backButton .setOnClickBehaviour(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e){
 					GameFrame.switchTo(backPanel);
 				}
 			});
 			backButton.setBounds(100,700,OurButton.WIDTH,OurButton.HEIGHT);
-		 list.setBounds(100,280,100,200);
+			listScroller.setBounds(100,280,150,200);
+			
 	}
 	
 	@Override
