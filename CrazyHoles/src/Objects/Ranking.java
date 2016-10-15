@@ -2,28 +2,39 @@ package Objects;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
-//non mi piace che viene istanziata ogni volta
 public class Ranking {
-	private ArrayList<Record> ranking = new ArrayList<Record>();
-
-	public Ranking() throws IOException {
-		readRanking();
-	}
-
-	public ArrayList<Record> getRaking() {
-		return this.ranking;
+	private ArrayList<Record> classifica = new ArrayList<Record>();
+	private Scanner scanner;
+	
+	public void ordina() throws IOException{
+		scanner = new Scanner(new File("data/scoreboard.txt"));
+        List<Record> records = new ArrayList<Record>();
+        while(scanner.hasNext()) {
+        	String s = scanner.nextLine();
+        	String[] str = s.split("\\*");
+            records.add(new Record(str[0],Integer.valueOf(str[1])));
+        }
+        Collections.sort(records);
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("data/scoreboard.txt"));
+        for(Record line : records) {
+            bufferedWriter.write(line.toString());
+        }
+        bufferedWriter.close();
 	}
 
 	public void addRecord(Record r) {
 		try {
-			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("data/scoreboard.txt", true));
+			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(
+					"data/scoreboard.txt", true));
 			bufferedWriter.write(r.toString());
 			bufferedWriter.close();
 		} catch (IOException e) {
@@ -31,8 +42,8 @@ public class Ranking {
 			e.printStackTrace();
 		}
 	}
-
-	private void readRanking() throws IOException {
+	
+	public void readRanking() throws IOException{
 		BufferedReader file = new BufferedReader(new FileReader(
 				"data/scoreboard.txt"));
 		String buffer = file.readLine();
@@ -41,25 +52,16 @@ public class Ranking {
 			String[] string = buffer.split("\\*");
 			Record pos = new Record(string[0],
 					Integer.parseInt(string[1]));
-			this.getRaking().add(i, pos);
+			classifica.add(i, pos);
 			buffer = file.readLine();
 			i++;
 		}
 		
 		file.close();
 	}
-
-//	public void writeRanking() throws IOException {
-//		BufferedWriter file = new BufferedWriter(new FileWriter(
-//				"data/scoreboard.txt", false));
-//
-//		for (int i = 0; i < ranking.size(); i++) {
-//			file.write(ranking.get(i).getName() + "*"
-//					+ ranking.get(i).getScore() + "\n");
-//		}
-//
-//		file.flush();
-//		file.close();
-//	}
-
+	
+	public ArrayList<Record> getClassifica(){
+		return classifica;
+	}
+	
 }

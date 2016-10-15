@@ -118,6 +118,7 @@ public abstract class GameManager
 	public void addRecord() throws IOException {
 		Record r = new Record(getPlayer(), getPoints());
 		this.ranking.addRecord(r);
+		ranking.ordina();
 	}
 
 	public String getPlayer() {

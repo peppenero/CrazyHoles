@@ -1,6 +1,7 @@
 package Objects;
 
-public class Record {
+
+public class Record implements Comparable<Record>{
 
 	private String name;
 	private Integer score;
@@ -18,7 +19,7 @@ public class Record {
 		this.name = name;
 	}
 
-	public int getScore() {
+	public Integer getScore() {
 		return score;
 	}
 
@@ -31,7 +32,7 @@ public class Record {
 	}
 	
 	public int compareTo(Record another){
-		return (score.compareTo(another.getScore()));
+		return ((another.getScore().compareTo(score)));
 	}
 
 }
