@@ -212,7 +212,7 @@ public class RightGamePanel extends JPanel {
 	public void resetTimerLabel()
 	{
 		String s = String.format("%02d:%02d.%d", manager.getTimer().getMinutes(),manager.getTimer().getSeconds(),manager.getTimer().getDecSeconds());
-		timeLabel.setText(s);	
+		topPanel.getTimeLabel().setText(s);	
 	}
 
 
