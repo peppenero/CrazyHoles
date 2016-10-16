@@ -1,7 +1,6 @@
 package Objects;
 
 import java.io.IOException;
-import java.util.List;
 
 public class SinglePlayerGameManager extends GameManager
 {

@@ -3,16 +3,10 @@ package gui;
 
 import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 
@@ -22,8 +16,6 @@ public class MenuPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private boolean resumable = false;
 	GameFrame frame;
-
-	Image background;
 	
 	OurButton singleplayerButton = new OurButton("SINGLE PLAYER");
 	OurButton levelEditorButton = new OurButton("LEVEL EDITOR");
@@ -41,8 +33,6 @@ public class MenuPanel extends JPanel {
 		
 
 		setLayout(null);
-
-		background = Toolkit.getDefaultToolkit().createImage("images/Background.jpg");
 
 		singleplayerButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
@@ -124,7 +114,7 @@ public class MenuPanel extends JPanel {
 
 	public void paintComponent(Graphics g){
 
-		g.drawImage(background, 0, 0, this);
+		g.drawImage(ImageProv.getIstance().getBackground(), 0, 0, this);
 		if(!isResumable())
 		{
 			resumeButton.setVisible(false);

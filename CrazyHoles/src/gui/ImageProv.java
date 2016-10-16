@@ -10,6 +10,11 @@ public class ImageProv {
 	private final Image greenHole;
 	private final Image yellowHole;
 	private final Image redHole;
+	
+	private final Image backgroundVuoto;
+	private final Image backgroundCredits;
+	private final Image background;
+	private final Image backgroundSettings;
 
 	private final Image redBall;
 	private final Image greenBall;
@@ -38,7 +43,12 @@ public class ImageProv {
 
 	private ImageProv() {
 		tk = Toolkit.getDefaultToolkit();
-
+		
+		backgroundVuoto = tk.getImage("images/Vuoto.jpg");
+		backgroundCredits = tk.getImage("images/Credits.jpg");
+		background = tk.getImage("images/Background.jpg");
+		backgroundSettings = tk.getImage("images/Settings.jpg");
+		
 		yellowHole = tk.getImage("images/BucaGialla.png");
 		greenHole = tk.getImage("images/BucaVerde.png");
 		redHole = tk.getImage("images/BucaRossa.png");
@@ -183,6 +193,22 @@ public class ImageProv {
 
 	public Image getEnds() {
 		return ends;
+	}
+	
+	public Image getBackgroundVuoto(){
+		return backgroundVuoto;
+	}
+	
+	public Image getBackgroundCredits(){
+		return backgroundCredits;
+	}
+	
+	public Image getBackground(){
+		return background;
+	}
+	
+	public Image getBackgroundSettings(){
+		return backgroundSettings;
 	}
 	
 	public static ImageProv getIstance(){

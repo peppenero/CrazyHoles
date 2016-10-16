@@ -2,16 +2,10 @@ package gui;
 
 import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import Objects.GameManager;
@@ -24,7 +18,6 @@ public class MultiplayerPanel extends JPanel
 	 */
 	private static final long serialVersionUID = 1L;
 	private GameFrame frame;
-	private Image background;
 	private OurButton offline  = new OurButton("Offline");
 	private OurButton online = new OurButton("Online");
 	
@@ -36,8 +29,6 @@ public class MultiplayerPanel extends JPanel
 		setLayout(null);
 		add(offline);
 		add(online);
-		
-		background = Toolkit.getDefaultToolkit().createImage("images/Background.jpg");
 	   
 		offline.setBounds(100, 400, OurButton.WIDTH,OurButton.HEIGHT);
 		online.setBounds(100, 480, OurButton.WIDTH,OurButton.HEIGHT);
@@ -84,7 +75,7 @@ public class MultiplayerPanel extends JPanel
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		
-		g.drawImage(background, 0, 0,this);
+		g.drawImage(ImageProv.getIstance().getBackground(), 0, 0,this);
 		
 	}
 	

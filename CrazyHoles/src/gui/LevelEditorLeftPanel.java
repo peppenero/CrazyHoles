@@ -23,7 +23,6 @@ public class LevelEditorLeftPanel extends JPanel {
 	
 	private ArrayList<Hole> holes = new ArrayList<Hole>();
 	private Hole selectedHole;
-	private ImageProv imageProv = ImageProv.getIstance();
 	
 	public LevelEditorLeftPanel(){
 		this.setBackground(Color.BLACK);
@@ -100,7 +99,7 @@ public class LevelEditorLeftPanel extends JPanel {
 		super.paintComponent(g);
 		for(Hole b:holes){
 			b.paintComponent(g);
-			g.drawImage(imageProv.getHole(b.colore), b.getX()-50, b.getY()-50, this);
+			g.drawImage(ImageProv.getIstance().getHole(b.colore), b.getX()-50, b.getY()-50, this);
 		}
 	}
 

@@ -14,8 +14,6 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 
-import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Objects.FreePracticeGameManager;
@@ -35,7 +33,6 @@ public class LeftGamePanel extends JPanel {
 	private boolean move = false;
 	private GameManager gameManager;
 	private Image holeImage;
-	private ImageProv prov;
 	private int xMouse;
 	private int yMouse;
 	private boolean pause;
@@ -60,7 +57,6 @@ public class LeftGamePanel extends JPanel {
 		x = world.getWidth();
 		y = world.getHeight();
 		getGameManager().start();
-		prov = ImageProv.getIstance();
 
 		setOpaque(false);
 		giratore = new Giratore(this, getGameManager());
@@ -178,7 +174,7 @@ public class LeftGamePanel extends JPanel {
 		
 		if(getGameManager() instanceof OnlineGameManager  && ((OnlineGameManager) getGameManager()).isServer() && !((OnlineGameManager) getGameManager()).getHost().isAccepted())
 		{
-			g.drawImage(prov.getWaiting(),100,100,this);
+			g.drawImage(ImageProv.getIstance().getWaiting(),100,100,this);
 		}
 		else
 		{
@@ -187,7 +183,7 @@ public class LeftGamePanel extends JPanel {
 		{
 			if(getGameManager() instanceof SinglePlayerGameManager)
 			{
-				g.drawImage(prov.getGameOver(),50,50,this);
+				g.drawImage(ImageProv.getIstance().getGameOver(),50,50,this);
 					pointsLabel.setVisible(true);
 					if (pointsLabel.isSetted()) {
 						pointsLabel.setVisible(false);
@@ -197,19 +193,19 @@ public class LeftGamePanel extends JPanel {
 			
 			if(gameManager instanceof FreePracticeGameManager)
 			{
-				g.drawImage(prov.getEnds(),100,100,this);
-				g.drawImage(prov.getEsc(), 100,200,this);
+				g.drawImage(ImageProv.getIstance().getEnds(),100,100,this);
+				g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
 			}
 			
 			if(getGameManager() instanceof OfflineGameManager)
 			{
 				if(((OfflineGameManager) getGameManager()).getWinner()==0)
 				{
-					g.drawImage(prov.getFirstPlayerWinner() ,50, 50,this);
+					g.drawImage(ImageProv.getIstance().getFirstPlayerWinner() ,50, 50,this);
 				}
 				if(((OfflineGameManager) getGameManager()).getWinner()==1)
 				{
-					g.drawImage(prov.getSecondPlayerWinner(),50,50,this);
+					g.drawImage(ImageProv.getIstance().getSecondPlayerWinner(),50,50,this);
 				}
 			}
 			if(getGameManager() instanceof OnlineGameManager)
@@ -217,15 +213,15 @@ public class LeftGamePanel extends JPanel {
 				System.out.println(((OnlineGameManager) getGameManager()).getOpponentPoints());
 				if(!((OnlineGameManager) getGameManager()).isOpponentEnds())
 				{
-					g.drawImage(prov.getWaiting(), 100,100,this);
+					g.drawImage(ImageProv.getIstance().getWaiting(), 100,100,this);
 				}
 				else
 				{
 					if(((OnlineGameManager) getGameManager()).getWinner().equals("pari"))
 					{
-						g.drawImage(prov.getTie(), 100,100,this);
+						g.drawImage(ImageProv.getIstance().getTie(), 100,100,this);
 						rightGamePanel.onlineRefresh();
-						g.drawImage(prov.getEsc(), 100,200,this);
+						g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
 					}
 					else
 					{
@@ -234,15 +230,15 @@ public class LeftGamePanel extends JPanel {
 																																	
 								if( ((OnlineGameManager) getGameManager()).getWinner().equals("host"))
 								{
-									g.drawImage(prov.getYouWin(), 100,100,this);
+									g.drawImage(ImageProv.getIstance().getYouWin(), 100,100,this);
 									rightGamePanel.onlineRefresh();
-									g.drawImage(prov.getEsc(), 100,200,this);
+									g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
 								}
 								else
 								{
-									g.drawImage(prov.getYouLose(), 100,100,this);
+									g.drawImage(ImageProv.getIstance().getYouLose(), 100,100,this);
 									rightGamePanel.onlineRefresh();
-									g.drawImage(prov.getEsc(), 100,200,this);
+									g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
 								}
 						}
 						else
@@ -250,15 +246,15 @@ public class LeftGamePanel extends JPanel {
 							System.out.println(((OnlineGameManager) getGameManager()).getWinner());
 							if(((OnlineGameManager) getGameManager()).getWinner().equals("host"))
 							{
-								g.drawImage(prov.getYouLose(),100,100,this);
+								g.drawImage(ImageProv.getIstance().getYouLose(),100,100,this);
 								rightGamePanel.onlineRefresh();
-								g.drawImage(prov.getEsc(), 100,200,this);
+								g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
 							}
 							else
 							{
-								g.drawImage(prov.getYouWin(),100,100,this);
+								g.drawImage(ImageProv.getIstance().getYouWin(),100,100,this);
 								rightGamePanel.onlineRefresh();	
-								g.drawImage(prov.getEsc(), 100,200,this);
+								g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
 							}
 						}
 					}
@@ -285,7 +281,7 @@ public class LeftGamePanel extends JPanel {
 			
 				if(isPause() && !isBoardActive())
 				{
-					g.drawImage(prov.getPause(),200,200,this);
+					g.drawImage(ImageProv.getIstance().getPause(),200,200,this);
 
 				g.drawLine(0 * 10, 0 * 10, 0 * 10, y * 10);
 				g.drawLine(x * 10, 0 * 10, x * 10, y * 10);
@@ -312,10 +308,10 @@ public class LeftGamePanel extends JPanel {
 						at2.translate(
 								(directionX + deltaX)
 										* 10
-										- prov.getDirectionBall()
+										- ImageProv.getIstance().getDirectionBall()
 												.getWidth(this) / 2,
 								(directionY + getGameManager().getBall().getDeltaY()) * 10);
-						g2.drawImage(prov.getDirectionBall(), at2, this);
+						g2.drawImage(ImageProv.getIstance().getDirectionBall(), at2, this);
 						directionX += (deltaX);
 						directionY += (getGameManager().getBall().getDeltaY());
 						bal++;
@@ -325,17 +321,17 @@ public class LeftGamePanel extends JPanel {
 				AffineTransform at1 = new AffineTransform();
 				at1.translate(
 						((getGameManager().getBall().getX()) * 10)
-								- prov.getBall(getGameManager().getBall().getColor())
+								- ImageProv.getIstance().getBall(getGameManager().getBall().getColor())
 										.getWidth(this) / 2,
 						((getGameManager().getBall().getY()) * 10)
-								- prov.getBall(getGameManager().getBall().getColor())
+								- ImageProv.getIstance().getBall(getGameManager().getBall().getColor())
 										.getHeight(this) / 2);
 				at1.scale(1, 1);
-				g2.drawImage(prov.getBall(getGameManager().getBall().getColor()),
+				g2.drawImage(ImageProv.getIstance().getBall(getGameManager().getBall().getColor()),
 						at1, this);
 
 				for (int i = 0; i < getGameManager().getHoles().size(); i++) {
-					holeImage = prov.getHole(getGameManager().getHoles().get(i)
+					holeImage = ImageProv.getIstance().getHole(getGameManager().getHoles().get(i)
 							.getColor());
 					AffineTransform at = new AffineTransform();
 					at.translate((getGameManager().getHoles().get(i).getX()) * 10,
@@ -418,7 +414,7 @@ public class LeftGamePanel extends JPanel {
 	{
 		if(getGameManager() instanceof SinglePlayerGameManager)
 		{
-			g.drawImage(prov.getLevel(getGameManager().getLevel()),300,200, this);
+			g.drawImage(ImageProv.getIstance().getLevel(getGameManager().getLevel()),300,200, this);
 		}
 		if(getGameManager() instanceof OfflineGameManager)
 		{
@@ -439,11 +435,11 @@ public class LeftGamePanel extends JPanel {
 	{
 		if(((OfflineGameManager) getGameManager()).isFirstPlayer())
 		{
-			g.drawImage(prov.getFirstPlayer(),200,100,this);
+			g.drawImage(ImageProv.getIstance().getFirstPlayer(),200,100,this);
 		}
 		if(((OfflineGameManager) getGameManager()).isSecondPlayer())
 		{
-			g.drawImage(prov.getSecondPlayer(),200,100,this);
+			g.drawImage(ImageProv.getIstance().getSecondPlayer(),200,100,this);
 		}
 	}
 

@@ -4,18 +4,11 @@ import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-
-import Objects.GameManager;
-import Objects.OfflineGameManager;
 
 public class SingleplayerPanel extends JPanel
 {
@@ -24,7 +17,6 @@ public class SingleplayerPanel extends JPanel
 	 */
 	private static final long serialVersionUID = 1L;
 	private GameFrame frame;
-	private Image background;
 	private OurButton newGameButton = new OurButton("NEW GAME");
 	private OurButton freePracticeButton = new OurButton("FREE PRACTICE");
 	private OurButton backToMenuButton = new OurButton("BACK TO MENU");
@@ -37,7 +29,6 @@ public class SingleplayerPanel extends JPanel
 		add(newGameButton);
 		add(freePracticeButton);
 		
-		background = Toolkit.getDefaultToolkit().createImage("images/Background.jpg");
 	   
 		newGameButton.setBounds(100, 400, OurButton.WIDTH,OurButton.HEIGHT);
 		freePracticeButton.setBounds(100, 480, OurButton.WIDTH,OurButton.HEIGHT);
@@ -80,7 +71,7 @@ public class SingleplayerPanel extends JPanel
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		
-		g.drawImage(background, 0, 0,this);
+		g.drawImage(ImageProv.getIstance().getBackground(), 0, 0,this);
 		
 	}
 	

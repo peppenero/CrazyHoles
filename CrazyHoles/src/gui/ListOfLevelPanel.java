@@ -1,18 +1,8 @@
 package gui;
 
-import Objects.FreePracticeGameManager;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.dnd.DragGestureEvent;
-import java.awt.dnd.DragGestureListener;
-import java.awt.dnd.DragSource;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -23,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
+import Objects.FreePracticeGameManager;
 import Objects.GameManager;
 import Objects.Host;
 import Objects.OnlineGameManager;
@@ -36,7 +27,6 @@ public class ListOfLevelPanel extends JPanel
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Image background;
 	private File dir = new File("data/levels/");
 	private JList list;
 	private String[] items;
@@ -48,7 +38,6 @@ public class ListOfLevelPanel extends JPanel
 	
 	public ListOfLevelPanel(JPanel back, final String type)
 	{
-		background = Toolkit.getDefaultToolkit().getImage("images/Background.jpg");
 		items = dir.list();
 		setLayout(null);
 		this.type=type;
@@ -123,7 +112,7 @@ public class ListOfLevelPanel extends JPanel
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		
-	g.drawImage(background, 0, 0,this);
+	g.drawImage(ImageProv.getIstance().getBackground(), 0, 0,this);
 	}
 	
 }
