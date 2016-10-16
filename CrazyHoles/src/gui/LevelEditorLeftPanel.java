@@ -23,7 +23,7 @@ public class LevelEditorLeftPanel extends JPanel {
 	
 	private ArrayList<Hole> holes = new ArrayList<Hole>();
 	private Hole selectedHole;
-	private ImageProv imageProv = new ImageProv();
+	private ImageProv imageProv = ImageProv.getIstance();
 	
 	public LevelEditorLeftPanel(){
 		this.setBackground(Color.BLACK);

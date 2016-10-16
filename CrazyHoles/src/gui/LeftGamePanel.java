@@ -60,7 +60,7 @@ public class LeftGamePanel extends JPanel {
 		x = world.getWidth();
 		y = world.getHeight();
 		getGameManager().start();
-		prov = new ImageProv();
+		prov = ImageProv.getIstance();
 
 		setOpaque(false);
 		giratore = new Giratore(this, getGameManager());

@@ -4,6 +4,9 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 public class ImageProv {
+	
+	private static ImageProv instance = null;
+	
 	private final Image greenHole;
 	private final Image yellowHole;
 	private final Image redHole;
@@ -33,7 +36,7 @@ public class ImageProv {
 	private final Image tie;
 	
 
-	public ImageProv() {
+	private ImageProv() {
 		tk = Toolkit.getDefaultToolkit();
 
 		yellowHole = tk.getImage("images/BucaGialla.png");
@@ -180,6 +183,13 @@ public class ImageProv {
 
 	public Image getEnds() {
 		return ends;
+	}
+	
+	public static ImageProv getIstance(){
+		if(instance==null){
+			instance = new ImageProv();
+		}
+		return instance;
 	}
 
 }
