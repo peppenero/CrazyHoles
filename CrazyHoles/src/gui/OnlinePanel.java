@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -14,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.text.NumberFormat;
 
@@ -48,6 +50,7 @@ public class OnlinePanel extends JPanel
 	private JPanel backPanel;
 	private PanelIP ipPanel;
 	private String ip;
+	private Font font = OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 30); 
 	
 	public OnlinePanel(final JPanel backPanel)
 	{
@@ -56,7 +59,6 @@ public class OnlinePanel extends JPanel
 		okay = new JButton("ENTER");
 		title = new JLabel("INSERIRE IP HOST");
 		ipDialog = new JDialog();
-		ipPanel = new PanelIP();
 		title.setForeground(Color.BLACK);		
 		ipDialog.setModal(true);
 		ipDialog.setUndecorated(true);
@@ -64,6 +66,7 @@ public class OnlinePanel extends JPanel
 		ipDialog.setLocation(200,200);
 		ipDialog.setBackground(new Color(255,255,255,0));	
 		ipDialog.setLayout(new BoxLayout(ipDialog.getContentPane(),BoxLayout.Y_AXIS));
+		ipPanel = new PanelIP();
 		title.setAlignmentX(CENTER_ALIGNMENT);
 		title.setAlignmentY(BOTTOM_ALIGNMENT);
 		ipDialog.add(title);
@@ -99,9 +102,7 @@ public class OnlinePanel extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				
-				
-				
+								
 				setted=isSetted();
 				if(setted)
 				{
@@ -113,7 +114,42 @@ public class OnlinePanel extends JPanel
 						GameFrame.switchTo(new GamePanel(manager, OnlinePanel.this));
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();}
+							
+							try{
+								if(e1 instanceof SocketTimeoutException)
+								{
+									throw new SocketTimeoutException();
+								}
+								else
+								{
+									try{
+										if(e1 instanceof UnknownHostException)
+										{
+											throw new UnknownHostException();
+										}
+									}catch(UnknownHostException u)
+										{
+											JLabel unknownHost = new JLabel("WRONG IP");
+											unknownHost.setFont(font);
+											OnlinePanel.this.add(unknownHost);
+											unknownHost.setBounds(100, 200, 400, 100);
+											ipDialog.validate();
+											ipDialog.repaint();
+											ipDialog.pack();									
+										}
+								}
+							}catch(SocketTimeoutException f)
+							{
+								JLabel timeout = new JLabel("TIMEOUT CONNESSIONE HOST NON DISPONIBILE");
+								timeout.setFont(font);
+								OnlinePanel.this.add(timeout);
+								timeout.setBounds(100, 200, 400, 100);
+								ipDialog.validate();
+								ipDialog.repaint();
+								ipDialog.pack();
+							}
+							e1.printStackTrace();
+						}
 					catch (FontFormatException e1) {
 							// TODO Auto-generated catch block
 						 e1.printStackTrace();
@@ -284,7 +320,7 @@ public class OnlinePanel extends JPanel
 					{
 						i++;
 					}
-						if(i==3)
+						if(i>3)
 						{
 							e.consume();
 						}		

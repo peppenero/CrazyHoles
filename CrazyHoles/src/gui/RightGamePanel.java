@@ -86,6 +86,7 @@ public class RightGamePanel extends JPanel {
 		 if(manager instanceof OfflineGameManager)
 		 {	 
 				centerPanel = new CenterRightPanel(manager);
+				setPreferredSize(new Dimension(450,600));
 			 
 		 }
 		
@@ -147,6 +148,30 @@ public class RightGamePanel extends JPanel {
 					{
 						leftGamePanel.exitToMenu();	
 					}
+				}
+				if(manager instanceof OnlineGameManager)
+				{
+					if(((OnlineGameManager) manager).isServer())
+					{
+						try {
+							((OnlineGameManager) manager).getHost().ends();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+					else
+					{
+						try {
+							((OnlineGameManager) manager).getClient().send("leave");
+							((OnlineGameManager) manager).getClient().ends();
+							
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+					leftGamePanel.exitToMenu();
 				}
 			}
 		});

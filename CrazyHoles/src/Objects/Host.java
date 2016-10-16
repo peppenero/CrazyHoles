@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class Host extends Thread
 {
@@ -21,6 +22,7 @@ public class Host extends Thread
 	private OnlineGameManager manager;
 	private boolean finish = false;
 	private boolean end = false;
+	private boolean opponentLeave = false;
 	
 	public Host(File world) throws IOException
 	{
@@ -39,7 +41,7 @@ public class Host extends Thread
 		
 		
 		try {
-			if(!accepted)
+			if(!accepted && !end)
 			{
 				socket = serverSocket.accept();
 				System.out.println("mi sono connesso");
@@ -51,13 +53,29 @@ public class Host extends Thread
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			try
+			{
+				if(e instanceof SocketException)
+				{
+					throw new SocketException();
+				}
+				else
+				{
+					e.printStackTrace();
+				}
+			}catch(SocketException s)
+			{
+				
+			}
 		}
 		
 		try {
-			
-			oos.writeObject(world);
-			oos.flush();
+			if(!end)
+			{
+				oos.writeObject(world);
+				oos.flush();
+			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -70,46 +88,54 @@ public class Host extends Thread
 						mah=infromClient.readLine();
 						if(mah != null)
 						{
-							if(mah.equals("ends"))
+							if(mah.equals("leave"))
 							{
-								mah = infromClient.readLine();
-								manager.setOpponentPoints(Integer.parseInt(mah));
-								manager.setOpponentEnds(true);
-								while(!finish)
-								{
-									if(manager.isOpponentEnds() && manager.isFinish() )
-									{
-										if(manager.getPoints() == manager.getOpponentPoints())
-										{
-											manager.setWinner("pari");
-											send("pari");
-											finish = true;
-										}
-										else
-										{
-											if(manager.getPoints() < manager.getOpponentPoints())
-											{
-												manager.setWinner("client");
-												send("client");
-												finish= true;
-											}
-											else
-											{
-												if(manager.getPoints() > manager.getOpponentPoints())
-												{
-													manager.setWinner("host");
-													send("host");
-													finish = true;
-												}											
-											}
-									}
-								}
-									
-								}
+								setOpponentLeave(true);
 							}
 							else
 							{
-								manager.setOpponentPoints(Integer.parseInt(mah)+manager.getOpponentPoints());
+								if(mah.equals("ends"))
+								{
+									
+									mah = infromClient.readLine();
+									manager.setOpponentPoints(Integer.parseInt(mah));
+									manager.setOpponentEnds(true);
+									while(!finish)
+									{
+										if(manager.isOpponentEnds() && manager.isFinish() )
+										{
+											if(manager.getPoints() == manager.getOpponentPoints())
+											{
+												manager.setWinner("pari");
+												send("pari");
+												finish = true;
+											}
+											else
+											{
+												if(manager.getPoints() < manager.getOpponentPoints())
+												{
+													manager.setWinner("client");
+													send("client");
+													finish= true;
+												}
+												else
+												{
+													if(manager.getPoints() > manager.getOpponentPoints())
+													{
+														manager.setWinner("host");
+														send("host");
+														finish = true;
+													}											
+												}
+										}
+									}
+										
+									}
+								}
+								else
+								{
+									manager.setOpponentPoints(Integer.parseInt(mah)+manager.getOpponentPoints());
+								}
 							}
 						}
 					} catch (IOException e) {
@@ -142,9 +168,21 @@ public class Host extends Thread
 	public void ends() throws IOException
 	{
 		end = true;
-		oos.close();
-		infromClient.close();
-		socket.close();
+		if(accepted)
+		{
+			oos.close();
+			infromClient.close();
+			socket.close();
+		}
 		serverSocket.close();
+		
+	}
+
+	public boolean isOpponentLeave() {
+		return opponentLeave;
+	}
+
+	public void setOpponentLeave(boolean opponentLeave) {
+		this.opponentLeave = opponentLeave;
 	}
 }
