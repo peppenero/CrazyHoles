@@ -251,6 +251,7 @@ public class OnlinePanel extends JPanel
 						if(i==3)
 						{
 							getSecondField().requestFocus();
+							i=0;
 						}		
 				}
 			});
@@ -272,6 +273,7 @@ public class OnlinePanel extends JPanel
 						if(i==3)
 						{
 							getThirdField().requestFocus();
+							i=0;
 						}		
 				}
 			});
@@ -293,6 +295,7 @@ public class OnlinePanel extends JPanel
 					}
 						if(i==3)
 						{
+							i=0;
 							getFourthField().requestFocus();
 						}		
 				}
