@@ -23,6 +23,7 @@ public class GameFrame extends JFrame
 
 	private static JPanel contentPanel;
 	
+	private static SingleplayerPanel singleplayerPanel;
 	private static MenuPanel menuPanel;
 	private static LevelEditorPanel levelEditorPanel;
 	private static SettingsPanel settingsPanel;
@@ -61,6 +62,7 @@ public class GameFrame extends JFrame
         
         menuPanel = new MenuPanel(frame);
         multiplayerPanel = new MultiplayerPanel(frame);
+        singleplayerPanel = new SingleplayerPanel(frame);
         switchTo(menuPanel);
         
         device.setFullScreenWindow(frame);
@@ -96,6 +98,10 @@ public class GameFrame extends JFrame
 	
 	public JPanel getMenuPanel(){
 		return menuPanel;
+	}
+	
+	public JPanel getSingleplayerPanel(){
+		return singleplayerPanel;
 	}
 	
 	

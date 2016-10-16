@@ -42,7 +42,6 @@ public class LeftGamePanel extends JPanel {
 	private boolean sBoardActive;
 	private boolean backFlag = false;
 	private Muovitore m;
-	private ScoreBoardMenu scoreboard;
 	private Giratore giratore;
 	private RightGamePanel rightGamePanel;
 	private PointsLabel pointsLabel;
@@ -62,10 +61,6 @@ public class LeftGamePanel extends JPanel {
 		y = world.getHeight();
 		getGameManager().start();
 		prov = new ImageProv();
-
-		if (getGameManager() instanceof SinglePlayerGameManager) {
-			setScoreboard(new ScoreBoardMenu(this, getGameManager()));
-		}
 
 		setOpaque(false);
 		giratore = new Giratore(this, getGameManager());
@@ -405,14 +400,6 @@ public class LeftGamePanel extends JPanel {
 
 	public void setMenuPanel(JPanel menuPanel) {
 		this.menuPanel = menuPanel;
-	}
-
-	public ScoreBoardMenu getScoreboard() {
-		return scoreboard;
-	}
-
-	public void setScoreboard(ScoreBoardMenu scoreboard) {
-		this.scoreboard = scoreboard;
 	}
 
 

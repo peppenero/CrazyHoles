@@ -15,6 +15,15 @@ public class Ranking {
 	private ArrayList<Record> classifica = new ArrayList<Record>();
 	private Scanner scanner;
 	
+	public Ranking(){
+		try {
+			readRanking();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void ordina() throws IOException{
 		scanner = new Scanner(new File("data/scoreboard.txt"));
         List<Record> records = new ArrayList<Record>();

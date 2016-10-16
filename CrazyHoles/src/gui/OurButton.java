@@ -20,7 +20,7 @@ public class OurButton extends JLabel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final int WIDTH = 200;
+	public static final int WIDTH = 220;
 	public static final int HEIGHT = 80;
 
 	public OurButton(String t){
