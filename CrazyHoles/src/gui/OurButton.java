@@ -2,11 +2,8 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
 
 import javax.swing.JLabel;
 
@@ -20,7 +17,7 @@ public class OurButton extends JLabel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final int WIDTH = 200;
+	public static final int WIDTH = 220;
 	public static final int HEIGHT = 80;
 
 	public OurButton(String t){

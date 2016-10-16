@@ -1,14 +1,12 @@
 package Objects;
 
 import java.io.IOException;
-import java.util.List;
 
 public class SinglePlayerGameManager extends GameManager
 {
  	
  	public SinglePlayerGameManager() throws IOException
  	{
- 		setRanking(new Ranking());
  		setwManager(new WorldManager());
  		setWorld((WorldImpl) getwManager().getworld(getLevel()));
  		setTimer(new MyTimer());
@@ -18,7 +16,6 @@ public class SinglePlayerGameManager extends GameManager
  	
  	public SinglePlayerGameManager(int level) throws IOException
  	{
- 		setRanking(new Ranking());
  		this.setLevel(level);
  		setwManager(new WorldManager());
  		setWorld((WorldImpl) getwManager().getworld(getLevel()));

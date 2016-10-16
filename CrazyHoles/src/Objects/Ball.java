@@ -3,7 +3,7 @@ package Objects;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.*;
+import common.HasScore;
 
 public class Ball extends Object implements HasScore {
 

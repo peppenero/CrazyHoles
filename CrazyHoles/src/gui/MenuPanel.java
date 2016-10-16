@@ -3,16 +3,10 @@ package gui;
 
 import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 
@@ -22,35 +16,8 @@ public class MenuPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private boolean resumable = false;
 	GameFrame frame;
-
-	Image background;
-
-	/*Icon newGame = new ImageIcon("images/newgame.png");
-	Icon newGameSelected = new ImageIcon("images/newgame_selected.png");
-	MenuButton newGameButton = new MenuButton(newGame,newGameSelected);
-	Icon levelEditor = new ImageIcon("images/leveleditor.png");
-	Icon levelEditorSelected = new ImageIcon("images/leveleditor_selected.png");
-	MenuButton levelEditorButton = new MenuButton(levelEditor,levelEditorSelected);
-	Icon settings = new ImageIcon("images/settings.png");
-	Icon settingsSelected = new ImageIcon("images/settings_selected.png");
-	MenuButton settingsButton = new MenuButton(settings,settingsSelected);
-	Icon credits = new ImageIcon("images/credits.png");
-	Icon creditsSelected = new ImageIcon("images/credits_selected.png");
-	MenuButton creditsButton = new MenuButton(credits,creditsSelected);
-	Icon exit = new ImageIcon("images/exit.png");
-	Icon exitSelected = new ImageIcon("images/exit_selected.png");
-	MenuButton exitButton = new MenuButton(exit,exitSelected);
-	Icon resume = new ImageIcon("images/resume.png");
-	Icon resumeSelected = new ImageIcon("images/resume_selected.png");
-	Icon resumeDeselected = new ImageIcon("images/resume_deselected.png");
-	MenuButton resumeButton = new MenuButton(resume,resumeSelected);
-	Icon multi = new ImageIcon("images/Multiplayer.png");
-	Icon multiSelected = new ImageIcon("images/Multiplayer_Selected.png");
-	MenuButton multiplayerButton = new MenuButton(multi, multiSelected);
-	*/
 	
-	OurButton newGameButton = new OurButton("NEW GAME");
-	OurButton freePracticeButton = new OurButton("FREE PRACTICE");
+	OurButton singleplayerButton = new OurButton("SINGLE PLAYER");
 	OurButton levelEditorButton = new OurButton("LEVEL EDITOR");
 	OurButton settingsButton = new OurButton("SETTINGS");
 	OurButton creditsButton = new OurButton("CREDITS");
@@ -67,61 +34,19 @@ public class MenuPanel extends JPanel {
 
 		setLayout(null);
 
-		background = Toolkit.getDefaultToolkit().createImage("images/Background.jpg");
-
-		newGameButton.setOnClickBehaviour(new MouseAdapter() {
+		singleplayerButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
-				setResumable(false);
-				try {
-					GameFrame.switchTo(frame.getGamePanel());
-				} catch (IOException | FontFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				GameFrame.switchTo(frame.getSingleplayerPanel());
 			}
 		});
 		
-		/*newGameButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				setResumable(false);
-				try {
-					GameFrame.switchTo(frame.getGamePanel());
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (FontFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});*/
-
-//		levelEditorButton.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//				GameFrame.switchTo(frame.getLevelEditorPanel());
-//			}
-//		});
-		
 		levelEditorButton.setOnClickBehaviour(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e){
+			public void mouseClicked(MouseEvent e ){
 				GameFrame.switchTo(frame.getLevelEditorPanel());
 			}
 		});
-
-/*		settingsButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				GameFrame.switchTo(frame.getSettingsPanel());
-			}
-		});*/
+		
+		
 		
 		settingsButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
@@ -129,14 +54,6 @@ public class MenuPanel extends JPanel {
 			}
 		});
 
-//		creditsButton.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//				GameFrame.switchTo(frame.getCreditsPanel());
-//			}
-//		});
 		
 		creditsButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
@@ -144,16 +61,6 @@ public class MenuPanel extends JPanel {
 			}
 		});
 
-//		exitButton.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//				frame.setVisible(false);
-//				System.exit(0);
-//				frame.dispose();
-//			}
-//		});
 		
 		exitButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
@@ -163,19 +70,6 @@ public class MenuPanel extends JPanel {
 			}
 		});
 
-//		resumeButton.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) {
-//				// TODO Auto-generated method stub
-//				try {
-//					GameFrame.switchTo(frame.getGamePanel());
-//				} catch (IOException | FontFormatException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//		});
 		
 		resumeButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
@@ -188,14 +82,6 @@ public class MenuPanel extends JPanel {
 			}
 		});
 		
-//		multiplayerButton.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) {
-//				// TODO Auto-generated method stub
-//				GameFrame.switchTo(frame.getMultiplayerPanel());
-//			}
-//		});
 		
 		multiplayerButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
@@ -203,17 +89,9 @@ public class MenuPanel extends JPanel {
 			}
 		});
 		
-		freePracticeButton.setOnClickBehaviour(new MouseAdapter() {
-		
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				GameFrame.switchTo(new ListOfLevelPanel(frame.getMenuPanel(), "FreePractice"));
-			}
-		});
 
 
-		add(newGameButton);
-		add(freePracticeButton);
+		add(singleplayerButton);
 		add(multiplayerButton);
 		add(resumeButton);
 		add(levelEditorButton);
@@ -224,8 +102,7 @@ public class MenuPanel extends JPanel {
 
 
 		resumeButton.setBounds(100,120,OurButton.WIDTH,OurButton.HEIGHT);
-		newGameButton.setBounds(100,200,OurButton.WIDTH,OurButton.HEIGHT);
-		freePracticeButton.setBounds(100, 280, OurButton.WIDTH, OurButton.HEIGHT);
+		singleplayerButton.setBounds(100,200,OurButton.WIDTH,OurButton.HEIGHT);
 		multiplayerButton.setBounds(100,360,OurButton.WIDTH,OurButton.HEIGHT);
 		levelEditorButton.setBounds(100,440,OurButton.WIDTH,OurButton.HEIGHT);
 		settingsButton.setBounds(100,520,OurButton.WIDTH,OurButton.HEIGHT);
@@ -237,7 +114,7 @@ public class MenuPanel extends JPanel {
 
 	public void paintComponent(Graphics g){
 
-		g.drawImage(background, 0, 0, this);
+		g.drawImage(ImageProv.getIstance().getBackground(), 0, 0, this);
 		if(!isResumable())
 		{
 			resumeButton.setVisible(false);

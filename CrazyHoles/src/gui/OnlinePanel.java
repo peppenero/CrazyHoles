@@ -4,10 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.TextArea;
-import java.awt.TextField;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -18,14 +14,12 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.text.NumberFormat;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
@@ -39,7 +33,6 @@ public class OnlinePanel extends JPanel
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Image background;
 	private OurButton newMatch = new OurButton("NEW MATCH");
 	private OurButton joinMatch = new OurButton("JOIN MATCH");
 	private JDialog ipDialog;
@@ -55,7 +48,6 @@ public class OnlinePanel extends JPanel
 	public OnlinePanel(final JPanel backPanel)
 	{
 		setLayout(null);
-		background = Toolkit.getDefaultToolkit().getImage("images/Background.jpg");
 		okay = new JButton("ENTER");
 		title = new JLabel("INSERIRE IP HOST");
 		ipDialog = new JDialog();
@@ -214,7 +206,7 @@ public class OnlinePanel extends JPanel
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		
-		g.drawImage(background, 0,0,this);
+		g.drawImage(ImageProv.getIstance().getBackground(), 0,0,this);
 	}
 
 	public JPanel getBackPanel() {

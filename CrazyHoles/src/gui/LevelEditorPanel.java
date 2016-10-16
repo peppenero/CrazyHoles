@@ -2,8 +2,6 @@ package gui;
 
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -19,7 +17,6 @@ public class LevelEditorPanel extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final Image background;
 	private final GameFrame frame;
 	private final LevelEditorLeftPanel leftPanel = new LevelEditorLeftPanel();
 	
@@ -42,7 +39,6 @@ public class LevelEditorPanel extends JPanel{
 	public LevelEditorPanel(GameFrame frameSup){
 		frame=frameSup;
 		setLayout(null);
-		background = Toolkit.getDefaultToolkit().createImage("images/Vuoto.jpg");
 		
 		holesBox = new JComboBox<Integer>();
 		colorsBox = new JComboBox<String>();
@@ -141,6 +137,6 @@ public class LevelEditorPanel extends JPanel{
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		g.drawImage(background, 0, 0, this);
+		g.drawImage(ImageProv.getIstance().getBackgroundVuoto(), 0, 0, this);
 	}
 }

@@ -1,6 +1,5 @@
 package Objects;
 
-import java.io.IOException;
 import gui.LeftGamePanel;
 import gui.RightGamePanel;
 

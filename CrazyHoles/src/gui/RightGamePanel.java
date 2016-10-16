@@ -1,26 +1,14 @@
 package gui;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.io.IOException;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-import javax.swing.border.Border;
 
 import Objects.GameManager;
 import Objects.OfflineGameManager;
@@ -41,7 +29,6 @@ public class RightGamePanel extends JPanel {
 	private BoxLayout layout;
 	private boolean started = false;
 	private OurButton exitButton;
-	private OurButton scoreboardButton;
 	private OurButton pauseButton;
 	private LeftGamePanel leftGamePanel;
 	private CenterRightPanel centerPanel;
@@ -66,12 +53,9 @@ public class RightGamePanel extends JPanel {
 		topPanel.setOpaque(false);
 		bottomPanel.setOpaque(false);
 		exitButton = new OurButton("EXIT");
-		scoreboardButton = new OurButton("SCOREBOARD");
 		pauseButton = new OurButton("PAUSE");
 		pauseButton.setAlignmentX(CENTER_ALIGNMENT);
 		pauseButton.setAlignmentY(BOTTOM_ALIGNMENT);
-		scoreboardButton.setAlignmentX(CENTER_ALIGNMENT);
-		scoreboardButton.setAlignmentY(BOTTOM_ALIGNMENT);
 		exitButton.setAlignmentX(CENTER_ALIGNMENT);
 		exitButton.setAlignmentY(BOTTOM_ALIGNMENT);
 		
@@ -98,7 +82,6 @@ public class RightGamePanel extends JPanel {
 					pauseButton.setText("RESTART");
 					//AGGIUSTARE
 					//pauseButton.setRolloverIcon(restartSelected);
-					scoreboardButton.setEnabled(false);
 					leftGamePanel.setPause(true);
 					
 					if (started) {
@@ -110,25 +93,10 @@ public class RightGamePanel extends JPanel {
 					pauseButton.setText("PAUSE");
 					//AGGIUSTARE
 					//pauseButton.setRolloverIcon(pauseSelected);
-					scoreboardButton.setEnabled(true);
 					leftGamePanel.setPause(false);
 					manager.getTimer().restart();
 					
 				}
-				leftGamePanel.repaint();
-			}
-		});
-
-		
-
-		scoreboardButton.setOnClickBehaviour(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e){
-				leftGamePanel.setPause(true);
-				leftGamePanel.setsBoardActive(true);
-				if (started) {
-					topPanel.getTimer().stop();
-				}
-				leftGamePanel.getScoreboard().setVisible(true);
 				leftGamePanel.repaint();
 			}
 		});
@@ -190,10 +158,6 @@ public class RightGamePanel extends JPanel {
 		 
 		 
 		 bottomPanel.add(pauseButton);
-		 if(manager instanceof SinglePlayerGameManager)
-		 {
-			bottomPanel.add(scoreboardButton);
-		 }
 		 bottomPanel.add(exitButton);
 		
 		
