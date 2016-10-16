@@ -73,6 +73,15 @@ public class LeftGamePanel extends JPanel {
 					
 						if(((OnlineGameManager) gameManager).isServer())
 						{
+							if(!((OnlineGameManager) gameManager).isFinish())
+							{
+								try {
+									((OnlineGameManager) gameManager).getHost().send("leave");
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+							}
 							try {
 								((OnlineGameManager) gameManager).getHost().ends();
 							} catch (IOException e1) {
@@ -83,6 +92,15 @@ public class LeftGamePanel extends JPanel {
 						}
 						else
 						{
+							if(!((OnlineGameManager) gameManager).isFinish())
+							{
+								try {
+									((OnlineGameManager) gameManager).getClient().send("leave");
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+							}
 							try {
 								((OnlineGameManager) gameManager).getClient().ends();
 							} catch (IOException e1) {
@@ -170,13 +188,37 @@ public class LeftGamePanel extends JPanel {
 	  super.paintComponent(g);
 
 	  Graphics2D g2 = (Graphics2D) g;
+	  boolean check = false;
 	  
-	  
-	  if(getGameManager() instanceof OnlineGameManager  && ((OnlineGameManager) getGameManager()).isServer() && !((OnlineGameManager) getGameManager()).getHost().isAccepted())
+	  if(getGameManager() instanceof OnlineGameManager) 
 	  {
-	   g.drawImage(ImageProv.getIstance().getWaiting(),100,100,this);
+		  check = false;
+		  if(((OnlineGameManager) getGameManager()).isServer())
+		  {
+			  if(!((OnlineGameManager) getGameManager()).getHost().isAccepted())
+			  {
+				  g.drawImage(ImageProv.getIstance().getWaiting(),100,100,this);
+				  check=true;
+			  }
+			  if(gameManager instanceof OnlineGameManager && ((OnlineGameManager) gameManager).getHost().isOpponentLeave())
+			  {
+				  check=true;
+				  g.drawImage(ImageProv.getIstance().getLeave(), 200,200,this);
+				  g.drawImage(ImageProv.getIstance().getEsc(),300,400,this);
+			  }
+		  }
+		  else
+		  {
+			  if(gameManager instanceof OnlineGameManager && ((OnlineGameManager) gameManager).getClient().isOppenentLeave())
+			  {
+				  check=true;
+				  g.drawImage(ImageProv.getIstance().getLeave(), 200,200,this);
+				  g.drawImage(ImageProv.getIstance().getEsc(),300,400,this);
+			  }
+		  
+		  }
 	  }
-	  else
+	 if(!check)
 	  {
 		 
 		  if (getGameManager().isGameOver()) 

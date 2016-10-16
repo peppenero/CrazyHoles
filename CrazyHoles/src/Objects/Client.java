@@ -24,6 +24,7 @@ public class Client extends Thread
 	private OnlineGameManager manager;
 	private boolean finish = false;
 	private boolean end = false;
+	private boolean oppenentLeave = false;
 	
 	public Client(String ip) throws UnknownHostException, IOException
 	{
@@ -60,31 +61,37 @@ public class Client extends Thread
 				if(ob instanceof String)
 				{
 					mah = (String) ob;
-					System.out.println("client "+mah);
-					if(mah.equals("ends"))
+					if(mah.equals("leave"))
 					{
-						while(!finish)
-						{
-							mah = (String) ois.readObject();
-							System.out.println("winner"+ mah);
-							if(mah.equals("client") || mah.equals("host") || mah.equals("pari"))
-							{
-								System.out.println(mah);
-								manager.setWinner(mah);
-								finish=true;
-							}
-							else
-							{
-								manager.setOpponentPoints(Integer.parseInt(mah));
-								manager.setOpponentEnds(true);
-							}
-							
-						}
-						
+						setOppenentLeave(true);
 					}
 					else
 					{
-						manager.setOpponentPoints(Integer.parseInt(mah)+manager.getOpponentPoints());
+					if(mah.equals("ends"))
+					{
+							while(!finish)
+							{
+								mah = (String) ois.readObject();
+								System.out.println("winner"+ mah);
+								if(mah.equals("client") || mah.equals("host") || mah.equals("pari"))
+								{
+									System.out.println(mah);
+									manager.setWinner(mah);
+									finish=true;
+								}
+								else
+								{
+									manager.setOpponentPoints(Integer.parseInt(mah));
+									manager.setOpponentEnds(true);
+								}
+								
+							}
+							
+						}
+						else
+						{
+							manager.setOpponentPoints(Integer.parseInt(mah)+manager.getOpponentPoints());
+						}
 					}
 				}
 				
@@ -139,6 +146,14 @@ public class Client extends Thread
 		outToServer.close();
 		ois.close();
 		clientSocket.close();
+	}
+
+	public boolean isOppenentLeave() {
+		return oppenentLeave;
+	}
+
+	public void setOppenentLeave(boolean oppenentLeave) {
+		this.oppenentLeave = oppenentLeave;
 	}
 	
 }

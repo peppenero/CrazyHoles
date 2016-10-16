@@ -15,7 +15,7 @@ public class ImageProv {
 	private final Image backgroundCredits;
 	private final Image background;
 	private final Image backgroundSettings;
-
+	private final Image leave;
 	private final Image redBall;
 	private final Image greenBall;
 	private final Image yellowBall;
@@ -76,6 +76,7 @@ public class ImageProv {
 		tie = tk.getImage("images/Tie.png");
 		esc = tk.getImage("images/Esc.png");
 		ends = tk.getImage("images/Ends.png");
+		leave = tk.getImage("images/Leave.png");
 	}
 
 	public Image getHole(final String color) {
@@ -216,6 +217,10 @@ public class ImageProv {
 			instance = new ImageProv();
 		}
 		return instance;
+	}
+
+	public Image getLeave() {
+		return leave;
 	}
 
 }
