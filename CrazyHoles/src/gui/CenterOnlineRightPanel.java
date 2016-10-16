@@ -13,6 +13,10 @@ import Objects.OnlineGameManager;
 
 public class CenterOnlineRightPanel extends JPanel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Font font = OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 30);
 	private JLabel label;
 	private JLabel opponetPointsLabel;

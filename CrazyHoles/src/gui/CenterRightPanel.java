@@ -19,7 +19,6 @@ public class CenterRightPanel extends JPanel
 	private static final long serialVersionUID = 1L;
 	
 	private Font font;
-	private GameManager manager;
 	private JPanel firstPanel;
 	private JPanel secondPanel;
 	private JPanel thirdPanel;
@@ -38,7 +37,6 @@ public class CenterRightPanel extends JPanel
 	public CenterRightPanel(GameManager manager)
 	{
 		super();
-		this.manager=manager;
 		setOpaque(false);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		font = OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 30);

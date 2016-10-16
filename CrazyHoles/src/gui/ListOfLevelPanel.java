@@ -34,13 +34,11 @@ public class ListOfLevelPanel extends JPanel
 	private GameManager manager;
 	private OurButton backButton = new OurButton("BACK");
 	private JPanel backPanel;
-	private String type;
 	
 	public ListOfLevelPanel(JPanel back, final String type)
 	{
 		items = dir.list();
 		setLayout(null);
-		this.type=type;
 		backPanel=back;
 		list = new JList(items);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
