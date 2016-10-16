@@ -65,24 +65,30 @@ public class CenterRightPanel extends JPanel
 		
 		playerOne = new JLabel("PLAYER 1");
 		playerOne.setFont(font);
+		playerOne.setForeground(Color.BLUE);
 		playerOne.setAlignmentX(CENTER_ALIGNMENT);
 		playerOne.setAlignmentY(BOTTOM_ALIGNMENT);
 		
 		playerTwo = new JLabel("PLAYER 2");
 		playerTwo.setFont(font);
+		playerTwo.setForeground(Color.RED);
 		playerTwo.setAlignmentX(CENTER_ALIGNMENT);
 		playerTwo.setAlignmentY(BOTTOM_ALIGNMENT);
 		
 		playerPoints = new JLabel("POINTS");
+		playerPoints.setForeground(Color.BLUE);
 		playerPoints.setFont(font);
 		
 		playerSets = new JLabel("SET");
+		playerSets.setForeground(Color.BLUE);
 		playerSets.setFont(font);
 		
 		player2Points = new JLabel("POINTS");
+		player2Points.setForeground(Color.RED);
 		player2Points.setFont(font);
 		
 		player2Sets = new JLabel("SET");
+		player2Sets.setForeground(Color.RED);
 		player2Sets.setFont(font);
 		
 		 String pointsPone = String.format("%02d", ((OfflineGameManager) manager).getFirstPlayerPoints());

@@ -165,193 +165,193 @@ public class LeftGamePanel extends JPanel {
 
 	}
 
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
+	 @Override
+	 protected void paintComponent(Graphics g) {
+	  super.paintComponent(g);
 
-		Graphics2D g2 = (Graphics2D) g;
-		
-		
-		if(getGameManager() instanceof OnlineGameManager  && ((OnlineGameManager) getGameManager()).isServer() && !((OnlineGameManager) getGameManager()).getHost().isAccepted())
-		{
-			g.drawImage(ImageProv.getIstance().getWaiting(),100,100,this);
-		}
-		else
-		{
+	  Graphics2D g2 = (Graphics2D) g;
+	  
+	  
+	  if(getGameManager() instanceof OnlineGameManager  && ((OnlineGameManager) getGameManager()).isServer() && !((OnlineGameManager) getGameManager()).getHost().isAccepted())
+	  {
+	   g.drawImage(ImageProv.getIstance().getWaiting(),100,100,this);
+	  }
+	  else
+	  {
+		 
+		  if (getGameManager().isGameOver()) 
+		  {
+		   if(getGameManager() instanceof SinglePlayerGameManager)
+		   {
+		    g.drawImage(ImageProv.getIstance().getGameOver(),50,50,this);
+		     pointsLabel.setVisible(true);
+		     if (pointsLabel.isSetted()) {
+		      pointsLabel.setVisible(false);
+		      exitToMenu();
+		     } 
+		   }
+		   
+		   if(gameManager instanceof FreePracticeGameManager)
+		   {
+		    g.drawImage(ImageProv.getIstance().getEnds(),100,100,this);
+		    g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
+		   }
+		   
+		   if(getGameManager() instanceof OfflineGameManager)
+		   {
+		    if(((OfflineGameManager) getGameManager()).getWinner()==0)
+		    {
+		     g.drawImage(ImageProv.getIstance().getFirstPlayerWinner() ,50, 50,this);
+		    }
+		    if(((OfflineGameManager) getGameManager()).getWinner()==1)
+		    {
+		     g.drawImage(ImageProv.getIstance().getSecondPlayerWinner(),50,50,this);
+		    }
+		   }
+		   if(getGameManager() instanceof OnlineGameManager)
+		   {
+		    System.out.println(((OnlineGameManager) getGameManager()).getOpponentPoints());
+		    if(!((OnlineGameManager) getGameManager()).isOpponentEnds())
+		    {
+		     g.drawImage(ImageProv.getIstance().getWaiting(), 100,100,this);
+		    }
+		    else
+		    {
+		     if(((OnlineGameManager) getGameManager()).getWinner().equals("pari"))
+		     {
+		      g.drawImage(ImageProv.getIstance().getTie(), 100,100,this);
+		      rightGamePanel.onlineRefresh();
+		      g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
+		     }
+		     else
+		     {
+		      if(((OnlineGameManager) getGameManager()).isServer())
+		      {
+		                                 
+		        if( ((OnlineGameManager) getGameManager()).getWinner().equals("host"))
+		        {
+		         g.drawImage(ImageProv.getIstance().getYouWin(), 100,100,this);
+		         rightGamePanel.onlineRefresh();
+		         g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
+		        }
+		        else
+		        {
+		         g.drawImage(ImageProv.getIstance().getYouLose(), 100,100,this);
+		         rightGamePanel.onlineRefresh();
+		         g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
+		        }
+		      }
+		      else
+		      {
+		       System.out.println(((OnlineGameManager) getGameManager()).getWinner());
+		       if(((OnlineGameManager) getGameManager()).getWinner().equals("host"))
+		       {
+		        g.drawImage(ImageProv.getIstance().getYouLose(),100,100,this);
+		        rightGamePanel.onlineRefresh();
+		        g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
+		       }
+		       else
+		       {
+		        g.drawImage(ImageProv.getIstance().getYouWin(),100,100,this);
+		        rightGamePanel.onlineRefresh(); 
+		        g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
+		       }
+		      }
+		     }
+		     
+		     
+		    }
+		   }
+		  }
+		  else
+		  {
+		   if(((getGameManager().isLevelOver() || getGameManager().isStart())))
+		    {
+		     rightGamePanel.pause();
+		     drawLevel(g);
+		    }
+		   else {
 	
-		if (getGameManager().isGameOver()) 
-		{
-			if(getGameManager() instanceof SinglePlayerGameManager)
-			{
-				g.drawImage(ImageProv.getIstance().getGameOver(),50,50,this);
-					pointsLabel.setVisible(true);
-					if (pointsLabel.isSetted()) {
-						pointsLabel.setVisible(false);
-						exitToMenu();
-					}	
-			}
-			
-			if(gameManager instanceof FreePracticeGameManager)
-			{
-				g.drawImage(ImageProv.getIstance().getEnds(),100,100,this);
-				g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
-			}
-			
-			if(getGameManager() instanceof OfflineGameManager)
-			{
-				if(((OfflineGameManager) getGameManager()).getWinner()==0)
-				{
-					g.drawImage(ImageProv.getIstance().getFirstPlayerWinner() ,50, 50,this);
-				}
-				if(((OfflineGameManager) getGameManager()).getWinner()==1)
-				{
-					g.drawImage(ImageProv.getIstance().getSecondPlayerWinner(),50,50,this);
-				}
-			}
-			if(getGameManager() instanceof OnlineGameManager)
-			{
-				System.out.println(((OnlineGameManager) getGameManager()).getOpponentPoints());
-				if(!((OnlineGameManager) getGameManager()).isOpponentEnds())
-				{
-					g.drawImage(ImageProv.getIstance().getWaiting(), 100,100,this);
-				}
-				else
-				{
-					if(((OnlineGameManager) getGameManager()).getWinner().equals("pari"))
-					{
-						g.drawImage(ImageProv.getIstance().getTie(), 100,100,this);
-						rightGamePanel.onlineRefresh();
-						g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
-					}
-					else
-					{
-						if(((OnlineGameManager) getGameManager()).isServer())
-						{
-																																	
-								if( ((OnlineGameManager) getGameManager()).getWinner().equals("host"))
-								{
-									g.drawImage(ImageProv.getIstance().getYouWin(), 100,100,this);
-									rightGamePanel.onlineRefresh();
-									g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
-								}
-								else
-								{
-									g.drawImage(ImageProv.getIstance().getYouLose(), 100,100,this);
-									rightGamePanel.onlineRefresh();
-									g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
-								}
-						}
-						else
-						{
-							System.out.println(((OnlineGameManager) getGameManager()).getWinner());
-							if(((OnlineGameManager) getGameManager()).getWinner().equals("host"))
-							{
-								g.drawImage(ImageProv.getIstance().getYouLose(),100,100,this);
-								rightGamePanel.onlineRefresh();
-								g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
-							}
-							else
-							{
-								g.drawImage(ImageProv.getIstance().getYouWin(),100,100,this);
-								rightGamePanel.onlineRefresh();	
-								g.drawImage(ImageProv.getIstance().getEsc(), 100,200,this);
-							}
-						}
-					}
-					
-					
-				}
-			}
-		}
-		else
-		{
-			if(((getGameManager().isLevelOver() || getGameManager().isStart())))
-				{
-					rightGamePanel.pause();
-					drawLevel(g);
-				}
-			else {
-
-				g.setColor(Color.white);
-
-				g.drawLine(0*10, 0*10, 0*10, y*10);
-			
-				g.drawLine(x*10, 0*10, x*10, y*10);
-				g.drawLine(0*10,0*10,x*10,0*10);
-			
-				if(isPause() && !isBoardActive())
-				{
-					g.drawImage(ImageProv.getIstance().getPause(),200,200,this);
-
-				g.drawLine(0 * 10, 0 * 10, 0 * 10, y * 10);
-				g.drawLine(x * 10, 0 * 10, x * 10, y * 10);
-				g.drawLine(0 * 10, 0 * 10, x * 10, 0 * 10);
-
-				}
-
-
-				if (!isMove())
-				{
-
-					float directionX = (getGameManager().getBall().getX());
-					float directionY = (getGameManager().getBall().getY());
-
-					float deltaX = getGameManager().getBall().getDeltaX();
-					int bal = 0;
-
-					while (bal < 30) {
-						AffineTransform at2 = new AffineTransform();
-						if (directionX + deltaX <= 0
-								|| directionX + deltaX >= world.getWidth())
-							deltaX = -deltaX;
-
-						at2.translate(
-								(directionX + deltaX)
-										* 10
-										- ImageProv.getIstance().getDirectionBall()
-												.getWidth(this) / 2,
-								(directionY + getGameManager().getBall().getDeltaY()) * 10);
-						g2.drawImage(ImageProv.getIstance().getDirectionBall(), at2, this);
-						directionX += (deltaX);
-						directionY += (getGameManager().getBall().getDeltaY());
-						bal++;
-					}
-				}
-
-				AffineTransform at1 = new AffineTransform();
-				at1.translate(
-						((getGameManager().getBall().getX()) * 10)
-								- ImageProv.getIstance().getBall(getGameManager().getBall().getColor())
-										.getWidth(this) / 2,
-						((getGameManager().getBall().getY()) * 10)
-								- ImageProv.getIstance().getBall(getGameManager().getBall().getColor())
-										.getHeight(this) / 2);
-				at1.scale(1, 1);
-				g2.drawImage(ImageProv.getIstance().getBall(getGameManager().getBall().getColor()),
-						at1, this);
-
-				for (int i = 0; i < getGameManager().getHoles().size(); i++) {
-					holeImage = ImageProv.getIstance().getHole(getGameManager().getHoles().get(i)
-							.getColor());
-					AffineTransform at = new AffineTransform();
-					at.translate((getGameManager().getHoles().get(i).getX()) * 10,
-							(getGameManager().getHoles().get(i).getY()) * 10);
-					at.rotate(Math.toRadians(getGameManager().getHoles().get(i)
-							.getAngle()));
-					at.translate(-holeImage.getWidth(this) / 2,
-							-holeImage.getHeight(this) / 2);
-					g2.drawImage(holeImage, at, this);
-				}
-			}
-		}
-		}
-		requestFocus();
-		setFocusable(true);
-		requestFocusInWindow();
-
-		g.dispose();
-	}
+		    g.setColor(Color.white);
 	
+		    g.drawLine(0*10, 0*10, 0*10, y*10);
+		   
+		    g.drawLine(x*10, 0*10, x*10, y*10);
+		    g.drawLine(0*10,0*10,x*10,0*10);
+		   
+		    if(isPause() && !isBoardActive())
+		    {
+		     g.drawImage(ImageProv.getIstance().getPause(),200,200,this);
+	
+		    g.drawLine(0 * 10, 0 * 10, 0 * 10, y * 10);
+		    g.drawLine(x * 10, 0 * 10, x * 10, y * 10);
+		    g.drawLine(0 * 10, 0 * 10, x * 10, 0 * 10);
+	
+		    }
+	
+	
+		    if (!isMove())
+		    {
+	
+		     float directionX = (getGameManager().getBall().getX());
+		     float directionY = (getGameManager().getBall().getY());
+	
+		     float deltaX = getGameManager().getBall().getDeltaX();
+		     int bal = 0;
+	
+		     while (bal < 30) {
+		      AffineTransform at2 = new AffineTransform();
+		      if (directionX + deltaX <= 0
+		        || directionX + deltaX >= world.getWidth())
+		       deltaX = -deltaX;
+	
+		      at2.translate(
+		 (directionX + deltaX)
+		          * 10
+		          - ImageProv.getIstance().getDirectionBall()
+		            .getWidth(this) / 2,
+		        (directionY + getGameManager().getBall().getDeltaY()) * 10);
+		      g2.drawImage(ImageProv.getIstance().getDirectionBall(), at2, this);
+		      directionX += (deltaX);
+		      directionY += (getGameManager().getBall().getDeltaY());
+		      bal++;
+		     }
+		    }
+	
+		    AffineTransform at1 = new AffineTransform();
+		    at1.translate(
+		      ((getGameManager().getBall().getX()) * 10)
+		        - ImageProv.getIstance().getBall(getGameManager().getBall().getColor())
+		          .getWidth(this) / 2,
+		      ((getGameManager().getBall().getY()) * 10)
+		        - ImageProv.getIstance().getBall(getGameManager().getBall().getColor())
+		          .getHeight(this) / 2);
+		    at1.scale(1, 1);
+		    g2.drawImage(ImageProv.getIstance().getBall(getGameManager().getBall().getColor()),
+		      at1, this);
+	
+		    for (int i = 0; i < getGameManager().getHoles().size(); i++) {
+		     holeImage = ImageProv.getIstance().getHole(getGameManager().getHoles().get(i)
+		       .getColor());
+		     AffineTransform at = new AffineTransform();
+		     at.translate((getGameManager().getHoles().get(i).getX()) * 10,
+		       (getGameManager().getHoles().get(i).getY()) * 10);
+		     at.rotate(Math.toRadians(getGameManager().getHoles().get(i)
+		       .getAngle()));
+		     at.translate(-holeImage.getWidth(this) / 2,
+		       -holeImage.getHeight(this) / 2);
+		     g2.drawImage(holeImage, at, this);
+		    }
+		   }
+		  }
+	  }
+	  requestFocus();
+	  setFocusable(true);
+	  requestFocusInWindow();
+
+	  g.dispose();
+	 }
+	 
 
 	public boolean isMove() {
 		return move;

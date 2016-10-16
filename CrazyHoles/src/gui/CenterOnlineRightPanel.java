@@ -29,6 +29,7 @@ public class CenterOnlineRightPanel extends JPanel{
 		setOpaque(false);
 		
 		label = new JLabel("OPPONENT POINTS");
+		label.setForeground(Color.BLUE);
 		label.setAlignmentX(CENTER_ALIGNMENT);
 		label.setAlignmentY(BOTTOM_ALIGNMENT);
 		label.setFont(font);

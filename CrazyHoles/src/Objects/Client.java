@@ -4,7 +4,9 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -26,7 +28,8 @@ public class Client extends Thread
 	public Client(String ip) throws UnknownHostException, IOException
 	{
 		
-		clientSocket = new Socket(ip,1024);
+		clientSocket = new Socket();
+		clientSocket.connect(new InetSocketAddress(ip, 1024), 1000);
 		outToServer = new DataOutputStream(clientSocket.getOutputStream());
 		ois = new ObjectInputStream(clientSocket.getInputStream());
 	}
@@ -87,12 +90,25 @@ public class Client extends Thread
 				
 			} catch (ClassNotFoundException | IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				try{
+					if(e instanceof SocketException)
+					{
+						throw new SocketException();
+					}
+					else
+					{
+						e.printStackTrace();
+					}
+				}catch(SocketException s)
+					{
+						
+					}
+				}
 			}
 			
 		}
 		
-	}
+	
 	
 	public void send(String s) throws IOException
 	{
