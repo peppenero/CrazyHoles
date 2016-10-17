@@ -29,6 +29,7 @@ public class GameFrame extends JFrame
 	private static SettingsPanel settingsPanel;
 	private static CreditsPanel creditsPanel;
 	private static MultiplayerPanel multiplayerPanel;
+	private static ScoreboardPanel scoreboardPanel;
 	private GameManager manager;
 	
 	final static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
@@ -58,7 +59,7 @@ public class GameFrame extends JFrame
         levelEditorPanel = new LevelEditorPanel(frame);
         creditsPanel = new CreditsPanel(frame);
         settingsPanel = new SettingsPanel(frame);
-        
+        scoreboardPanel = new ScoreboardPanel(frame);
         
         menuPanel = new MenuPanel(frame);
         multiplayerPanel = new MultiplayerPanel(frame);
@@ -82,6 +83,10 @@ public class GameFrame extends JFrame
 	public JPanel getMultiplayerPanel()
 	{
 		return multiplayerPanel;
+	}
+	
+	public JPanel getScoreboardPanel(){
+		return scoreboardPanel;
 	}
 	
 	public JPanel getLevelEditorPanel(){

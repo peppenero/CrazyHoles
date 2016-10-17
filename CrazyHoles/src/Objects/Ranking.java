@@ -16,12 +16,6 @@ public class Ranking {
 	private Scanner scanner;
 	
 	public Ranking(){
-		try {
-			readRanking();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	public void ordina() throws IOException{

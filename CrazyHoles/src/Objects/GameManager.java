@@ -16,7 +16,7 @@ public abstract class GameManager
  	private MyTimer timer;
  	private boolean gameOver=false;
  	private boolean firstClick=true;
- 	private Ranking ranking;
+ 	private Ranking ranking = new Ranking();
  	private String player;
  	private boolean start;
  	

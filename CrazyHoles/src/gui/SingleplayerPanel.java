@@ -2,8 +2,6 @@ package gui;
 
 import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -17,9 +15,10 @@ public class SingleplayerPanel extends JPanel
 	 */
 	private static final long serialVersionUID = 1L;
 	private GameFrame frame;
-	private OurButton newGameButton = new OurButton("NEW GAME");
-	private OurButton freePracticeButton = new OurButton("FREE PRACTICE");
-	private OurButton backToMenuButton = new OurButton("BACK TO MENU");
+	private final OurButton newGameButton = new OurButton("NEW GAME");
+	private final OurButton freePracticeButton = new OurButton("FREE PRACTICE");
+	private final OurButton scoreboardButton = new OurButton("SCOREBOARD");
+	private final OurButton backToMenuButton = new OurButton("BACK TO MENU");
 	private boolean resumable = false;
 	
 	public SingleplayerPanel(GameFrame f)
@@ -28,10 +27,19 @@ public class SingleplayerPanel extends JPanel
 		setLayout(null);
 		add(newGameButton);
 		add(freePracticeButton);
+		add(scoreboardButton);
 		
 	   
 		newGameButton.setBounds(100, 400, OurButton.WIDTH,OurButton.HEIGHT);
 		freePracticeButton.setBounds(100, 480, OurButton.WIDTH,OurButton.HEIGHT);
+		scoreboardButton.setBounds(100, 560, OurButton.WIDTH, OurButton.HEIGHT);
+		
+		scoreboardButton.setOnClickBehaviour(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
+				GameFrame.switchTo(frame.getScoreboardPanel());
+				ScoreboardPanel.readRanking();
+			}
+		});
 		
 		backToMenuButton .setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
