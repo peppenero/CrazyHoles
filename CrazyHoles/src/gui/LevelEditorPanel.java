@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 public class LevelEditorPanel extends JPanel{
@@ -26,14 +27,16 @@ public class LevelEditorPanel extends JPanel{
 	private final OurButton deleteButton = new OurButton("DELETE OBJECT");
 	private final OurButton saveButton = new OurButton("SAVE LEVEL");
 	private final OurButton backToMenuButton = new OurButton("BACK TO MENU");
-	private final JLabel color = new JLabel("Color");
-	private final JLabel selectedHole = new JLabel("Selected hole");
-	private final JLabel ballsNumber = new JLabel("Balls number");
+	private final JLabel color = new JLabel("COLOR");
+	private final JLabel selectedHole = new JLabel("SELECTED HOLE");
+	private final JLabel ballsNumber = new JLabel("BALLS NUMBER");
+	private final JLabel holeScore = new JLabel("HOLE SCORE");
 	private final SpinnerNumberModel model = new SpinnerNumberModel(1, 1, 9, 1);
 	private final JSpinner spinner = new JSpinner(model);
 	
 	private final JComboBox<Integer> holesBox;
 	private final JComboBox<String> colorsBox;
+	private JTextField score = new JTextField();
 	private int numHoles=0,lastIndex=0;
 	
 	public LevelEditorPanel(GameFrame frameSup){
@@ -46,56 +49,59 @@ public class LevelEditorPanel extends JPanel{
 		colorsBox.addItem("Green");
 		colorsBox.addItem("Yellow");
 		
-		backToMenuButton.setOnClickBehaviour(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e){
-				GameFrame.switchTo(frame.getMenuPanel());
-			}
-		});
 		
 		leftPanel.setBounds(40,20,700,750);
 		add(leftPanel);
 		
-		backToMenuButton.setBounds(1000,700,OurButton.WIDTH,OurButton.HEIGHT);
-		add(backToMenuButton);
+		holeScore.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 20));
+		holeScore.setBounds(1100, 50 , 150, 50);
+		add(holeScore);
+		score.setBounds(1125, 85, 50,30 );
+		add(score);
 		
-		addButton.setBounds(1000,120,OurButton.WIDTH,OurButton.HEIGHT);
-		add(addButton);
-		
-		color.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 14));
-		color.setBounds(1000,50,100,50);
+		color.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 20));
+		color.setBounds(965,50,100,50);
 		add(color);
-		
-		colorsBox.setBounds(1000,85,100,30);
+		colorsBox.setBounds(950,85,100,30);
 		add(colorsBox);
 		
-		selectedHole.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 14));
-		selectedHole.setBounds(1000, 215, 135, 50);
-		add(selectedHole);
+		addButton.setBounds(975,120,OurButton.WIDTH,OurButton.HEIGHT);
+		add(addButton);
 		
-		holesBox.setBounds(1000, 250, 100, 30);
+		ballsNumber.setBounds(975, 200, 150, 20);
+		ballsNumber.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 20));
+		add(ballsNumber);
+		spinner.setBounds(1025, 225, 50, 30);
+		add(spinner);
+		
+		selectedHole.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 20));
+		selectedHole.setBounds(975, 265, 150, 50);
+		add(selectedHole);
+		holesBox.setBounds(1000, 305, 100, 30);
 		add(holesBox);
 		
-		moveButton.setBounds(1000, 300, OurButton.WIDTH, OurButton.HEIGHT);
+		moveButton.setBounds(975, 340, OurButton.WIDTH, OurButton.HEIGHT);
 		add(moveButton);
 		moveButton.setEnabled(false);
 		
-		deleteButton.setBounds(1000, 350, OurButton.WIDTH, OurButton.HEIGHT);
+		deleteButton.setBounds(975, 400, OurButton.WIDTH, OurButton.HEIGHT);
 		add(deleteButton);
 		deleteButton.setEnabled(false);
 		
-		ballsNumber.setBounds(1000, 410, 150, 20);
-		ballsNumber.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 14));
-		add(ballsNumber);
-		spinner.setBounds(1000, 430, 50, 20);
-		add(spinner);
 		
-		saveButton.setBounds(1000, 500, OurButton.WIDTH, OurButton.HEIGHT);
+		
+		saveButton.setBounds(975, 500, OurButton.WIDTH, OurButton.HEIGHT);
 		add(saveButton);
 		saveButton.setEnabled(false);
 		
+		backToMenuButton.setBounds(1000,700,OurButton.WIDTH,OurButton.HEIGHT);
+		add(backToMenuButton);
+		
+		
 		addButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
-				leftPanel.addHole(++lastIndex,colorsBox.getSelectedItem());
+				leftPanel.addHole(++lastIndex,colorsBox.getSelectedItem(),Integer.valueOf(score.getText()));
+				score.setText(null);
 				++numHoles;
 				holesBox.addItem(lastIndex);
 				System.out.println(lastIndex);
@@ -129,6 +135,12 @@ public class LevelEditorPanel extends JPanel{
 		saveButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
 				leftPanel.saveLevel(model.getNumber().intValue());
+			}
+		});
+		
+		backToMenuButton.setOnClickBehaviour(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
+				GameFrame.switchTo(frame.getMenuPanel());
 			}
 		});
 		

@@ -18,20 +18,20 @@ public class Hole extends JComponent {
 	private int dimCampox=700, dimCampoy=750;
 	private MouseListener ml;
 	public int index;
-	private Color color;
-	public String colore;
+	private final Color color;
+	private final String colore;
+	private final int score;
+	
 	
 
 	public String getColore() {
 		return colore;
 	}
 
-	public void setColore(String colore) {
-		this.colore = colore;
-	}
 
-	public Hole(int i,String c){
+	public Hole(int i,String c,int s){
 		index=i;
+		score=s;
 		switch(c){
 		case "Green":
 			color = Color.GREEN;
@@ -45,16 +45,15 @@ public class Hole extends JComponent {
 			color = Color.RED;
 			colore = "Red";
 			break;
+		default:
+			color=Color.RED;
+			colore = "Red";
 		}
-			
+
 	}
 	
 	public String getColor() {
 		return color.toString();
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
 	}
 	
 	public int getX() {
@@ -132,7 +131,7 @@ public class Hole extends JComponent {
 	}
 	
 	public String toString(){
-		return ("Buca, " + getX()/10 + " "  + getY()/10 + " " + getColore());
+		return ("buca " + colore + " " + getX()/10 + " "  + getY()/10 + " " + score);
 	}
 }
 

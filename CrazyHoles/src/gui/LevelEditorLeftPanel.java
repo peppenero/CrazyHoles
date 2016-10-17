@@ -51,15 +51,15 @@ public class LevelEditorLeftPanel extends JPanel {
 	}
 	
 		
-	public void addHole(int lastIndex,Object color){
-		holes.add(new Hole(lastIndex,(String)color));
+	public void addHole(int lastIndex,Object color,int score){
+		holes.add(new Hole(lastIndex,(String)color,score));
 		System.out.println((String)color);
 	}
 	
 	public void removeHole(Integer selectedItem) {
 		// TODO Auto-generated method stub
 		System.out.println("selected item" + selectedItem);
-		Hole daEliminare = new Hole(0,"Verde");
+		Hole daEliminare = new Hole(0,"Verde",0);
 		for(int i=0;i<holes.size();i++){
 			System.out.println(holes.get(i).index+","+selectedItem);
 			if(holes.get(i).index==selectedItem){
@@ -82,7 +82,7 @@ public class LevelEditorLeftPanel extends JPanel {
 						pw.print(holes.get(i).toString());
 						pw.println();
 	                }
-	                pw.print(ballsNumber);
+	                pw.print("numeroPalle " + ballsNumber);
 	                pw.println();
 	                pw.close();
 	                JOptionPane.showMessageDialog(null, "File " + fileChooser.getSelectedFile().getAbsolutePath()
@@ -99,7 +99,7 @@ public class LevelEditorLeftPanel extends JPanel {
 		super.paintComponent(g);
 		for(Hole b:holes){
 			b.paintComponent(g);
-			g.drawImage(ImageProv.getIstance().getHole(b.colore), b.getX()-50, b.getY()-50, this);
+			g.drawImage(ImageProv.getIstance().getHole(b.getColore()), b.getX()-50, b.getY()-50, this);
 		}
 	}
 

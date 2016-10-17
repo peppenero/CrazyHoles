@@ -101,8 +101,8 @@ public class MenuPanel extends JPanel {
 		
 
 
-		resumeButton.setBounds(100,120,OurButton.WIDTH,OurButton.HEIGHT);
-		singleplayerButton.setBounds(100,200,OurButton.WIDTH,OurButton.HEIGHT);
+		resumeButton.setBounds(100,200,OurButton.WIDTH,OurButton.HEIGHT);
+		singleplayerButton.setBounds(100,280,OurButton.WIDTH,OurButton.HEIGHT);
 		multiplayerButton.setBounds(100,360,OurButton.WIDTH,OurButton.HEIGHT);
 		levelEditorButton.setBounds(100,440,OurButton.WIDTH,OurButton.HEIGHT);
 		settingsButton.setBounds(100,520,OurButton.WIDTH,OurButton.HEIGHT);
