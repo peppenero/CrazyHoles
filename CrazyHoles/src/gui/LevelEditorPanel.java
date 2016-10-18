@@ -30,13 +30,14 @@ public class LevelEditorPanel extends JPanel{
 	private final JLabel color = new JLabel("COLOR");
 	private final JLabel selectedHole = new JLabel("SELECTED HOLE");
 	private final JLabel ballsNumber = new JLabel("BALLS NUMBER");
-	private final JLabel holeScore = new JLabel("HOLE SCORE");
-	private final SpinnerNumberModel model = new SpinnerNumberModel(1, 1, 9, 1);
-	private final JSpinner spinner = new JSpinner(model);
+	private final JLabel score = new JLabel("SCORE");
+	private final SpinnerNumberModel scoreModel = new SpinnerNumberModel(25,5,50,5);
+	private final JSpinner scoreValue = new JSpinner(scoreModel);
+	private final SpinnerNumberModel ballsModel = new SpinnerNumberModel(1, 1, 9, 1);
+	private final JSpinner numBalls = new JSpinner(ballsModel);
 	
 	private final JComboBox<Integer> holesBox;
 	private final JComboBox<String> colorsBox;
-	private JTextField score = new JTextField();
 	private int numHoles=0,lastIndex=0;
 	
 	public LevelEditorPanel(GameFrame frameSup){
@@ -53,11 +54,12 @@ public class LevelEditorPanel extends JPanel{
 		leftPanel.setBounds(40,20,700,750);
 		add(leftPanel);
 		
-		holeScore.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 20));
-		holeScore.setBounds(1100, 50 , 150, 50);
-		add(holeScore);
-		score.setBounds(1125, 85, 50,30 );
+		score.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 20));
+		score.setBounds(1100, 50 , 150, 50);
 		add(score);
+		scoreValue.setBounds(1105, 85, 50, 30);
+		add(scoreValue);
+
 		
 		color.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 20));
 		color.setBounds(965,50,100,50);
@@ -71,8 +73,8 @@ public class LevelEditorPanel extends JPanel{
 		ballsNumber.setBounds(975, 200, 150, 20);
 		ballsNumber.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 20));
 		add(ballsNumber);
-		spinner.setBounds(1025, 225, 50, 30);
-		add(spinner);
+		numBalls.setBounds(1025, 225, 50, 30);
+		add(numBalls);
 		
 		selectedHole.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 20));
 		selectedHole.setBounds(975, 265, 150, 50);
@@ -100,8 +102,7 @@ public class LevelEditorPanel extends JPanel{
 		
 		addButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
-				leftPanel.addHole(++lastIndex,colorsBox.getSelectedItem(),Integer.valueOf(score.getText()));
-				score.setText(null);
+				leftPanel.addHole(++lastIndex,colorsBox.getSelectedItem(),scoreModel.getNumber().intValue());
 				++numHoles;
 				holesBox.addItem(lastIndex);
 				System.out.println(lastIndex);
@@ -134,7 +135,7 @@ public class LevelEditorPanel extends JPanel{
 
 		saveButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
-				leftPanel.saveLevel(model.getNumber().intValue());
+				leftPanel.saveLevel(ballsModel.getNumber().intValue());
 			}
 		});
 		
