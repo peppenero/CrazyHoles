@@ -28,7 +28,7 @@ public class OfflineGameManager extends GameManager
 		playedLevel[game]=getLevel();
 		setwManager(new WorldManager());
 		setWorld((WorldImpl) getwManager().getworld(getLevel()));
-		setTimer(new MyTimer());
+		setTimer(new MyTimer(this));
 	}
 	@Override
 	public void update() {

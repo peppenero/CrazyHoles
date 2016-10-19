@@ -9,8 +9,8 @@ import common.HasScore;
 
 public class Ball extends Object implements HasScore {
 
-	private double speed = 2;
-	private int score = 0;
+	private double speed = 1;
+	private int score = 100;
 	private float corner = 350;
 	private int ballRadius = 1;
 	private float deltaY, deltaX;
@@ -30,10 +30,9 @@ public class Ball extends Object implements HasScore {
 		return eq;
 	}
 
-	public Ball(int s, ArrayList<String> colors, WorldImpl world) {
+	public Ball( ArrayList<String> colors, WorldImpl world) {
 		super(world);
 		this.setColor(colors);
-		this.setScore(s);
 		deltaX = (float) ((speed * Math.cos(Math.toRadians(corner))));
 		deltaY = (float) (speed * (float) Math.sin(Math.toRadians(corner)));
 		this.setX((world.getWidth() / 2) - getBallRadius());
@@ -50,12 +49,12 @@ public class Ball extends Object implements HasScore {
 	}
 
 	@Override
-	public void setScore(int s) {
+	public synchronized void setScore(int s) {
 		this.score = s;
 	}
 
 	@Override
-	public int getScore() {
+	public  int getScore() {
 		return this.score;
 	}
 

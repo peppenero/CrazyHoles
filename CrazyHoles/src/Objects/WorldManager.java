@@ -38,7 +38,7 @@ public class WorldManager {
 			}
 			if (az[0].equals("numeroPalle")) {
 				for (int i = 0; i < Integer.parseInt(az[1]); i++) {
-					Ball b = new Ball(10, color, world);
+					Ball b = new Ball(color, world);
 					world.getBalls().add(b);
 				}
 			}
@@ -70,7 +70,7 @@ public class WorldManager {
 			}
 			if (az[0].equals("numeroPalle")) {
 				for (int i = 0; i < Integer.parseInt(az[1]); i++) {
-					Ball b = new Ball(10, color, world);
+					Ball b = new Ball(color, world);
 					world.getBalls().add(b);
 				}
 			}

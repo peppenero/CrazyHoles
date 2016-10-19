@@ -12,12 +12,14 @@ public class MyTimer {
 	private int decSeconds;
 	private int seconds;
 	private int minutes;
+	private Timer secondTimer;
+	private GameManager manager;
 
 
 
-	public MyTimer() {
+	public MyTimer( final GameManager manager) {
 
-
+		this.manager = manager;
 		timer = new Timer(100, new ActionListener() {
 
 			@Override
@@ -29,11 +31,21 @@ public class MyTimer {
 				minutes = (int) (diffTime / 60000 % 60);
 			}
 		});
+		secondTimer = new Timer(10000, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("mamma " + manager.getBall().getScore());
+				manager.getBall().setScore(manager.getBall().getScore()-5);
+			}
+		});
 	}
 
 	public void init() {
 		startTime = System.currentTimeMillis();
 		timer.start();
+		secondTimer.start();
 	}
 
 	public void setStartTime() {
@@ -66,11 +78,17 @@ public class MyTimer {
 	{
 		startTime = diffTime;
 		timer.stop();
+		secondTimer.stop();
 	}
 	
 	public void stop() {
 		
 		timer.stop();
+		secondTimer.stop();
+	}
+	public void secondTimerRestart()
+	{
+		secondTimer.restart();
 	}
 	
 }
