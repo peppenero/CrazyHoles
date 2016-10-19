@@ -126,17 +126,6 @@ public class LeftGamePanel extends JPanel {
 						getGameManager().getBall().moveLeft();
 					break;
 				}
-				case KeyEvent.VK_SPACE: {
-					if (getGameManager().isFirstClick())
-					{
-						getGameManager().setFirstClick(false);
-					}
-					getGameManager().getBall().move();
-
-					getGameManager().update();
-					
-					break;
-				}
 				case KeyEvent.VK_RIGHT: {
 					if (!isMove() && !isPause())
 						getGameManager().getBall().moveRight();
