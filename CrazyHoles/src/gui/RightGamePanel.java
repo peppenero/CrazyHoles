@@ -10,7 +10,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Objects.FreePracticeGameManager;
 import Objects.GameManager;
 import Objects.OfflineGameManager;
 import Objects.OnlineGameManager;
@@ -117,25 +116,16 @@ public class RightGamePanel extends JPanel {
 					{
 						leftGamePanel.exitToMenu();	
 					}
-				}else if(manager instanceof FreePracticeGameManager){
-					if(!manager.isGameOver())
-					{
-						manager.getTimer().stop();
-						((MenuPanel)leftGamePanel.getMenuPanel()).setResumable(true);
-						leftGamePanel.setBackFlag(true);
-						leftGamePanel.exitToMenu();	
-					}
-					else
-					{
-						leftGamePanel.exitToMenu();	
-					}
 				}
 				if(manager instanceof OnlineGameManager)
 				{
 					if(((OnlineGameManager) manager).isServer())
 					{
 						try {
-							((OnlineGameManager) manager).getHost().send("leave");
+							if(((OnlineGameManager) manager).getHost().isAccepted())
+							{
+								((OnlineGameManager) manager).getHost().send("leave");
+							}
 							((OnlineGameManager) manager).getHost().ends();
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
