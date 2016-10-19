@@ -19,6 +19,7 @@ public class Ball extends Object implements HasScore {
 	private boolean intersecate = false;
 	private int holePoint;
 	private boolean dropped=false;
+	int j=0;
 	
 	
 
@@ -70,6 +71,7 @@ public class Ball extends Object implements HasScore {
 			float x = getX();
 			float y = getY();
 			float diff = 0;
+			
 			boolean xflag = false;
 			boolean yflag = false;
 
@@ -110,12 +112,14 @@ public class Ball extends Object implements HasScore {
 				if (getD() != 1 && getD() != 0) {
 					setX(getX() + deltaX);
 					setY(getY() + deltaY);
+					System.out.println(i);
+					j = i;
 					setIntersecate(true);
 					holePoint = getD();
 				}
-				if (isIntersecate() && getY() < holes.get(i).getY())
+				if (isIntersecate() && getY() < holes.get(j).getY())
 				{
-					System.out.println("ntoni");
+					System.out.println("ntoni " +j);
 					return holePoint;
 				}
 
