@@ -122,7 +122,10 @@ public class RightGamePanel extends JPanel {
 					if(((OnlineGameManager) manager).isServer())
 					{
 						try {
-							((OnlineGameManager) manager).getHost().send("leave");
+							if(((OnlineGameManager) manager).getHost().isAccepted())
+							{
+								((OnlineGameManager) manager).getHost().send("leave");
+							}
 							((OnlineGameManager) manager).getHost().ends();
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block

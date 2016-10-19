@@ -76,9 +76,10 @@ public class LeftGamePanel extends JPanel {
 					
 						if(((OnlineGameManager) gameManager).isServer())
 						{
-							if(!((OnlineGameManager) gameManager).isFinish())
+							if(!((OnlineGameManager) gameManager).isFinish() && ((OnlineGameManager) gameManager).getHost().isAccepted())
 							{
 								try {
+									
 									((OnlineGameManager) gameManager).getHost().send("leave");
 								} catch (IOException e1) {
 									// TODO Auto-generated catch block
