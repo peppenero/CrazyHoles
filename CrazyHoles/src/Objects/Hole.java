@@ -11,15 +11,18 @@ public class Hole extends Object implements HasScore {
 	private float y1;
 	private float y2;
 	private int angle = 90;
+	private int speed;
 
-	public Hole(int s, int x, int y, int radius, World world, String color) {
+	public Hole(int s, int x, int y, int radius, World world, String color, int speed) {
 		super(world);
 		this.setColor(color);
 		this.setScore(s);
 		setX(x);
 		setY(y);
 		setRadius(radius);
-
+		this.speed = speed;
+		
+		
 		setX1(this.getX() + this.getRadius()
 				* (float) Math.cos(Math.toRadians((getAngle() - 30))));
 		setY1(this.getY() + this.getRadius()
@@ -121,6 +124,10 @@ public class Hole extends Object implements HasScore {
 	protected void setColor(String color) {
 		this.color = color;
 
+	}
+	
+	public int getSpeed(){
+		return speed;
 	}
 
 }

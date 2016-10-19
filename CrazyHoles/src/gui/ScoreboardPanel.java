@@ -43,6 +43,7 @@ public class ScoreboardPanel extends JPanel
 		
 		classifica.setBorder(null);
 		classifica.setOpaque(false);
+		classifica.setEditable(false);
 		//classifica.setBackground(new Color(0, 0, 0, 0));
 		
 		scroll.setLocation(75, 250);
@@ -54,7 +55,7 @@ public class ScoreboardPanel extends JPanel
 			ranking.readRanking();
 			ArrayList<Record> classi = ranking.getClassifica();
 			for(int i=0;i<classi.size();i++){
-				classifica.setText(classifica.getText().concat(classi.get(i).toString()));
+				classifica.setText((classifica.getText().concat(classi.get(i).toString())));
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
