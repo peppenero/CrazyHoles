@@ -2,6 +2,8 @@ package Objects;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
+
 
 import common.HasScore;
 
@@ -22,7 +24,7 @@ public class Ball extends Object implements HasScore {
 
 	public EquazioniCirconferenza getEquation() {
 		EquazioniCirconferenza eq = new EquazioniCirconferenza(
-				(int) this.getX(), (int) this.getY(), this.getBallRadius());
+				 this.getX(),  this.getY(), this.getBallRadius());
 
 		return eq;
 	}
@@ -92,14 +94,14 @@ public class Ball extends Object implements HasScore {
 					{
 						return holePoint;
 					}
-					deltaX = -deltaX;
-					deltaY = -deltaY;
+					conflict(holes.get(i));
+				
 				}
 
 				// int dst = (int)
 				// Math.sqrt(Math.pow((holes.get(i).getX()-getX()),2)+
 				// Math.pow((holes.get(i).getY()-getY()), 2));
-				// if((dst)<=(getBallRadius()+holes.get(i).getRadius()))
+				// if((dst)<(getBallRadius()+holes.get(i).getRadius()))
 				// {
 				// deltaX=-deltaX;
 				// deltaY=-deltaY;
@@ -147,6 +149,7 @@ public class Ball extends Object implements HasScore {
 					setY(diff);
 				}
 			}
+			
 			
 			return 0;
 		}
@@ -373,4 +376,15 @@ public class Ball extends Object implements HasScore {
 		this.dropped = dropped;
 	}
 
+	private void conflict(Hole h)
+	{
+		double collisiondist = Math.sqrt(Math.pow(h.getX()- getX(), 2) + Math.pow(h.getY() - getY(), 2));
+		double n_x = (h.getX() - getX()) / collisiondist; 
+		double n_y = (h.getY() - getY()) / collisiondist; 
+		double p = 2 * (getDeltaX() * n_x + getDeltaY() * n_y) / 
+	            (getBallRadius() + h.getRadius()); 
+		
+		deltaX = (float) ((float) getDeltaX() - p * getBallRadius() * n_x - p * h.getRadius() * n_x); 
+		deltaY = (float) ((float) getDeltaY() - p * getBallRadius() * n_y - p * h.getRadius() * n_y);
+	}
 }

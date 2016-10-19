@@ -29,7 +29,7 @@ public class EquazioniCirconferenza {
 		this.noto = noto;
 	}
 
-	public EquazioniCirconferenza(int xc, int yc, int r) {
+	public EquazioniCirconferenza(double xc, double yc, double r) {
 		setNoto((Math.pow(xc, 2) + Math.pow(yc, 2) + (Math.pow(r, 2) * -1)));
 		setX(-2 * xc);
 		setY(-2 * yc);

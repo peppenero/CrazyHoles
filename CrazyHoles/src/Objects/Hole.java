@@ -28,16 +28,12 @@ public class Hole extends Object implements HasScore {
 				* (float) Math.cos(Math.toRadians((getAngle() + 30))));
 		setY2(this.getY() + this.getRadius()
 				* (float) Math.sin(Math.toRadians((getAngle() + 30))));
-		// System.out.println(x1);
-		// System.out.println(y1);
-		// System.out.println(x2);
-		// System.out.println(y2);
 
 	}
 
 	public EquazioniCirconferenza getEquation() {
 		EquazioniCirconferenza eq = new EquazioniCirconferenza(
-				(int) this.getX(), (int) this.getY(), this.getRadius());
+				 this.getX(),  this.getY(), this.getRadius());
 		return eq;
 	}
 

@@ -123,6 +123,17 @@ public class LeftGamePanel extends JPanel {
 						getGameManager().getBall().moveLeft();
 					break;
 				}
+				case KeyEvent.VK_SPACE: {
+					if (getGameManager().isFirstClick())
+					{
+						getGameManager().setFirstClick(false);
+					}
+					getGameManager().getBall().move();
+
+					getGameManager().update();
+					
+					break;
+				}
 				case KeyEvent.VK_RIGHT: {
 					if (!isMove() && !isPause())
 						getGameManager().getBall().moveRight();
@@ -142,6 +153,7 @@ public class LeftGamePanel extends JPanel {
 						getGameManager().setFirstClick(false);
 
 						getGameManager().getTimer().init();
+						System.out.println(gameManager.getBall().getCorner());
 						panel.init();
 					}
 					if (!isMove() && !isPause() && !getGameManager().isGameOver()) {
@@ -169,6 +181,7 @@ public class LeftGamePanel extends JPanel {
 					double corner = Math.atan(m);
 					getGameManager().getBall().setCorner(
 							(float) (Math.toDegrees((corner)) - 360) % 180);
+								
 					repaint();
 				}
 			}
