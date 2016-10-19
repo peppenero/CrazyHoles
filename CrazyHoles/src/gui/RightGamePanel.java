@@ -10,6 +10,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Objects.FreePracticeGameManager;
 import Objects.GameManager;
 import Objects.OfflineGameManager;
 import Objects.OnlineGameManager;
@@ -105,6 +106,18 @@ public class RightGamePanel extends JPanel {
 			public void mouseClicked(MouseEvent e ){
 				if(manager instanceof SinglePlayerGameManager)
 				{
+					if(!manager.isGameOver())
+					{
+						manager.getTimer().stop();
+						((MenuPanel)leftGamePanel.getMenuPanel()).setResumable(true);
+						leftGamePanel.setBackFlag(true);
+						leftGamePanel.exitToMenu();	
+					}
+					else
+					{
+						leftGamePanel.exitToMenu();	
+					}
+				}else if(manager instanceof FreePracticeGameManager){
 					if(!manager.isGameOver())
 					{
 						manager.getTimer().stop();
