@@ -9,7 +9,7 @@ public class SinglePlayerGameManager extends GameManager
  	{
  		setwManager(new WorldManager());
  		setWorld((WorldImpl) getwManager().getworld(getLevel()));
- 		setTimer(new MyTimer());
+ 		setTimer(new MyTimer(this));
  		setStart(true);
  	}
  	
@@ -19,7 +19,7 @@ public class SinglePlayerGameManager extends GameManager
  		this.setLevel(level);
  		setwManager(new WorldManager());
  		setWorld((WorldImpl) getwManager().getworld(getLevel()));
- 		setTimer(new MyTimer());
+ 		setTimer(new MyTimer(this));
  	}
  	
  	

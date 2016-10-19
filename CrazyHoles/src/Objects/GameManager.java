@@ -65,6 +65,7 @@ public abstract class GameManager
 
 	public void setBall(Ball ball) {
 		this.ball = ball;
+		timer.secondTimerRestart();
 	}
 
 	public int getPoints() {

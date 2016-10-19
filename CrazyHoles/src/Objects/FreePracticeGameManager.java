@@ -10,7 +10,7 @@ public class FreePracticeGameManager extends GameManager {
 		
 		setwManager(new WorldManager());
 		setWorld((WorldImpl) getwManager().getWorld(world));
-		setTimer(new MyTimer());
+		setTimer(new MyTimer(this));
 		setStart(true);
 	}
 	@Override

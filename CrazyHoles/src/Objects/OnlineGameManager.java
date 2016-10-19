@@ -24,7 +24,7 @@ public class OnlineGameManager extends GameManager {
 		host.start();
 		setwManager(new WorldManager());
 		setWorld((WorldImpl) getwManager().getWorld(world));
-		setTimer(new MyTimer());
+		setTimer(new MyTimer(this));
 		host.setManager(this);
 	}
 	
@@ -35,7 +35,7 @@ public class OnlineGameManager extends GameManager {
 		client.start();
 		setwManager(new WorldManager());
 		setWorld((WorldImpl) getwManager().getWorld(client.getWorld()));
-		setTimer(new MyTimer());
+		setTimer(new MyTimer(this));
 		client.setManager(this);
 	}
 	
