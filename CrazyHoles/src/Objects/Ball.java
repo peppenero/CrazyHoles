@@ -9,7 +9,7 @@ import common.HasScore;
 
 public class Ball extends Object implements HasScore {
 
-	private double speed = 1;
+	private double speed = 2;
 	private int score = 0;
 	private float corner = 350;
 	private int ballRadius = 1;
