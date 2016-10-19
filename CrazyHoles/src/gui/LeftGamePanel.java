@@ -39,7 +39,7 @@ public class LeftGamePanel extends JPanel {
 	private boolean sBoardActive;
 	private boolean backFlag = false;
 	private Muovitore m;
-	private Giratore giratore;
+	private Giratore[] giratori;
 	private RightGamePanel rightGamePanel;
 	private PointsLabel pointsLabel;
 	
@@ -59,8 +59,11 @@ public class LeftGamePanel extends JPanel {
 		getGameManager().start();
 
 		setOpaque(false);
-		giratore = new Giratore(this, getGameManager());
-		giratore.start();
+		giratori = new Giratore[getGameManager().getHoles().size()];
+		for(int i=0;i<giratori.length;i++){
+			giratori[i] = new Giratore(this, getGameManager(),getGameManager().getHoles().get(i).getSpeed(),i);
+			giratori[i].start();
+		}
 
 		addKeyListener(new KeyAdapter() {
 
@@ -447,8 +450,12 @@ public class LeftGamePanel extends JPanel {
 		getGameManager().setLevelOver(false);
 		getGameManager().getTimer().reset();
 		rightGamePanel.resetTimerLabel();
-		giratore = new Giratore(this, getGameManager());
-		giratore.start();
+		giratori = new Giratore[getGameManager().getHoles().size()];
+		for(int i=0;i<giratori.length;i++){
+			giratori[i] = new Giratore(this, getGameManager(),getGameManager().getHoles().get(i).getSpeed(),i);
+			giratori[i].start();
+		}
+		
 		getGameManager().setFirstClick(true);
 	}
 

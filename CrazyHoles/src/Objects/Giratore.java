@@ -5,13 +5,17 @@ import gui.LeftGamePanel;
 import java.util.List;
 
 public class Giratore extends Thread {
+	private int i;
+	private int speed;
 	private List<Hole> holes;
 	private LeftGamePanel panel;
 	private GameManager manager;
 
-	public Giratore(LeftGamePanel panel, GameManager manager) {
+	public Giratore(LeftGamePanel panel, GameManager manager,int speed, int i) {
 		this.panel = panel;
 		this.manager = manager;
+		this.speed = speed;
+		this.i = i;
 	}
 
 	@Override
@@ -21,17 +25,16 @@ public class Giratore extends Thread {
 		while (true && !panel.isBackFlag() && !manager.isLevelOver()
 				&& !manager.isGameOver()) {
 			try {
-				sleep(150);
+				sleep(speed);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			if(!panel.isPause())
-			for(int i=0;i<holes.size();i++)
-			{
+			
 				holes.get(i).move();
 				panel.repaint();
-			}
+			
 			if(manager.isStart())
 			{
 				

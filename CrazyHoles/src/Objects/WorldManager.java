@@ -32,7 +32,7 @@ public class WorldManager {
 			if (az[0].equals("buca")) {
 				Hole h = new Hole(Integer.parseInt(az[4]),
 						Integer.parseInt(az[2]), Integer.parseInt(az[3]), 5,
-						world, az[1]);
+						world, az[1], Integer.parseInt(az[5]));
 				world.getHoles().add(h);
 				color.add(az[1]);
 			}
@@ -64,7 +64,7 @@ public class WorldManager {
 			if (az[0].equals("buca")) {
 				Hole h = new Hole(Integer.parseInt(az[4]),
 						Integer.parseInt(az[2]), Integer.parseInt(az[3]), 5,
-						world, az[1]);
+						world, az[1], Integer.parseInt(az[5]));
 				world.getHoles().add(h);
 				color.add(az[1]);
 			}
