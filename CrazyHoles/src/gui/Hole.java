@@ -21,6 +21,7 @@ public class Hole extends JComponent {
 	private final Color color;
 	private final String colore;
 	private final int score;
+	private final int speed;
 	
 	
 
@@ -29,9 +30,30 @@ public class Hole extends JComponent {
 	}
 
 
-	public Hole(int i,String c,int s){
+	public Hole(int i,String c,int s, Integer speed){
 		index=i;
 		score=s;
+		
+		switch(speed){
+		case 1:
+			this.speed = 250;
+			break;
+		case 2:
+			this.speed = 200;
+			break;
+		case 3:
+			this.speed = 150;
+			break;
+		case 4:
+			this.speed = 100;
+			break;
+		case 5:
+			this.speed = 50;
+			break;
+		default:
+			this.speed=50;
+		}
+		
 		switch(c){
 		case "Green":
 			color = Color.GREEN;
@@ -131,7 +153,7 @@ public class Hole extends JComponent {
 	}
 	
 	public String toString(){
-		return ("buca " + colore + " " + getX()/10 + " "  + getY()/10 + " " + score);
+		return ("buca " + colore + " " + getX()/10 + " "  + getY()/10 + " " + score + " " + speed);
 	}
 }
 

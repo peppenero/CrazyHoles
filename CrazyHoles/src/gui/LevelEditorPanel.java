@@ -27,10 +27,13 @@ public class LevelEditorPanel extends JPanel{
 	private final OurButton deleteButton = new OurButton("DELETE OBJECT");
 	private final OurButton saveButton = new OurButton("SAVE LEVEL");
 	private final OurButton backToMenuButton = new OurButton("BACK TO MENU");
+	
 	private final JLabel color = new JLabel("COLOR");
 	private final JLabel selectedHole = new JLabel("SELECTED HOLE");
 	private final JLabel ballsNumber = new JLabel("BALLS NUMBER");
 	private final JLabel score = new JLabel("SCORE");
+	private final JLabel speed = new JLabel("SPEED");
+	
 	private final SpinnerNumberModel scoreModel = new SpinnerNumberModel(25,5,50,5);
 	private final JSpinner scoreValue = new JSpinner(scoreModel);
 	private final SpinnerNumberModel ballsModel = new SpinnerNumberModel(1, 1, 9, 1);
@@ -38,6 +41,7 @@ public class LevelEditorPanel extends JPanel{
 	
 	private final JComboBox<Integer> holesBox;
 	private final JComboBox<String> colorsBox;
+	private final JComboBox<Integer> speedBox;
 	private int numHoles=0,lastIndex=0;
 	
 	public LevelEditorPanel(GameFrame frameSup){
@@ -46,26 +50,38 @@ public class LevelEditorPanel extends JPanel{
 		
 		holesBox = new JComboBox<Integer>();
 		colorsBox = new JComboBox<String>();
+		speedBox = new JComboBox<Integer>();
 		colorsBox.addItem("Red");
 		colorsBox.addItem("Green");
 		colorsBox.addItem("Yellow");
+		speedBox.addItem(1);
+		speedBox.addItem(2);
+		speedBox.addItem(3);
+		speedBox.addItem(4);
+		speedBox.addItem(5);
 		
 		
 		leftPanel.setBounds(40,20,700,750);
 		add(leftPanel);
 		
+		color.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 20));
+		color.setBounds(895,50,100,50);
+		add(color);
+		colorsBox.setBounds(880,85,100,30);
+		add(colorsBox);
+		
+		
 		score.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 20));
-		score.setBounds(1100, 50 , 150, 50);
+		score.setBounds(1030, 50 , 150, 50);
 		add(score);
-		scoreValue.setBounds(1105, 85, 50, 30);
+		scoreValue.setBounds(1035, 85, 50, 30);
 		add(scoreValue);
 
-		
-		color.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 20));
-		color.setBounds(965,50,100,50);
-		add(color);
-		colorsBox.setBounds(950,85,100,30);
-		add(colorsBox);
+		speed.setFont(OurFont.getInstance().deriveFont(Font.TRUETYPE_FONT, 20));
+		speed.setBounds(1165, 50, 100, 50);
+		add(speed);
+		speedBox.setBounds(1150, 85, 100, 30);
+		add(speedBox);
 		
 		addButton.setBounds(975,120,OurButton.WIDTH,OurButton.HEIGHT);
 		add(addButton);
@@ -102,9 +118,10 @@ public class LevelEditorPanel extends JPanel{
 		
 		addButton.setOnClickBehaviour(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e){
-				leftPanel.addHole(++lastIndex,colorsBox.getSelectedItem(),scoreModel.getNumber().intValue());
+				leftPanel.addHole(++lastIndex,colorsBox.getSelectedItem(),scoreModel.getNumber().intValue(),speedBox.getSelectedItem());
 				++numHoles;
 				holesBox.addItem(lastIndex);
+				speedBox.setSelectedItem(1);
 				System.out.println(lastIndex);
 				moveButton.setEnabled(true);
 				deleteButton.setEnabled(true);

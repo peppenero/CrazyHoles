@@ -51,15 +51,15 @@ public class LevelEditorLeftPanel extends JPanel {
 	}
 	
 		
-	public void addHole(int lastIndex,Object color,int score){
-		holes.add(new Hole(lastIndex,(String)color,score));
+	public void addHole(int lastIndex,Object color,int score, Object speed){
+		holes.add(new Hole(lastIndex,(String)color,score,(Integer) speed));
 		System.out.println((String)color);
 	}
 	
 	public void removeHole(Integer selectedItem) {
 		// TODO Auto-generated method stub
 		System.out.println("selected item" + selectedItem);
-		Hole daEliminare = new Hole(0,"Verde",0);
+		Hole daEliminare = new Hole(0,"Verde",0,1);
 		for(int i=0;i<holes.size();i++){
 			System.out.println(holes.get(i).index+","+selectedItem);
 			if(holes.get(i).index==selectedItem){
